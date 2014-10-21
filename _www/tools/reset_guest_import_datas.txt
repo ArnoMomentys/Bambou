@@ -1,0 +1,32 @@
+DELETE FROM users WHERE uid > 34406;
+ALTER TABLE users AUTO_INCREMENT = 34407;
+DELETE FROM userprofile WHERE upid > 26230;
+ALTER TABLE userprofile AUTO_INCREMENT = 26231;
+DELETE FROM userjobinfos WHERE ujid > 20977;
+ALTER TABLE userjobinfos AUTO_INCREMENT = 20978;
+DELETE FROM usercontacts WHERE ucid > 20965;
+ALTER TABLE usercontacts AUTO_INCREMENT = 20966;
+DELETE FROM invitationguests WHERE igid > 33589;
+ALTER TABLE invitationguests AUTO_INCREMENT = 33590;
+DELETE FROM eventhosts WHERE ehid > 4773;
+ALTER TABLE eventhosts AUTO_INCREMENT = 4774;
+DELETE FROM eventoptions WHERE eoid > 30;
+ALTER TABLE eventoptions AUTO_INCREMENT = 31;
+DELETE FROM events WHERE eid > 99;
+ALTER TABLE events AUTO_INCREMENT = 100;
+DELETE FROM groups WHERE gid > 223;
+ALTER TABLE groups AUTO_INCREMENT = 224;
+DELETE FROM invitations WHERE iid > 33615;
+ALTER TABLE invitations AUTO_INCREMENT = 33616;
+DELETE FROM userbillinginfos WHERE ubid > 20966;
+ALTER TABLE userbillinginfos AUTO_INCREMENT = 20967;
+
+
+
+-- SELECT * FROM (
+    -- SELECT CONCAT('DROP TABLE ', GROUP_CONCAT(table_name) , ';')
+    -- FROM INFORMATION_SCHEMA.TABLES
+    -- WHERE table_name LIKE 'g15498%'
+-- ) a INTO @stmt;
+-- PREPARE statement FROM @stmt;
+-- EXECUTE statement;

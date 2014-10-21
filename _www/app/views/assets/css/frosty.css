@@ -1,0 +1,91 @@
+/*  ========================================================================
+ *  Frosty.js
+ *  https://owensbla.github.com/frosty
+ *  by Blake Owens (http://blakeowens.com/)
+ *  ======================================================================== */
+.tip {
+  background-color: black;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: #eeeeee;
+  font-size: 11px;
+  line-height: 16px;
+  max-width: 200px;
+  padding: 4px 8px;
+}
+.tip.success {
+  background-color: #47fe42;
+  background-color: rgba(71, 254, 66, 0.8);
+  color: #025600;
+}
+.tip.error {
+  background-color: #ff7f86;
+  background-color: rgba(255, 127, 134, 0.8);
+  color: #7f0006;
+}
+.tip.light {
+  background-color: #ebebeb;
+  background-color: rgba(235, 235, 235, 0.8);
+  color: #222222;
+}
+
+.tip[class*="arrow"]:before {
+  content: ' ';
+  position: absolute;
+  border: solid transparent;
+  width: 0px;
+  height: 0px;
+  border-width: 5px;
+  border-color: black;
+  border-color: rgba(0, 0, 0, 0.8);
+}
+
+.success[class*="arrow"]:before {
+  border-color: #47fe42;
+  border-color: rgba(71, 254, 66, 0.8);
+}
+
+.error[class*="arrow"]:before {
+  border-color: #ff7f86;
+  border-color: rgba(255, 127, 134, 0.8);
+}
+
+.light[class*="arrow"]:before {
+  border-color: #ebebeb;
+  border-color: rgba(235, 235, 235, 0.8);
+}
+
+.tip.arrow-right:before {
+  border-right-color: transparent;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  margin-top: -5px;
+  top: 50%;
+  left: 100%;
+}
+
+.tip.arrow-left:before {
+  border-left-color: transparent;
+  border-top-color: transparent;
+  border-bottom-color: transparent;
+  margin-top: -5px;
+  top: 50%;
+  right: 100%;
+}
+
+.tip.arrow-top:before {
+  border-top-color: transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  margin-left: -5px;
+  bottom: 100%;
+  left: 50%;
+}
+
+.tip.arrow-bottom:before {
+  border-bottom-color: transparent;
+  border-left-color: transparent;
+  border-right-color: transparent;
+  margin-left: -5px;
+  top: 100%;
+  left: 50%;
+}

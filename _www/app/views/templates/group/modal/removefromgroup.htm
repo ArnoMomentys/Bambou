@@ -1,0 +1,25 @@
+<div class="modal fade bs-example-modal-sm" id="myModal-removefromgroup-{{@group.uid}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-{{@group.uid}}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bornon texalilef">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel-{{@group.uid}}">
+                    <i class="glyphicon glyphicon-exclamation-sign"></i> {{ucfirst(@remove[@l])}} <b class="fonstyita">{{@group.nom}}</b> {{@from_group[@l]}}
+                </h4>
+            </div>
+            <form action="{{ @BASE.'/group/'.@group_users[0].gid.'/delete/user/'.@group.uid }}" method="post" class="form-delete" role="form" id="form-removefromgroup-{{ @group.uid}}">
+                <div class="modal-footer bornon padtopnon martopnon">
+                    <input type="hidden" name="del" value="d" />
+                    <input type="hidden" name="gid" value="{{@group_users[0].gid }}">
+                    <input type="hidden" name="uid" value="{{@group.uid}}">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        {{ @cancel[@l] }}
+                    </button>
+                    <button id="modal-removefromgroup-{{@group.uid}}" class="btn btn-danger" type="submit">
+                        {{ @group_remove_confirm[@l] }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

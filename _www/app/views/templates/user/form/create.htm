@@ -1,0 +1,22 @@
+<form action="{{ @BASE.'/user/create' }}" method="post" class="form-create" role="form">
+
+    <h2 class="form-create-heading">{{ @user_create[@l] }}</h2>
+
+    <check if="{{ isset(@SESSION.errors) && count(@SESSION.errors)>0 }}">
+        <include href="globalerrors.htm" />
+    </check>
+
+    <input name="email" type="text" class="form-control first" placeholder="{{ @user_mail[@l] }}" required autofocus value="{{ @post_has_data?@post_has_data['email']:''}}" />
+
+    <input name="pw" type="password" pattern=".{8,}" title="8 caractères minimum" class="form-control middle" placeholder="{{ @user_pass[@l] }}" required value="{{ @post_has_data?@post_has_data['pw']:''}}" />
+
+    <input name="level" type="number" min="1" max="5" class="form-control last" placeholder="{{ @user_level[@l] }}" required="required" value="{{ @post_has_data?@post_has_data['level']:''}}" />
+
+    <!--span class="glyphicon glyphicon-eye-open"></span-->
+    <input type="hidden" name="create" value="create" />
+
+    <button class="btn btn-default btn-primary btn-block" type="submit">
+        <small class="glyphicon glyphicon-plus"></small> {{ @user_add[@l] }}
+    </button>
+
+</form>

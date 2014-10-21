@@ -1,0 +1,139 @@
+<h2 class="page-heading marbotnon">
+    <a href="{{ @BASE.'/event/'.@event.eid.'/show' }}">
+        <span class="textracap">{{ @eventname[@l] }}</span> : {{ @event.nom }}&nbsp;<i class="glyphicon glyphicon-chevron-right padlef10"></i>
+    </a>
+</h2>
+<small class="dimgra"><span class="textraupp">{{ @starting_at[@l] }}</span> : {{ strftime("%A %d %B %G", strtotime(@event.debut)) }}</small>
+<br>
+<small class="dimgra"><span class="textraupp">{{ @limit_displayed[@l] }}</span> : {{ strftime("%A %d %B %G", strtotime(@event.limitB)) }}</small><br>
+
+<check if="{{ isset(@SESSION.msg) && strlen(@SESSION.msg)>1 }}">
+    <br>
+    <true>
+        <include href="forminfos.htm" />
+    </true>
+</check>
+
+<h3 class="pull-left disblo widful page-subheading padtop20 marbotnon">
+    {{ @event_guest_add[@l] }}<br>
+    <small class="fonweilig">{{ @choose_in_list_user_to_add[@l] }}</small><br>
+    <small class="required">{{ @guest_not_listed[@l] }}</small>
+    <check if="{{ @isold == false }}">
+        <a href="{{ '/event/'.@event.eid.'/add/new/guest' }}" class="pull-right texdecnon postop-10 posrel" title="{{ @event_guest_add_new[@l] }}">
+            <small class="hidden-xs hidden-sm">{{ @event_guest_add_new[@l] }}</small>
+            <i class="glyphicon glyphicon-star pad5"></i>
+        </a>
+    </check>
+</h3>
+
+<table class="table table-striped responsive-utilities list grouplist guestslist martopnon">
+    <thead>
+
+        <tr>
+            <td colspan="6" class="paginate">
+                {{ @pagebrowser | raw }}
+            </td>
+        </tr>
+
+        <check if="{{ !empty(@lists_keys) }}">
+            <tr>
+                <repeat group="{{ @lists_keys }}" key="{{ @key }}" value="{{ @value }}" counter="{{ @ctr }}">
+                    <check if="{{ in_array(@value, ['nomcomplet','societe','fonction','ville','adresse']) }}">
+                        <th class="{{ @value }}">
+                            <div class="th-wrapper">
+                                <div class="flolef padtop10 padrig5 padbot10 padlef5">{{ @value=='nomcomplet'? @name[@l] : @value }}</div>
+                                <div class="sorterwrap" with="<?php $_value=$value=='nomcomplet'?'nom':$value;$k=$$_value; ?>">
+                                    <a href="{{ @BASE.'/event/'.@event.eid.'/add/guest/'.@_value.(@_value==@filter && strlen(@filtervalue)>0 ? '/'.@filtervalue:'').'/order/asc' }}"
+                                    class="btn btn-link sorter up has-tip-up"
+                                    title="{{ @sortby[@l] }} {{ $k[@l] }} [A-Z]">
+                                        <i class="sortby glyphicon glyphicon-chevron-up"></i>
+                                    </a>
+                                    <a href="{{ @BASE.'/event/'.@event.eid.'/add/guest/'.@_value.(@_value==@filter && strlen(@filtervalue)>0 ? '/'.@filtervalue:'').'/order/desc' }}"
+                                    class="btn btn-link sorter down has-tip-down"
+                                    title="{{ @sortby[@l] }} {{ $k[@l] }} [Z-A]">
+                                        <i class="sortby glyphicon glyphicon-chevron-down"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </th>
+                    </check>
+                </repeat>
+                <th>&nbsp;</th>
+            </tr>
+        </check>
+    </thead>
+
+    <tbody>
+        <check if="{{ @totaux>0 }}">
+            <true>
+                <repeat group="{{ @lists }}" value="{{ @liste }}">
+                    <check if="{{ trim(@liste.nom)!='' }}">
+                        <tr>
+                            <repeat group="{{ @liste }}" key="{{ @key }}" value="{{ @value }}" counter="{{ @ctr }}">
+                                <check if="{{ in_array(@key, ['nomcomplet','societe','fonction','ville','adresse']) }}">
+                                    <td class="{{ @key }}">
+                                        <check if="{{ @key=='nomcomplet' }}">
+                                            <true>
+                                                <a href="/user/{{@liste.uid}}/show" class="disinlblo widful">
+                                                    {{ @value }}
+                                                </a>
+                                            </true>
+                                            <false>
+                                                <span class="{{ (@key=='ville'?'textraupp ':'') }}disinlblo widful">{{ @value }}</span>
+                                            </false>
+                                        </check>
+                                    </td>
+                                </check>
+                            </repeat>
+                            <td class="actions texalirig">
+                                <span class="btn btn-link curpoi has-tip" data-toggle="modal" data-target="#myModal-addguest-{{@liste.uid}}" title="{{ @add[@l] }}">
+                                    <i class="glyphicon glyphicon-plus glyphicon-black"></i>
+                                </span>
+                                <div class="modal fade bs-example-modal-sm" id="myModal-addguest-{{@liste.uid}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-{{@liste.uid}}" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header bornon texalilef">
+                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                <h4 class="modal-title" id="myModalLabel-{{ @liste.uid }}">
+                                                    <i class="glyphicon glyphicon-info-sign"></i> {{ ucfirst(@add[@l]) }} <b class="fonstyita">{{ @liste.nomcomplet }}</b> {{ @to_event_guests[@l] }}
+                                                </h4>
+                                            </div>
+                                            <form action="{{ @BASE.'/event/'.@event.eid.'/add/guest' }}" method="post" class="form-delete" role="form" id="form-addguest-{{ @liste.uid }}">
+                                                <div class="modal-footer bornon padtopnon martopnon">
+                                                    <input type="hidden" name="addGuest" value="a" />
+                                                    <input type="hidden" name="eventID" value="{{ @event.eid }}">
+                                                    <input type="hidden" name="guestID" value="{{ @liste.uid }}">
+                                                    <input type="hidden" name="hostID" value="{{ @SESSION.uid }}">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                        {{ @cancel[@l] }}
+                                                    </button>
+                                                    <button class="btn btn-info" type="submit">
+                                                        {{ @event_guest_addto_confirm[@l] }}
+                                                    </button>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                        </tr>
+                    </check>
+                </repeat>
+
+                <check if="{{ @totaux > 30 }}">
+                    <tr>
+                        <td colspan="6" class="paginate bottom_pager">
+                            {{ @pagebrowser | raw }}
+                        </td>
+                    </tr>
+                </check>
+
+            </true>
+            <false>
+                <tr>
+                    <td>{{ @no_guest[@l] }}</td>
+                </tr>
+            </false>
+        </check>
+    </tbody>
+</table>

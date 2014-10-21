@@ -1,0 +1,20 @@
+<div class="modal fade bs-example-modal-sm" id="myModal-complete-profile-{{@liste.uid}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-{{@liste.uid}}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bornon">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title texalilef" id="myModalLabel-{{@liste.uid}}">
+                    <i class="glyphicon glyphicon-user"></i> {{ @must_complete_user_profile[@l] }}<br><strong>{{@liste.nom}}</strong> {{ @before_adding_to_host[@l] }}
+                </h4>
+            </div>
+            <div class="modal-footer bornon padtopnon martopnon">
+	            <button type="button" class="btn btn-default" data-dismiss="modal">
+	                {{ @cancel[@l] }}
+	            </button>
+	            <a class="btn btn-success link-btn" href="{{ @BASE.'/user/'.@liste.uid.'/update/'.@complete_profile }}" type="submit">
+	                {{ @current_user_profile_complete[@l] }}
+	            </a>
+            </div>
+        </div>
+    </div>
+</div>

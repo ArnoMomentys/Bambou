@@ -1,0 +1,56 @@
+<ul class="results_pager">
+
+	<check if="{{ @totaux != 0 }}">
+		<li class="total">
+			<small>
+				{{ @totaux }} {{ @listname }}
+			</small>
+		</li>
+	</check>
+
+	<check if="{{ preg_match('/(add|show\/guest|add|show\/user|host|users)/i', @PATTERN) && @totaux > 30 }}">
+		<li class="search">
+			<include href="search.htm" />
+		</li>
+	</check>
+
+	<check if="{{ @totaux > 30 }}">
+
+		<check if="{{@pg.firstPage}}">
+			<li class="firstpage">
+				<a href="{{@BASE, @pg.route, @pg.prefix.@pg.firstPage}}">
+					<i class="glyphicon glyphicon glyphicon-fast-backward"></i>
+				</a>
+			</li>
+		</check>
+
+		<check if="{{@pg.prevPage}}">
+			<li class="prevpage">
+				<a href="{{@BASE, @pg.route, @pg.prefix.@pg.prevPage}}"><i class="glyphicon glyphicon glyphicon-step-backward"></i></a>
+			</li>
+		</check>
+
+		<repeat group="{{@pg.rangePages}}" key="{{@key}}" value="{{@page}}">
+			<li class="page_{{ @key }}{{@page == @pg.currentPage ? ' active':'' }}">
+				<a href="{{@BASE, @pg.route, @pg.prefix.@page}}">{{ @page }}</a>
+			</li>
+		</repeat>
+
+		<check if="{{@pg.nextPage}}">
+			<li>
+				<a href="{{@BASE, @pg.route, @pg.prefix.@pg.nextPage}}">
+					<i class="glyphicon glyphicon glyphicon-step-forward"></i>
+				</a>
+			</li>
+		</check>
+
+		<check if="{{@pg.lastPage}}">
+			<li>
+				<a href="{{@BASE, @pg.route, @pg.prefix.@pg.lastPage}}">
+				<i class="glyphicon glyphicon glyphicon-fast-forward"></i></a>
+			</li>
+		</check>
+
+	</check>
+
+</ul>

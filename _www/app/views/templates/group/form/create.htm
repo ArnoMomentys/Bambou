@@ -1,0 +1,22 @@
+<form action="{{ @BASE.'/group/create' }}" method="post" class="form-create" role="form">
+
+    <h2 class="form-create-heading">{{ @create_new_group[@l] }}</h2>
+
+    <br>
+
+    <check if="{{ isset(@SESSION.errors) && count(@SESSION.errors)>0 }}">
+        <include href="globalerrors.htm" />
+    </check>
+
+    <input name="name" type="text" class="form-control" placeholder="{{ @group_name[@l] }}" required autofocus value="{{ @post_has_data?@post_has_data['name']:''}}" />
+
+    <input type="hidden" name="create" value="create" />
+
+    <a class="btn btn-default" href="{{ @BASE.'/groups' }}">
+        {{ @cancel[@l] }}
+    </a>
+    <button class="btn btn-primary" type="submit">
+        <small class="glyphicon glyphicon-plus"></small> {{@group_add[@l]}}
+    </button>
+
+</form>

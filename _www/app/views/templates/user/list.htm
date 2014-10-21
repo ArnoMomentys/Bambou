@@ -1,0 +1,140 @@
+<h2 class="page-heading">
+    {{ @page_header }}
+</h2>
+
+<check if="{{ isset(@SESSION.warnings) && strlen(@SESSION.warnings)>1 }}">
+    <true>
+        <include href="formwarnings.htm" />
+    </true>
+</check>
+
+<table class="table table-bordered table-striped responsive-utilities list userslist">
+    <thead>
+        <tr>
+            <td colspan="6" class="paginate">
+                {{ @pagebrowser | raw }}
+            </td>
+        </tr>
+        <check if="{{ !empty(@lists_keys) }}">
+            <tr>
+                <repeat group="{{ @lists_keys }}" key="{{ @key }}" value="{{ @value }}" counter="{{ @ctr }}">
+                    <check if="{{ in_array(@value, ['nomcomplet','societe','fonction','ville','adresse']) }}">
+                        <th class="{{ @value }}">
+                            <div class="th-wrapper">
+                                <div class="flolef padtop10 padrig5 padbot10 padlef5">{{ @value=='nomcomplet'? @name[@l] : @value }}</div>
+                                <div class="sorterwrap" with="<?php $_value=$value=='nomcomplet'?'nom':$value;$k=$$_value; ?>">
+                                    <a href="{{ @BASE.'/'.@listtype.'/list/'.@_value.(@_value==@filter && strlen(@filtervalue)>0 ? '/'.@filtervalue:'').'/order/asc' }}"
+                                    class="btn btn-link sorter up has-tip-up"
+                                    title="{{ @sortby[@l] }} {{ $k[@l] }} [A-Z]">
+                                        <i class="sortby glyphicon glyphicon-chevron-up"></i>
+                                    </a>
+                                    <a href="{{ @BASE.'/'.@listtype.'/list/'.@_value.(strlen(@filtervalue)>0 && @_value==@filter ? '/'.@filtervalue:'').'/order/desc' }}"
+                                    class="btn btn-link sorter down has-tip-down"
+                                    title="{{ @sortby[@l] }} {{ $k[@l] }} [Z-A]">
+                                        <i class="sortby glyphicon glyphicon-chevron-down"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </th>
+                    </check>
+                </repeat>
+                <th>&nbsp;</th>
+            </tr>
+        </check>
+    </thead>
+
+    <tbody>
+        <check if="{{@totaux>0 }}">
+            <true>
+                <repeat group="{{@lists}}" value="{{@liste}}">
+                    <check if="{{trim(@liste.nom) != ''}}">
+                        <tr>
+                            <repeat group="{{ @liste }}" key="{{ @key }}" value="{{ @value }}" counter="{{ @ctr }}">
+                                <check if="{{ in_array(@key, ['nomcomplet','societe','fonction','ville','adresse']) }}">
+                                    <td class="{{ @key }}">
+                                        <check if="{{ @key=='nomcomplet' && @liste.uid>1 }}">
+                                            <true>
+                                                <a href="/user/{{@liste.uid}}/show" class="disinlblo widful">{{ @value }}</a>
+                                            </true>
+                                            <false>
+                                                <span class="disinlblo widful">{{ @value }}</span>
+                                            </false>
+                                        </check>
+                                    </td>
+                                </check>
+                            </repeat>
+                            <td class="actions texalirig">
+                                <check if="{{ @liste.uid>1 }}">
+                                    <table class="florig bornoni padnon marnon disinlblo">
+                                        <tr>
+                                            <check if="{{ isset(@SESSION.switch) && @SESSION.switch===true && @SESSION.uid != @liste.uid }}">
+                                                <td>
+                                                    <span class="btn btn-link curpoi has-tip-left" data-toggle="modal" data-target="#myModal-switch-{{@liste.uid}}" title="{{@connect_as[@l]}} {{@liste.nomcomplet}}">
+                                                        <i class="glyphicon glyphicon-transfer"></i>
+                                                    </span>
+                                                    <!-- switch.htm -->
+                                                    <div class="modal fade bs-example-modal-sm" id="myModal-switch-{{@liste.uid}}" tabindex="-1" role="dialog" aria
+                                                    -labelledby="myModalLabel-{{@liste.uid}}" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header bornon texalilef">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                                                                    <h4 class="modal-title" id="myModalLabel-{{@liste.uid}}">
+                                                                        <i class="glyphicon glyphicon-user"></i> {{ @confirm_connection_as[@l] }} <b class="fonstyita">{{@liste.nomcomplet}}</b>
+                                                                    </h4>
+                                                                </div>
+                                                                <form action="{{@BASE.'/switchto'}}" method="post" class="
+                                                                form-switch" role="form" id="form-switch-{{@liste.uid}}">
+                                                                    <div class="modal-footer bornon padtopnon martopnon">
+                                                                        <input type="hidden" name="sw" value="y" />
+                                                                        <input type="hidden" name="u" value="{{@liste.uid}}" />
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                                            {{ @cancel[@l] }}
+                                                                        </button>
+
+                                                                        <button id="modal-switch-{{@liste.uid}}" class="btn btn-info" type="submit">
+                                                                            {{ @validate[@l] }}
+                                                                        </button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </check>
+                                            <td>
+                                                <a href="{{ @BASE.'/user/'.@liste.uid.'/show' }}" class="btn btn-link texalicen has-tip" title="{{@watch_profile[@l]}}">
+                                                    <i class="glyphicon glyphicon-list"></i>
+                                                </a>
+                                            </td>
+                                            <td class="borrignoni">
+                                                <a href="{{@BASE.'/user/'.@liste.uid.'/update/users_list'}}" class="btn btn-link texalicen has-tip" title="{{@update_profile[@l]}}">
+                                                    <i class="glyphicon glyphicon-pencil glyphicon-black"></i>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </check>
+                            </td>
+                        </tr>
+                    </check>
+                </repeat>
+
+                <check if="{{ @totaux > 30 }}">
+                    <tr>
+                        <td colspan="6" class="paginate bottom_pager">
+                            {{ @pagebrowser | raw }}
+                        </td>
+                    </tr>
+                </check>
+
+            </true>
+            <false>
+                <tr>
+                    <td>{{ @no_result[@l] }}</td>
+                </tr>
+            </false>
+        </check>
+    </tbody>
+</table>

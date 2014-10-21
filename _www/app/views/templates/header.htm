@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html dir="ltr" lang="{{ !@SESSION ? @LANGUAGE : (!@l ? @LANGUAGE : @l) }}">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+        <link rel="icon" href="{{ @BASE.'/'.@IMG }}b-sm.png" type="image/png" />
+        <base href="{{ @BASE.'/'.@UI }}" />
+        <title>{{ @site }}</title>
+        <link href="{{ @BASE.'/'.@CSS }}bootstrap.css" rel="stylesheet" media="screen" />
+        <link href="{{ @BASE.'/'.@CSS }}layout.min.css" rel="stylesheet" media="screen" />
+        <link href="{{ @BASE.'/'.@CSS }}frosty.css" rel="stylesheet" media="screen" />
+    </head>
+    <body {{ !@loggedin ? 'class="signin"':'' }}>
+        <div class="container-fluid big-wrapper">
+            <div class="row inner-wrapper">
+                <check if="{{ @loggedin }}">
+                    <true>
+                        <include href="nav.htm" />
+                        <div class="col-xs-10 col-sm-10 col-md-10 col-lg-10 col-xs-offset-2 col-sm-offset-2 col-md-offset-2 col-lg-offset-2 main content-wrapper">
+                    </true>
+                    <false>
+                        <div class="logo logo-md pull-left padbot30">
+                            <img src="{{ @BASE.'/'.@IMG }}b-sm.png" />
+                        </div>
+                    </false>
+                </check>

@@ -1,0 +1,25 @@
+<div class="modal fade bs-example-modal-sm" id="myModal-addtogroup-{{@liste.uid}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-{{@liste.uid}}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bornon texalilef">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel-{{ @liste.uid }}">
+                    <i class="glyphicon glyphicon-exclamation-sign"></i> {{ @add[@l] }} <b class="fonstyita">{{ @liste.nom }}</b> {{ @togroup[@l] }}
+                </h4>
+            </div>
+            <form action="{{ @BASE.'/group/'.@gid.'/add/user' }}" method="post" class="form-delete" role="form" id="form-addtogroup-{{ @liste.uid }}">
+                <div class="modal-footer bornon padtopnon martopnon">
+                    <input type="hidden" name="addtogroup" value="a" />
+                    <input type="hidden" name="groupID" value="{{ @gid }}">
+                    <input type="hidden" name="userID" value="{{ @liste.uid }}">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        {{ @cancel[@l] }}
+                    </button>
+                    <button class="btn btn-info" type="submit">
+                        {{ @group_addto_confirm[@l] }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

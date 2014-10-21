@@ -1,0 +1,4 @@
+AuthName "admin"
+AuthType Basic
+AuthUserFile /var/pwd/.htpasswd
+require valid-user

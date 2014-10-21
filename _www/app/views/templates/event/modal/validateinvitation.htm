@@ -1,0 +1,30 @@
+<div class="modal fade bs-example-modal-sm" id="myModal-validateinvitations-{{@liste.invitationid}}" tabindex="-1" role="dialog" aria
+-labelledby="myModalLabel-{{@liste.invitationid}}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bornon texalilef">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                <h4 class="modal-title" id="myModalLabel-{{@liste.invitationid}}">
+                    <i class="glyphicon glyphicon-ok-circle"></i> {{ ucfirst(@validate[@l]) }} {{ @invitation_for[@l] }} <b class="fonstyita">{{ @liste.guestname }}</b>
+                </h4>
+            </div>
+            <form action="{{ @BASE.'/event/'.@event.eid.'/invitation/validate' }}" method="post" class="
+            form-delete" role="form" id="form-validateinvitations-{{ @liste.invitationid }}">
+                <div class="modal-footer bornon padtopnon martopnon">
+                    <input type="hidden" name="validate-guest" value="v" />
+                    <input type="hidden" name="invitationID" value="{{ @liste.invitationid }}">
+                    <input type="hidden" name="eventID" value="{{ @event.eid }}">
+                    <input type="hidden" name="guestname" value="{{ @liste.guestname }}">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        {{ @cancel[@l] }}
+                    </button>
+
+                    <button id="modal-validateinvitations-{{@liste.invitationid}}" class="btn btn-danger" type="submit">
+                        {{ @send_invitation[@l] }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

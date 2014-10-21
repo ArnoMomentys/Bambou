@@ -1,0 +1,197 @@
+<form action="{{ @BASE.'/user/update/'.@ref }}" method="post" class="form-complete-profile" role="form">
+
+    <h2 class="form-update-heading">{{ @user_profile_complete[@l] }}</h2>
+
+    <br>
+
+    <check if="{{ isset(@SESSION.errors) && count(@SESSION.errors)>0 }}">
+        <include href="globalerrors.htm" />
+    </check>
+
+    <div class="input-group">
+        <span class="input-group-addon short first hidden-md hidden-lg">{{ @gender[@l] }}</span>
+        <span class="input-group-addon first hidden-xs hidden-sm">{{ @gender[@l] }}</span>
+		<input name="civilite" type="text" class="form-control first" placeholder="Civilité" value="{{ strtolower(@profile.civilite) }}" required>
+	</div>
+
+    <div class="input-group">
+        <span class="input-group-addon short middle hidden-md hidden-lg">{{ @name[@l] }}</span>
+        <span class="input-group-addon middle hidden-xs hidden-sm">{{ @name[@l] }}</span>
+		<input name="nom" type="text" class="form-control middle" value="{{ @profile.nom }}" required>
+	</div>
+
+    <div class="input-group">
+        <span class="input-group-addon short middle hidden-md hidden-lg">{{ @firstname[@l] }}</span>
+        <span class="input-group-addon middle hidden-xs hidden-sm">{{ @firstname[@l] }}</span>
+		<input name="prenom" type="text" class="form-control middle" value="{{ @profile.prenom }}" required>
+	</div>
+
+    <div class="input-group">
+        <span class="input-group-addon short middle hidden-md hidden-lg">{{ @function[@l] }}</span>
+        <span class="input-group-addon middle hidden-xs hidden-sm">{{ @function[@l] }}</span>
+    	<input name="fonction" type="text" class="form-control middle" value="{{ @job.fonction }}" >
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-addon short middle hidden-md hidden-lg">{{ @company[@l] }}</span>
+        <span class="input-group-addon middle hidden-xs hidden-sm">{{ @company[@l] }}</span>
+        <input name="societe" type="text" class="form-control middle" value="{{ @job.societe }}" >
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-addon short middle hidden-md hidden-lg">{{ @branch[@l] }}</span>
+        <span class="input-group-addon middle hidden-xs hidden-sm">{{ @branch[@l] }}</span>
+        <input name="branche" type="text" class="form-control middle" value="{{ @job.branche }}" >
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-addon short middle hidden-md hidden-lg">{{ @address[@l] }}</span>
+        <span class="input-group-addon middle hidden-xs hidden-sm">{{ @address[@l] }}</span>
+        <input name="adresse" type="text" class="form-control middle" value="{{ @job.adresse }}" >
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-addon short middle hidden-md hidden-lg">{{ @zip_code[@l] }}</span>
+        <span class="input-group-addon middle hidden-xs hidden-sm">{{ @zip_code[@l] }}</span>
+        <input name="cp" type="text" class="form-control middle" value="{{ @job.cp }}" />
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-addon short middle hidden-md hidden-lg">{{ @town[@l] }}</span>
+        <span class="input-group-addon middle hidden-xs hidden-sm">{{ @town[@l] }}</span>
+        <input name="ville" type="text" class="form-control middle" value="{{ @job.ville }}" />
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-addon short middle hidden-md hidden-lg">{{ @country[@l] }}</span>
+        <span class="input-group-addon middle hidden-xs hidden-sm">{{ @country[@l] }}</span>
+        <input name="pays" type="text" class="form-control middle" value="{{ @job.pays }}" />
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-addon short middle hidden-md hidden-lg">{{ @user_phone[@l] }}</span>
+        <span class="input-group-addon middle hidden-xs hidden-sm">{{ @user_phone[@l] }}</span>
+		<input name="fixe" type="text" class="form-control middle" value="{{ @job.fixe }}" />
+	</div>
+
+    <div class="input-group">
+        <span class="input-group-addon short middle hidden-md hidden-lg">{{ @mobile_phone[@l] }}</span>
+        <span class="input-group-addon middle hidden-xs hidden-sm">{{ @mobile_phone[@l] }}</span>
+        <input name="portable" type="text" class="form-control middle" value="{{ @job.portable }}" />
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-addon short middle hidden-md hidden-lg">{{ @user_mail[@l] }}</span>
+        <span class="input-group-addon middle hidden-xs hidden-sm">{{ @user_mail[@l] }}</span>
+        <input name="email" type="email" class="form-control middle" value="{{ @account.email }}" required>
+    </div>
+
+    <check if="{{ @SESSION.lvl==1 || (@SESSION.uid==@account.uid && @SESSION.lvl<=3) }}">
+    <div class="input-group">
+        <span class="input-group-addon short middle hidden-md hidden-lg">{{ @user_pass[@l] }}</span>
+        <span class="input-group-addon middle hidden-xs hidden-sm">{{ @user_pass[@l] }}</span>
+        <input name="password" type="password" pattern=".{8,}" class="has-tip-up form-control{{@SESSION.uid==@account.uid && @SESSION.lvl>1?' end':' middle'}}" value="{{ Encrypt::load()->invert(@account.password) }}" title="{{ @minimum_pass[@l] }}" required>
+    </div>
+    </check>
+
+    <check if="{{ @SESSION.lvl==1 && @SESSION.uid!=@account.uid }}">
+    <div class="input-group">
+        <span class="input-group-addon short middle hidden-md hidden-lg">{{ @level[@l] }}</span>
+        <span class="input-group-addon middle hidden-xs hidden-sm">{{ @level[@l] }}</span>
+        <input name="level" type="number" min="{{ (@SESSION.lvl>=3 ? 4 : (@SESSION.c==0? '' : 3)) }}" max="5" class="form-control middle" value="{{ @account.level }}" required>
+    </div>
+    </check>
+
+    <div class="input-group">
+        <span class="input-group-addon short middle hidden-md hidden-lg">{{ @c_lastname[@l] }}</span>
+        <span class="input-group-addon middle hidden-xs hidden-sm">{{ @contact_lastname[@l] }}</span>
+        <input name="interlocuteurNom" type="text" class="form-control middle" value="{{ @job.interlocuteurNom }}" >
+    </div>
+
+    <div class="input-group">
+        <span class="input-group-addon short {{@SESSION.uid==@account.uid && @SESSION.lvl>1?' end':' middle'}} hidden-md hidden-lg">{{ @c_firstname[@l] }}</span>
+        <span class="input-group-addon {{@SESSION.uid==@account.uid && @SESSION.lvl>1?' end':' middle'}} hidden-xs hidden-sm">{{ @contact_firstname[@l] }}</span>
+        <input name="interlocuteurPrenom" type="text" class="form-control {{@SESSION.uid==@account.uid && @SESSION.lvl>1?' end':' middle'}}" value="{{ @job.interlocuteurPrenom }}" >
+    </div>
+
+    <check if="{{ @SESSION.lvl==1 }}">
+
+        <div class="input-group">
+            <span class="input-group-addon short middle hidden-md hidden-lg">{{ @short_siret[@l] }}</span>
+            <span class="input-group-addon middle hidden-xs hidden-sm">{{ @billing_siret[@l] }}</span>
+            <input name="b_siret" type="text" class="form-control middle" value="{{ @billing.siret }}" >
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-addon short middle hidden-md hidden-lg">{{ @tva[@l] }}</span>
+            <span class="input-group-addon middle hidden-xs hidden-sm">{{ @tva_intracomm[@l] }}</span>
+            <input name="b_tva" type="text" class="form-control middle" value="{{ @billing.numTva }}" >
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-addon short middle hidden-md hidden-lg">{{ @organisation[@l] }}</span>
+            <span class="input-group-addon middle hidden-xs hidden-sm">{{ @billing_organisation[@l] }}</span>
+            <input name="b_organisme" type="text" class="form-control middle" value="{{ @billing.organisme }}" >
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-addon short middle hidden-md hidden-lg">{{ @b_address[@l] }}</span>
+            <span class="input-group-addon middle hidden-xs hidden-sm">{{ @billing_address[@l] }}</span>
+            <input name="b_adresse" type="text" class="form-control middle" value="{{ @billing.adresse }}" >
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-addon short middle hidden-md hidden-lg">{{ @b_postal_code[@l] }}</span>
+            <span class="input-group-addon middle hidden-xs hidden-sm">{{ @billing_postal_code[@l] }}</span>
+            <input name="b_cp" type="text" class="form-control middle" value="{{ @billing.cp }}" >
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-addon short middle hidden-md hidden-lg">{{ @b_town[@l] }}</span>
+            <span class="input-group-addon middle hidden-xs hidden-sm">{{ @billing_town[@l] }}</span>
+            <input name="b_ville" type="text" class="form-control middle" value="{{ @billing.ville }}" >
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-addon short middle hidden-md hidden-lg">{{ @b_country[@l] }}</span>
+            <span class="input-group-addon middle hidden-xs hidden-sm">{{ @billing_country[@l] }}</span>
+            <input name="b_pays" type="text" class="form-control middle" value="{{ @billing.pays }}" >
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-addon short middle hidden-md hidden-lg">{{ @b_imputation[@l] }}</span>
+            <span class="input-group-addon middle hidden-xs hidden-sm">{{ @billing_imputation[@l] }}</span>
+            <input name="b_imputation" type="text" class="form-control middle" value="{{ @billing.imputation }}" >
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-addon short middle hidden-md hidden-lg">{{ @b_smart[@l] }}</span>
+            <span class="input-group-addon middle hidden-xs hidden-sm">{{ @billing_smart[@l] }}</span>
+            <input name="b_smart" type="text" class="form-control end" value="{{ @billing.smart }}" >
+        </div>
+
+    </check>
+
+    <check if="{{ strlen(@ref)>0 }}">
+        <true>
+           <i class="disnon" with="<?php $url=$BASE.'/'.implode('/',explode('_',$ref)) ?>"></i>
+        </true>
+        <false>
+            <i class="disnon" with="<?php $url=$BASE.'/events' ?>"></i>
+        </false>
+    </check>
+
+    <input type="hidden" name="uid" value="{{ @account.uid }}" />
+    <input type="hidden" name="complete-profile" value="complete-profile" />
+
+    <a class="btn btn-default" href="{{ @url }}">
+        {{ @cancel[@l] }}
+    </a>
+    <button class="btn btn-primary" type="submit">
+        <span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;{{ @validate[@l] }}
+    </button>
+
+    <br>
+    <br>
+
+</form>

@@ -1,0 +1,147 @@
+				<check if="{{ @PATTERN=='/login' }}">
+				    <false>
+			        	<div class="rightbar">
+					        <a class="logout btn btn-link" role="button" href="/logout">
+					            <i class="glyphicon glyphicon-off glyphicon-white"></i>
+					        </a>
+				        	<a class="btn btn-link" role="button" href="/lang/fr"><small>FR</small></a>
+				        	<a class="btn btn-link" role="button" href="/lang/en"><small>EN</small></a>
+				        	<check if="{{ isset(@SESSION.switch) && @SESSION.switch!==true }}">
+				        		<span class="btn btn-link curpoi has-tip-left" data-toggle="modal" data-target="#myModal-switchback" title="{{@switch_back[@l]}}">
+                                    <i class="glyphicon glyphicon-transfer"></i>
+                                </span>
+				        	</check>
+				        	<div class="spinner dark" id="page-loading"></div>
+				        </div>
+				    </false>
+				</check>
+			</div>
+        	<check if="{{ isset(@SESSION.switch) && @SESSION.switch!==true }}">
+				<!-- removefromguest.htm -->
+                <div class="modal fade bs-example-modal-sm" id="myModal-switchback" tabindex="-1" role="dialog" aria
+                -labelledby="myModalLabel-{{@SESSION.uid}}" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header bornon texalilef">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                                <h4 class="modal-title" id="myModalLabel-{{@SESSION.uid}}">
+                                    <i class="glyphicon glyphicon-transfer"></i> {{ @confirm_switch_back[@l] }}
+                                </h4>
+                            </div>
+                            <form action="{{@BASE.'/switchback'}}" method="post" class="
+                            form-switchback" role="form" id="form-switchback-{{@SESSION.uid}}">
+                                <div class="modal-footer bornon padtopnon martopnon">
+                                    <input type="hidden" name="swb" value="y" />
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                                        {{ @cancel[@l] }}
+                                    </button>
+
+                                    <button id="modal-switchback-{{@SESSION.uid}}" class="btn btn-info" type="submit">
+                                        {{ @validate[@l] }}
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+			</check>
+		</div>
+
+	    <script src="{{ @BASE.'/'.@JS }}jquery.js"></script>
+	    <script src="{{ @BASE.'/'.@JS }}bootstrap.min.js"></script>
+    	<script src="{{ @BASE.'/'.@JS }}underscore-min.js"></script>
+	    <check if="{{ @PATTERN=='/' }}">
+	    	<script src="{{ @BASE.'/'.@JS }}raphael.js"></script>
+	    	<script src="{{ @BASE.'/'.@JS }}donut-chart.js"></script>
+		    <script type="text/javascript">
+		    	var cpie1 = {{ intval( (@count_total_groups_users / (@count_total_groups_users + @count_total_out_of_groups_users)) * 100 ) }},
+		    		cpie2 =  {{ 100 - intval( (@count_total_groups_users / (@count_total_groups_users + @count_total_out_of_groups_users)) * 100 ) }},
+		    		cdesc1 = "{{ @count_total_groups_users }} {{ @group_members[@l] }}",
+		    		cdesc2 = "{{ @count_total_out_of_groups_users }} {{ @out_of_group_users[@l] }}";
+			</script>
+			<script src="{{ @BASE.'/'.@JS }}chart.js"></script>
+	    </check>
+	    <script type="text/javascript">
+	    	$(document).ready(function() {
+	    		$("#page-loading").fadeOut()
+	    	});
+	    </script>
+    	<script src="{{ @BASE.'/'.@JS }}frosty.min.js"></script>
+    	<script type="text/javascript">
+    		$(document).ready(function() {
+    			$('.has-tip').frosty();
+    			$('.has-tip-left').frosty({ position: 'left' });
+    			$('.has-tip-right').frosty({ position: 'right' });
+    			$('.has-tip-up').frosty({ position: 'top' });
+	    		$('.has-tip-down').frosty({ position: 'bottom' });
+	    		if ($(window).width() >= 767) {
+    				$('.nav a.has-tip-right').frosty('hide');
+	    		}
+	    		$(window).resize(_.debounce(function(){
+	    			if ($(window).width() >= 767) {
+	    				$('.nav a.has-tip-right').frosty('hide');
+				    }
+				}, 0));
+    		});
+    	</script>
+	    <check if="{{ @PATTERN=='/event/'.'@'.'eid/update' }}">
+	    	<script type="text/javascript">
+	    		$(document).ready(function() {
+	    			var uploader = $('input[name="xls"]'),
+	    				trigger = $('#trigger'),
+	    				reset = $('#reset'),
+	    				triggerdeftxt = "{{ @event_choose_new_template[@l] }}";
+	    			trigger.click(function() {
+	    				uploader.click();
+	    			});
+	    			uploader.change(function() {
+	    				var path = $(this).val();
+	    				if(path != undefined && path != '') {
+	    					trigger.removeClass('col-xs-12').addClass('col-xs-10 templated');
+	    					reset.show();
+	    					var startIndex = (path.indexOf('\\') >= 0 ? path.lastIndexOf('\\') : path.lastIndexOf('/')),
+	    						filename = path.substring(startIndex);
+    						if (filename.indexOf('\\') === 0 || filename.indexOf('/') === 0) {
+    							filename = filename.substring(1);
+    						}
+    						trigger.text(filename);
+	    				} else {
+	    					reset.hide();
+	    					trigger.removeClass('col-xs-10 templated').addClass('col-xs-12');
+	    					uploader.val('');
+	    					trigger.text(triggerdeftxt);
+	    				}
+	    			});
+	    			reset.click(function(){
+    					trigger.removeClass('col-xs-10 templated').addClass('col-xs-12');
+    					uploader.val('');
+    					trigger.text(triggerdeftxt);
+	    				reset.hide();
+	    			});
+	    		});
+	    	</script>
+	    </check>
+	    <check if="{{ preg_match('/\/import\//i', @PATTERN) }}">
+	    	<script src="{{ @BASE.'/'.@JS }}file.min.js"></script>
+	    	<script type="text/javascript">
+	    		$(document).ready(function() {
+	    			$(':file').change(function(){
+	    				if($(this).val() != ''){
+	    					$('#fsub').show().click(function(){
+	    						$('#ug').submit();
+	    					});
+	    					return;
+	    				} else {
+	    					$('#fsub').hide();
+	    					return false;
+	    				}
+	    			})
+	    		});
+	    	</script>
+	    </check>
+	    <check if="{{ @PATTERN=='/event/'.'@'.'eid/show' || @PATTERN=='/event/'.'@'.'eid/show/hosts' || @PATTERN=='/event/'.'@'.'eid/show/guests' }}">
+	    	<script src="{{ @BASE.'/'.@JS }}export.js"></script>
+	    </check>
+    </body>
+</html>

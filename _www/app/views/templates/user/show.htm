@@ -1,0 +1,190 @@
+<h2 class="page-heading">
+    {{ @page_header }}
+</h2>
+
+<check if="{{ isset(@SESSION.msg) && strlen(@SESSION.msg)>1 }}">
+    <true>
+        <include href="forminfos.htm" />
+    </true>
+</check>
+
+<div class="col-sm-12 profile_infos">
+    <div class="group col-sm-6 padlefnon">
+        <h1 class="martopnon">
+            <small>{{ ucfirst(@user.civilite) }}</small><br>{{ strtoupper(@user.nom) }}<br>{{ ucfirst(@user.prenom) }}
+            <check if="{{ isset(@SESSION.switch) && @SESSION.switch===true && @SESSION.uid != @user.uid && @user.level <= 3 && @user.level > 1 }}">
+                <span class="btn btn-link curpoi has-tip-up" data-toggle="modal" data-target="#myModal-switch-{{@user.uid}}" title="{{@connect_as[@l]}} {{ strtoupper(@user.nom) }} {{ ucfirst(@user.prenom) }}">
+                    <i class="glyphicon glyphicon-transfer"></i>
+                </span>
+            </check>
+        </h1>
+    </div>
+    <div class="col-sm-6">
+        <div class="group">
+            <small>{{ ucfirst(@function[@l]) }} :</small>
+            <b>{{ @user.fonction }}</b>
+        </div>
+        <div class="group">
+            <small>{{ ucfirst(@company[@l]) }} :</small>
+            <b>{{ @user.societe }}</b>
+        </div>
+        <div class="group">
+            <small>{{ ucfirst(@branch[@l]) }} :</small>
+            <b>{{ @user.branche }}</b>
+        </div>
+        <check if="{{!preg_match('/nielsy/i', @user.email)}}">
+            <div class="group">
+                <small>{{ ucfirst(@mail[@l]) }} :</small>
+                <b>{{ @user.email }}</b>
+            </div>
+       </check>
+    </div>
+</div>
+
+<div class="col-sm-6 col-md-6 col-lg-6 profile_details">
+
+    <check if="{{ @SESSION.lvl<=2 }}">
+    <div class="group">
+        <h4 class="textraupp">{{ ucfirst(@access_conditions[@l]) }}</h4>
+        <small>{{ ucfirst(@grant_type[@l]) }} :</small>
+        <b>{{ @access[@user.level][@l] }}</b>
+    </div>
+    <div class="group">
+        <small>{{ ucfirst(@can_host[@l]) }} :</small>
+        <b>{{ @user.level<=3?@yes[@l]:@no[@l] }}</b>
+    </div>
+    <br>
+    </check>
+
+    <div class="group">
+        <h4 class="textraupp">{{ @contact_details[@l] }}</h4>
+        <small>{{ ucfirst(@address[@l]) }} :</small>
+        <b>{{ @user.adresse }}</b>
+        <b>{{ @user.cp }} {{ strtoupper(@user.ville) }}</b>
+    </div>
+    <div class="group">
+        <small>{{ ucfirst(@department[@l]) }} :</small>
+        <b>{{ @user.dept }}</b>
+    </div>
+    <div class="group">
+        <small>{{ ucfirst(@region[@l]) }} :</small>
+        <b>{{ @user.region }}</b>
+    </div>
+    <div class="group">
+        <small>{{ ucfirst(@country[@l]) }} :</small>
+        <b>{{ @user.pays }}</b>
+    </div>
+    <div class="group">
+        <small>{{ ucfirst(@phone[@l]) }} :</small>
+        <b>{{ @user.prefixeFixe?'(+'.@user.prefixeFixe.') ' :'' }}{{ @user.fixe }}</b>
+    </div>
+    <div class="group">
+        <small>{{ ucfirst(@mobile_phone[@l]) }} :</small>
+        <b>{{ @user.prefixePortable?'(+'.@user.prefixePortable.') ' :'' }}{{ @user.portable }}</b>
+    </div>
+    <br>
+
+    <check if="{{ @SESSION.lvl<=2 }}">
+    <div class="group">
+        <h4 class="textraupp">{{ @group_list[@l] }}</h4>
+        <repeat group="{{ @groups.fields }}" key="{{ @key }}" value="{{ @group }}" counter="{{ @ctr }}">
+            <b>{{ @key=='name'?@group.value:'' }}</b>
+        </repeat>
+    </div>
+    </check>
+</div>
+
+<div class="col-sm-6 col-md-6 col-lg-6 profile_details">
+
+    <div class="group">
+        <h4 class="textraupp">{{ @account_history[@l] }}</h4>
+        <small>{{ ucfirst(@created_at[@l]) }} :</small>
+        <b>{{ strftime("%A %d %B %G", strtotime(@user.createdAt)) }}</b>
+    </div>
+    <div class="group">
+        <small>{{ ucfirst(@account_creator[@l]) }} :</small>
+        <a href="{{ @BASE.'/user/'.@creator.uid.'/show' }}"><b class="textracap">{{ @creator.nom }} {{ @creator.prenom }}</b></a>
+    </div>
+
+    <div class="group">
+        <small>{{ ucfirst(@updated_at[@l]) }} :</small>
+        <b>{{ strftime("%A %d %B %G", strtotime(@user.updatedAt)) }}</b>
+    </div>
+
+    <check if="{{!empty(@updator)}}">
+    <div class="group">
+        <small>{{ ucfirst(@updated_by[@l]) }} :</small>
+        <a href="{{ @BASE.'/user/'.@user.updatedBy.'/show' }}"><b class="textracap">{{ strtoupper(@updator.nom) }} {{ @updator.prenom }}</b></a>
+    </div>
+    </check>
+
+    <br>
+
+    <div class="group">
+        <h4 class="textraupp">{{ @billing_infos[@l] }}</h4>
+        <small>{{ ucfirst(@billing_contact[@l]) }} :</small>
+        <b>{{ strtoupper(@user.interlocuteurNom) }} {{ @user.interlocuteurPrenom }}</b>
+    </div>
+    <div class="group">
+        <small>{{ ucfirst(@organisation[@l]) }} :</small>
+        <b>{{ @user.organisme }}</b>
+    </div>
+    <div class="group">
+        <small>{{ ucfirst(@address[@l]) }} :</small>
+        <b>{{ @user.adresseF }}</b> <b>{{ @user.cpF }} {{ strtoupper(@user.villeF) }}</b>
+    </div>
+    <div class="group">
+        <small>{{ @siret[@l] }} :</small>
+        <b>{{ @user.siret }}</b>
+    </div>
+    <div class="group">
+        <small>{{ strtoupper(@tva_intracomm[@l]) }} :</small>
+        <b>{{ @user.numTva }}</b>
+    </div>
+    <div class="group">
+        <small>{{ strtoupper(@imputation[@l]) }} :</small>
+        <b>{{ @user.imputation }}</b>
+    </div>
+    <div class="group">
+        <small>{{ strtoupper(@billing_smart[@l]) }} :</small>
+        <b>{{ @user.smart }}</b>
+    </div>
+</div>
+
+<check if="{{ @SESSION.lvl == 1 || (@SESSION.uid==@user.uid && @SESSION.lvl<=3) }}">
+    <a href="{{ @BASE.'/user/'.@user.uid.'/update/user_'.@user.uid.'_show' }}" class="btn btn-success widful martop30 marbot30">
+        {{ @user_update_profile[@l] }}
+    </a>
+</check>
+
+<check if="{{ isset(@SESSION.switch) && @SESSION.switch===true && @SESSION.uid != @user.uid && @user.level <= 3 && @user.level > 1 }}">
+    <!-- switch.htm -->
+    <div class="modal fade bs-example-modal-sm" id="myModal-switch-{{@user.uid}}" tabindex="-1" role="dialog" aria
+    -labelledby="myModalLabel-{{@user.uid}}" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bornon texalilef">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                    <h4 class="modal-title" id="myModalLabel-{{@user.uid}}">
+                        <i class="glyphicon glyphicon-user"></i> {{ @confirm_connection_as[@l] }} <b class="fonstyita">{{ strtoupper(@user.nom) }} {{ ucfirst(@user.prenom) }}</b>
+                    </h4>
+                </div>
+                <form action="{{@BASE.'/switchto'}}" method="post" class="
+                form-switch" role="form" id="form-switch-{{@user.uid}}">
+                    <div class="modal-footer bornon padtopnon martopnon">
+                        <input type="hidden" name="sw" value="y" />
+                        <input type="hidden" name="u" value="{{@user.uid}}" />
+                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                            {{ @cancel[@l] }}
+                        </button>
+
+                        <button id="modal-switch-{{@user.uid}}" class="btn btn-info" type="submit">
+                            {{ @validate[@l] }}
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</check>

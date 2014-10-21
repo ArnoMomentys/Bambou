@@ -1,0 +1,33 @@
+.wrapper {
+	width: 700px;
+	margin: 0 auto;
+	border: 1px solid #333;
+	background: #f4f4f4;
+	font-size: 12px;
+	font-family: Arial;
+}
+
+#donutDesc {
+	padding: 0 20px 20px;
+	font-size: 16px;
+	font-family: Arial;
+	line-height: 20px;
+}
+
+.hidden {
+	display: none!important;
+}
+
+.red {
+	color: red;
+}
+
+.green {
+	color: green;
+}
+
+.linkRaise {
+	text-transform: uppercase;
+	display: block;
+	padding-top: 10px;
+}

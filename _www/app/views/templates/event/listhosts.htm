@@ -1,0 +1,145 @@
+<h2 class="page-heading marbotnon">
+    <a href="{{ @BASE.'/event/'.@event.eid.'/show' }}">
+        <span class="textracap">{{ @eventname[@l] }}</span> : {{ @event.nom }}&nbsp;<i class="glyphicon glyphicon-chevron-right padlef10"></i>
+    </a>
+</h2>
+<small class="dimgra"><span class="textraupp">{{ @starting_at[@l] }}</span> : {{ strftime("%A %d %B %G", strtotime(@event.debut)) }}</small>
+<br>
+<small class="dimgra"><span class="textraupp">{{ @limit_displayed[@l] }}</span> : {{ strftime("%A %d %B %G", strtotime(@event.limitB)) }}</small><br><br>
+
+<check if="{{ isset(@SESSION.msg) && strlen(@SESSION.msg)>1 }}">
+    <true>
+        <include href="forminfos.htm" />
+    </true>
+</check>
+
+<h3 class="pull-left disblo widful page-subheading marbotnon">
+    {{ @event_hosts_already_added[@l] }}
+    <check if="{{ @isold == false && @SESSION.c != 0 }}">
+        <a href="{{ '/event/'.@event.eid.'/add/host' }}" class="pull-right texdecnon postop-10 posrel" title="{{ @event_host_add[@l] }}">
+            <small class="hidden-xs hidden-sm">{{ @event_host_add[@l] }}</small>
+            <i class="glyphicon glyphicon-plus-sign"></i>
+        </a>
+    </check>
+</h3>
+
+<table class="table table-striped responsive-utilities list grouplist hostslist martopnon">
+    <thead>
+
+        <tr>
+            <td colspan="8" class="paginate">
+                {{ @pagebrowser | raw }}
+            </td>
+        </tr>
+
+        <check if="{{ !empty(@lists_keys) }}">
+            <tr>
+                <repeat group="{{ @lists_keys }}" key="{{ @key }}" value="{{ @value }}" counter="{{ @ctr }}">
+                    <check if="{{ in_array(@value, ['hostname','hostbranch','hostbu','hostcompany','hostfunction','hosttown','hostaddress']) }}">
+                        <th class="{{ @value }}">
+                            <div class="th-wrapper" with="<?php $k=$$value; ?>">
+                                <div class="flolef padtop10 padrig5 padbot10 padlef5">{{ @k[@l] }}</div>
+                                <div class="sorterwrap">
+                                    <a href="{{ @BASE.'/event/'.@event.eid.'/show/hosts/'.@value.'/order/asc' }}"
+                                    class="btn btn-link sorter up has-tip-up"
+                                    title="{{ @sortby[@l] }} {{ @k[@l] }} [A-Z]">
+                                        <i class="sortby glyphicon glyphicon-chevron-up"></i>
+                                    </a>
+                                    <a href="{{ @BASE.'/event/'.@event.eid.'/show/hosts/'.@value.'/order/desc' }}"
+                                    class="btn btn-link sorter down has-tip-down"
+                                    title="{{ @sortby[@l] }} {{ @k[@l] }} [Z-A]">
+                                        <i class="sortby glyphicon glyphicon-chevron-down"></i>
+                                    </a>
+                                </div>
+                            </div>
+                        </th>
+                    </check>
+                </repeat>
+                <th>&nbsp;</th>
+            </tr>
+        </check>
+    </thead>
+
+    <tbody>
+        <check if="{{ @totaux > 0 }}">
+            <true>
+                <repeat group="{{ @lists }}" value="{{ @liste }}" counter="{{ @lctr }}">
+                    <tr>
+                        <repeat group="{{ @liste }}" key="{{ @key }}" value="{{ @value }}" counter="{{ @ctr }}">
+                            <check if="{{ in_array(@key, ['hostname','hostbranch','hostbu','hostcompany','hostfunction','hosttown','hostaddress']) }}">
+                                <td class="{{ @key }}">
+                                    <check if="{{ @key=='hostname' }}">
+                                        <true>
+                                            <a href="/user/{{@liste.hostid}}/show" class="disinlblo widful">{{ @value }}</a>
+                                        </true>
+                                        <false>
+                                            <span class="disinlblo widful">{{ @value }}</span>
+                                        </false>
+                                    </check>
+                                </td>
+                            </check>
+                        </repeat>
+                        <td class="actions texalirig">
+                            <check if="{{ @isold == false }}">
+                                <true>
+                                    <span id="removefromhosts-{{@liste.hostid}}" class="btn btn-link curpoi has-tip" data-toggle="modal" data-target="#myModal-removefromhosts-{{ @liste.hostid}}" title="{{ @remove_from_hosts[@l] }}">
+                                        <i class="glyphicon glyphicon-remove glyphicon-black"></i>
+                                    </span>
+                                    <!-- removefromhost.htm -->
+                                    <div class="modal fade bs-example-modal-sm" id="myModal-removefromhosts-{{@liste.hostid}}" tabindex="-1" role="dialog" aria
+                                    -labelledby="myModalLabel-{{@liste.hostid}}" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header bornon texalilef">
+                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                                                    <h4 class="modal-title" id="myModalLabel-{{ @liste.hostid }}">
+                                                        <i class="glyphicon glyphicon-remove-circle"></i> {{ ucfirst(@remove[@l]) }} <b class="fonstyita">{{ @liste.hostname }}</b> {{ @from_hosts[@l] }} {{ isset(@liststats[@liste.hostid]) ? @and_all_invitations[@l].' ('. @liststats[@liste.hostid].')':'' }} ?
+                                                    </h4>
+                                                </div>
+                                                <form action="{{@BASE.'/event/'.@liste.eventid.'/remove/host'}}" method="post" class="form-delete" role="form" id="form-removefromhosts-{{ @liste.hostid }}">
+                                                    <div class="modal-footer bornon padtopnon martopnon">
+                                                        <input type="hidden" name="delh" value="d" />
+                                                        <input type="hidden" name="eventID" value="{{ @liste.eventid }}">
+                                                        <input type="hidden" name="hostID" value="{{ @liste.hostid }}">
+                                                        <input type="hidden" name="hostname" value="{{ @liste.hostname }}">
+                                                        <button type="button" class="btn btn-default" data-dismiss="modal">{{ @cancel[@l] }}</button>
+                                                        <button id="modal-removefromhosts-{{@liste.hostid}}" class="btn btn-danger" type="submit">{{ @remove_from_hosts[@l] }}</button>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </true>
+                                <false>
+                                    <span id="bill-{{@liste.hostid}}" class="btn btn-link curpoi has-tip" title="Générer la facture">
+                                        <i class="glyphicon glyphicon-euro glyphicon-black"></i>
+                                    </span>
+                                </false>
+                            </check>
+                        </td>
+                    </tr>
+                </repeat>
+
+                <check if="{{ @totaux > 30 }}">
+                    <tr>
+                       <td colspan="8" class="paginate bottom_pager">
+                            {{ @pagebrowser | raw }}
+                        </td>
+                    </tr>
+                </check>
+
+            </true>
+            <false>
+                <tr>
+                    <td colspan="8">{{ @no_host[@l] }}</td>
+                </tr>
+            </false>
+        </check>
+    </tbody>
+</table>
+
+<check if="{{ @SESSION.lvl<=3 && strstr(@PATTERN,'eid') && (isset(@isold) || @isold==true) && ((( strstr(@PATTERN,'hosts') || (strstr(@PATTERN,'status') && @PARAMS.status=='hosts') )) || @SESSION.lvl==3) }}">
+    <!-- attached to nav export -->
+    <include href="event/modal/exporthosts.htm" />
+</check>

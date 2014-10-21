@@ -1,0 +1,25 @@
+<div class="modal fade bs-example-modal-sm" id="myModal-addhost-{{@liste.uid}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-{{@liste.uid}}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bornon texalilef">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel-{{ @liste.uid }}">
+                    <i class="glyphicon glyphicon-info-sign"></i> {{ ucfirst(@add[@l]) }} <b class="fonstyita">{{ @liste.nom }}</b> {{ @to_event_hosts[@l] }}
+                </h4>
+            </div>
+            <form action="{{ @BASE.'/event/'.@eid.'/add/host' }}" method="post" class="form-delete" role="form" id="form-addhost-{{ @liste.uid }}">
+                <div class="modal-footer bornon padtopnon martopnon">
+                    <input type="hidden" name="addHost" value="a" />
+                    <input type="hidden" name="eventID" value="{{ @eid }}">
+                    <input type="hidden" name="hostID" value="{{ @liste.uid }}">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        {{ @cancel[@l] }}
+                    </button>
+                    <button class="btn btn-info" type="submit">
+                        {{ @event_host_addto_confirm[@l] }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

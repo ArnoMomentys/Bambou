@@ -1,0 +1,24 @@
+<div class="modal fade bs-example-modal-sm" id="myModal-delete-{{@event.eid}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-{{@event.eid}}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bornon">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel-{{@event.eid}}">
+                    <i class="glyphicon glyphicon-remove-circle"></i> {{ @delete[@l] }} {{ @the_event[@l] }} <b class="fonstyita">{{ @event.nom }}</b>
+                </h4>
+            </div>
+            <form action="{{ @BASE.'/event/delete' }}" method="post" class="form-delete" role="form" id="form-delete-{{@event.eid}}">
+                <div class="modal-footer bornon padtopnon martopnon">
+                    <input type="hidden" name="del" value="d" />
+                    <input type="hidden" name="eid" value="{{@event.eid}}">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        {{ @cancel[@l] }}
+                    </button>
+                    <button class="btn btn-danger" type="submit">
+                        {{ @event_delete_confirm[@l] }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="modal fade bs-example-modal-sm" id="myModal-removefromhosts-{{@liste.hostid}}" tabindex="-1" role="dialog" aria
+-labelledby="myModalLabel-{{@liste.hostid}}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bornon texalilef">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                
+                <h4 class="modal-title" id="myModalLabel-{{ @liste.hostid }}">
+                    <i class="glyphicon glyphicon-remove-circle"></i> {{ ucfirst(@remove[@l]) }} <b class="fonstyita">{{ @liste.hostname }}</b> {{ @from_hosts[@l] }} {{ isset(@liststats[@liste.hostid]) ? @and_all_invitations[@l].' ('. @liststats[@liste.hostid].')':'' }} ?
+                </h4>
+            </div>
+            
+            <form action="{{@BASE.'/event/'.@liste.eventid.'/remove/host'}}" method="post" class="form-delete" role="form" id="form-removefromhosts-{{ @liste.hostid }}">
+                <div class="modal-footer bornon padtopnon martopnon">
+                    <input type="hidden" name="delh" value="d" />
+                    <input type="hidden" name="eventID" value="{{ @liste.eventid }}">
+                    <input type="hidden" name="hostID" value="{{ @liste.hostid }}">
+                    <input type="hidden" name="hostname" value="{{ @liste.hostname }}">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ @cancel[@l] }}</button>
+                    <button id="modal-removefromhosts-{{@liste.hostid}}" class="btn btn-danger" type="submit">{{ @remove_from_hosts[@l] }}</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

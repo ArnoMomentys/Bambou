@@ -1,0 +1,26 @@
+<div class="modal fade bs-example-modal-sm" id="myModal-addguest-{{@liste.uid}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-{{@liste.uid}}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bornon texalilef">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel-{{ @liste.uid }}">
+                    <i class="glyphicon glyphicon-info-sign"></i> {{ ucfirst(@add[@l]) }} <b class="fonstyita">{{ @liste.nom }}</b> {{ @to_event_guests[@l] }}
+                </h4>
+            </div>
+            <form action="{{ @BASE.'/event/'.@eid.'/add/guest' }}" method="post" class="form-delete" role="form" id="form-addguest-{{ @liste.uid }}">
+                <div class="modal-footer bornon padtopnon martopnon">
+                    <input type="hidden" name="addGuest" value="a" />
+                    <input type="hidden" name="eventID" value="{{ @eid }}">
+                    <input type="hidden" name="guestID" value="{{ @liste.uid }}">
+                    <input type="hidden" name="hostID" value="{{ @SESSION.uid }}">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        {{ @cancel[@l] }}
+                    </button>
+                    <button class="btn btn-info" type="submit">
+                        {{ @event_guest_addto_confirm[@l] }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

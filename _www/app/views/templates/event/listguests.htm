@@ -1,0 +1,448 @@
+<h2 class="page-heading marbotnon">
+    <a href="{{ @BASE.'/event/'.@event.eid.'/show' }}">
+        <span class="textracap">{{ @eventname[@l] }}</span> : {{ @event.nom }}&nbsp;<i class="glyphicon glyphicon-chevron-right padlef10"></i>
+    </a>
+</h2>
+<small class="dimgra"><span class="textraupp">{{ @starting_at[@l] }}</span> : {{ strftime("%A %d %B %G", strtotime(@event.debut)) }}</small>
+<br>
+<small class="dimgra"><span class="textraupp">{{ @limit_displayed[@l] }}</span> : {{ strftime("%A %d %B %G", strtotime(@event.limitB)) }}</small>
+<br>
+<check if="{{ isset(@SESSION.msg) && strlen(@SESSION.msg)>1 }}">
+    <true>
+        <br>
+        <include href="forminfos.htm" />
+    </true>
+</check>
+
+<h3 class="pull-left disblo widful page-subheading padtop20 marbotnon">
+    {{ @page_header }}
+    <check if="{{ @isold == false && @SESSION.c != 0 }}">
+        <a href="{{ '/event/'.@event.eid.'/add/guest' }}" class="pull-right texdecnon postop-10 posrel" title="{{ @event_guest_add[@l] }}">
+            <small class="hidden-xs hidden-sm">{{ @event_guest_add[@l] }}</small>
+            <i class="glyphicon glyphicon-plus-sign"></i>
+        </a>
+    </check>
+</h3>
+
+<table class="table table-striped responsive-utilities list grouplist guestslist martopnon">
+    <thead>
+
+        <tr>
+            <td colspan="5" class="paginate">
+                {{ @pagebrowser | raw }}
+            </td>
+        </tr>
+
+        <check if="{{ !empty(@lists_keys) }}">
+            <tr>
+                <repeat group="{{ @lists_keys }}" key="{{ @key }}" value="{{ @value }}" counter="{{ @ctr }}">
+                    <check if="{{ in_array(@value, ['guestname','guestfunction','guestcompany','hostname']) }}">
+                        <check if="{{ (@value=='hostname' && @SESSION.lvl==1) || @value!='hostname'  }}">
+                            <th class="{{@value}}">
+                                <div class="th-wrapper" with="<?php $k=$$value; ?>">
+                                    <div class="flolef padtop10 padrig5 padbot10 padlef5">{{ @k[@l] }}</div>
+                                    <div class="sorterwrap">
+                                        <a href="{{ @BASE.'/event/'.@event.eid.'/show/guests/'.@value.'/order/asc' }}"
+                                        class="btn btn-link sorter up has-tip-up"
+                                        title="{{ @sortby[@l] }} {{ @k[@l] }} [A-Z]">
+                                            <i class="sortby glyphicon glyphicon-chevron-up"></i>
+                                        </a>
+                                        <a href="{{ @BASE.'/event/'.@event.eid.'/show/guests/'.@value.'/order/desc' }}"
+                                        class="btn btn-link sorter down has-tip-down"
+                                        title="{{ @sortby[@l] }} {{ @k[@l] }} [Z-A]">
+                                            <i class="sortby glyphicon glyphicon-chevron-down"></i>
+                                        </a>
+                                    </div>
+                                </div>
+                            </th>
+                        </check>
+                    </check>
+                </repeat>
+                <th>&nbsp;</th>
+            </tr>
+        </check>
+    </thead>
+
+    <tbody>
+        <check if="{{ @totaux>0 }}">
+            <true>
+                <repeat group="{{ @lists }}" value="{{ @liste }}" counter="{{ @lctr }}">
+                    <tr>
+                        <repeat group="{{ @liste }}" key="{{ @key }}" value="{{ @value }}" counter="{{ @ctr }}">
+                            <check if="{{ in_array(@key, ['guestname','guestfunction','guestcompany','hostname']) }}">
+                                <check if="{{ (@key=='hostname' && @SESSION.lvl==1) || @key!='hostname'  }}">
+                                    <td class="{{ @key }}">
+                                        <check if="{{ @key=='reprname' }}">
+                                            <true>
+                                                <table class="flolef bornoni padnon posrel marnon widful">
+                                                    <tr>
+                                                        <td>
+                                                            <span class="pull-left">
+                                                                <a href="/user/{{@liste.reprid}}/show" class="disinlblo">
+                                                                    {{ @value }}
+                                                                </a>
+                                                            </span>
+                                                        </td>
+                                                        <check if="{{ !@isold }}">
+                                                            <check if="{{ strlen(@value)==0 }}">
+                                                                <true>
+                                                                    <td class="posabs">
+                                                                        <!-- /event/@eid/guest/@guestid/invitation/@invitationid/add/repr -->
+                                                                        <a href="{{ '/event/'.@liste.eid.'/guest/'.@liste.guestid.'/invitation/'.@liste.invitationid.'/add/repr' }}" title="{{ @add_representative[@l] }}" class="pull-right has-tip-up">
+                                                                            <i class="glyphicon glyphicon-plus"></i>
+                                                                        </a>
+                                                                    </td>
+                                                                </true>
+                                                                <false>
+                                                                    <td>
+                                                                        <!-- /event/@eid/guest/@guestid/invitation/@invitationid/remove/repr/@reprid -->
+                                                                        <a href="{{ '/event/'.@liste.eid.'/guest/'.@liste.guestid.'/invitation/'.@liste.invitationid.'/remove/repr/'.@liste.reprid }}" title="{{ @representative_remove[@l] }}" class="pull-right has-tip-up">
+                                                                            <i class="glyphicon glyphicon-remove"></i>
+                                                                        </a>
+                                                                    </td>
+                                                                </false>
+                                                            </check>
+                                                        </check>
+                                                    </tr>
+                                                </table>
+                                            </true>
+                                            <false>
+                                                <check if="{{ @key=='accnames' }}">
+                                                    <true>
+                                                        <table class="flolef bornoni padnon posrel marnon widful">
+                                                            <tr>
+                                                                <td
+                                                                    class="names"
+                                                                    with="<?php
+                                                                        $ids = explode(',', $liste['accids']);
+                                                                        $names = explode(',', $value);
+                                                                        $val = trim($value);
+                                                                    ?>">
+                                                                        <check if="{{ !empty(@val) }}">
+                                                                        <repeat group="{{ @names }}" value="{{ @name }}" counter="{{ @namesctr }}">
+                                                                            <span class="pull-left disblo widful">
+                                                                                <a href="/user/{{@ids[@namesctr-1]}}/show" class="disinlblo">
+                                                                                    {{ @name }}
+                                                                                </a>
+                                                                                <check if="{{ !@isold }}">
+                                                                                    <a href="{{ '/event/'.@liste.eid.'/invitation/'.@liste.invitationid.'/remove/acc/'.@ids[@namesctr-1] }}" title="{{ @accompanying_remove[@l] }}" class="has-tip-up">
+                                                                                        <i class="glyphicon glyphicon-remove"></i>
+                                                                                    </a>
+                                                                                </check>
+                                                                            </span>
+                                                                        </repeat>
+                                                                        </check>
+                                                                </td>
+                                                                <check if="{{ !@isold }}">
+                                                                    <td class="posabs">
+                                                                        <!-- /event/100/guest/34407/igid/33590/add/acc -->
+                                                                        <a href="{{ '/event/'.@liste.eid.'/guest/'.@liste.guestid.'/invitation/'.@liste.invitationid.'/add/acc' }}" title="{{ @add_accompanying[@l] }}" class="pull-right has-tip-up">
+                                                                            <i class="glyphicon glyphicon-plus"></i>
+                                                                        </a>
+                                                                    </td>
+                                                                </check>
+                                                            </tr>
+                                                        </table>
+                                                    </true>
+                                                    <false>
+                                                        <check if="{{ @key=='guestname' }}">
+                                                            <true>
+                                                                <a href="/user/{{@liste.guestid}}/show" class="disinlblo widful">
+                                                                    {{ @value }}
+                                                                </a>
+                                                            </true>
+                                                            <false>
+                                                                <check if="{{ @key=='hostname' }}">
+                                                                    <true>
+                                                                        <a href="/user/{{@liste.hostid}}/show" class="disinlblo widful">
+                                                                            {{ @value }}
+                                                                        </a>
+                                                                    </true>
+                                                                    <false>
+                                                                        <span class="disinlblo widful">{{ @value }}</span>
+                                                                    </false>
+                                                                </check>
+                                                            </false>
+                                                        </check>
+                                                    </false>
+                                                </check>
+                                            </false>
+                                        </check>
+                                    </td>
+                                </check>
+                            </check>
+                        </repeat>
+                        <td class="actions texalirig borrignoni">
+                            <table class="florig bornoni padnon marnon disinlblo">
+                                <tr>
+                                    <check if="{{ @isold == false }}">
+									    <td class="answ">
+                                            <div class="dropdown disinl">
+                                                <button class="btn btn-link curpoi has-tip-left dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" title="{{ @answer_invitation[@l] }}">
+                                                    {{ @liste.answer == 0 ? '<i class="glyphicon glyphicon-question-sign bluetxt"></i>' : '' }}
+                                                    {{ @liste.answer == 1 ? '<i class="glyphicon glyphicon-ok-sign greentxt"></i>' : '' }}
+                                                    {{ @liste.answer == 2 ? '<i class="glyphicon glyphicon-minus-sign redtxt"></i>' : '' }}
+                                                </button>
+												<!-- ONLY Admin can change the status -->
+												<check if="{{ @SESSION.lvl <= 2 }}">
+													<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
+														<li role="presentation">
+															<a class="texalilef" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @liste['invitationid'] }}/0/event_{{ @event.eid }}_show_guests">{{ @no_answer[@l] }} {{ @liste.answer == 0 ? '<i class="glyphicon glyphicon-ok marlef5"></i>' : '' }}</a>
+														</li>
+														<li role="presentation">
+															<a class="texalilef" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @liste['invitationid'] }}/1/event_{{ @event.eid }}_show_guests">{{ @guest_answer_yes[@l] }} {{ @liste.answer == 1 ? '<i class="glyphicon glyphicon-ok marlef5"></i>' : '' }}</a>
+														</li>
+														<li role="presentation">
+															<a class="texalilef" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @liste['invitationid'] }}/2/event_{{ @event.eid }}_show_guests">{{ @guest_answer_no[@l] }} {{ @liste.answer == 2 ? '<i class="glyphicon glyphicon-ok marlef5"></i>' : '' }}</a>
+														</li>
+													</ul>
+												</check>
+                                            </div>
+                                        </td>
+									</check>
+
+                                    <check if="{{ @isold == false && @isdone == false }}">
+                                        <check if="{{ @liste.validated == 0 }}">
+                                            <true>
+												<!-- ONLY Admin can send invitation -->
+												<check if="{{ @SESSION.lvl <= 2 }}">
+													<td class="valid">
+														<span class="btn btn-link curpoi has-tip-left tobevalidated" data-toggle="modal" data-target="#myModal-validateinvitations-{{ @liste.invitationid }}" title="{{ @send_invitation[@l] }}">
+															<i class="glyphicon glyphicon-envelope"></i>
+														</span>
+														<!-- validateinvitation.htm -->
+														<div class="modal fade bs-example-modal-sm" id="myModal-validateinvitations-{{@liste.invitationid}}" tabindex="-1" role="dialog" aria
+														-labelledby="myModalLabel-{{@liste.invitationid}}" aria-hidden="true">
+															<div class="modal-dialog">
+																<div class="modal-content">
+																	<div class="modal-header bornon texalilef">
+																		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+																		<h4 class="modal-title" id="myModalLabel-{{@liste.invitationid}}">
+																			<i class="glyphicon glyphicon-ok-circle"></i> {{ ucfirst(@validate[@l]) }} {{ @invitation_for[@l] }} <b class="fonstyita">{{ @liste.guestname }}</b>
+																		</h4>
+																	</div>
+																	<form action="{{ @BASE.'/event/'.@event.eid.'/invitation/validate' }}" method="post" class="
+																	form-delete" role="form" id="form-validateinvitations-{{ @liste.invitationid }}">
+																		<div class="modal-footer bornon padtopnon martopnon">
+																			<input type="hidden" name="validate-guest" value="v" />
+																			<input type="hidden" name="invitationID" value="{{ @liste.invitationid }}">
+																			<input type="hidden" name="eventID" value="{{ @event.eid }}">
+																			<input type="hidden" name="guestname" value="{{ @liste.guestname }}">
+																			<button type="button" class="btn btn-default" data-dismiss="modal">
+																				{{ @cancel[@l] }}
+																			</button>
+
+																			<button id="modal-validateinvitations-{{@liste.invitationid}}" class="btn btn-danger" type="submit">
+																				{{ @send_invitation[@l] }}
+																			</button>
+																		</div>
+																	</form>
+																</div>
+															</div>
+														</div>
+													</td>
+												</check>
+                                                <td class="remo borrignoni">
+                                                    <span class="btn btn-link curpoi has-tip-left" data-toggle="modal" data-target="#myModal-removefromguests-{{ @liste.invitationid }}" title="{{ @remove_from_guests[@l] }}">
+                                                        <i class="glyphicon glyphicon-remove glyphicon-black"></i>
+                                                    </span>
+                                                    <!-- removefromguest.htm -->
+                                                    <div class="modal fade bs-example-modal-sm" id="myModal-removefromguests-{{@liste.invitationid}}" tabindex="-1" role="dialog" aria
+                                                    -labelledby="myModalLabel-{{@liste.invitationid}}" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header bornon texalilef">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                                                                    <h4 class="modal-title" id="myModalLabel-{{@liste.invitationid}}">
+                                                                        <i class="glyphicon glyphicon-remove-circle"></i> {{ ucfirst(@remove[@l]) }} <b class="fonstyita">{{ @liste.guestname }}</b> {{ @from_guests[@l] }}
+                                                                    </h4>
+                                                                </div>
+                                                                <form action="{{ @BASE.'/event/'.@event.eid.'/remove/guest' }}" method="post" class="
+                                                                form-delete" role="form" id="form-removefromguests-{{ @liste.invitationid }}">
+                                                                    <div class="modal-footer bornon padtopnon martopnon">
+                                                                        <input type="hidden" name="delg" value="d" />
+                                                                        <input type="hidden" name="invitationID" value="{{ @liste.invitationid }}">
+                                                                        <input type="hidden" name="eventID" value="{{ @event.eid }}">
+                                                                        <input type="hidden" name="guestname" value="{{ @liste.guestname }}">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                                            {{ @cancel[@l] }}
+                                                                        </button>
+
+                                                                        <button id="modal-removefromguests-{{@liste.invitationid}}" class="btn btn-danger" type="submit">
+                                                                            {{ @remove_from_guests[@l] }}
+                                                                        </button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </true>
+                                            <false>
+                                                <td class="valid borrignoni">
+                                                    <span class="btn btn-link curnot has-tip-left validated" title="{{ @invitation_already_validated[@l] }}">
+                                                        <i class="glyphicon glyphicon-saved glyphicon-black"></i>
+                                                    </span>
+                                                </td>
+                                            </false>
+                                        </check>
+                                    </check>
+
+                                    <check if="{{ @isold == true && @isdone == false }}">
+                                        <check if="{{ @liste.validated == 0 }}">
+                                            <true>
+                                                <td class="valid">
+                                                    <span class="btn btn-link curnot has-tip-left validated" title="{{ @invitation_not_validated[@l] }}">
+                                                        <i class="glyphicon glyphicon-save"></i>
+                                                    </span>
+                                                </td>
+                                                <td class="remo borrignoni">
+                                                    <span class="btn btn-link curpoi has-tip-left" data-toggle="modal" data-target="#myModal-removefromguests-{{ @liste.invitationid }}" title="{{ @remove_from_guests[@l] }}">
+                                                        <i class="glyphicon glyphicon-remove glyphicon-black"></i>
+                                                    </span>
+                                                    <!-- removefromguest.htm -->
+                                                    <div class="modal fade bs-example-modal-sm" id="myModal-removefromguests-{{@liste.invitationid}}" tabindex="-1" role="dialog" aria
+                                                    -labelledby="myModalLabel-{{@liste.invitationid}}" aria-hidden="true">
+                                                        <div class="modal-dialog">
+                                                            <div class="modal-content">
+                                                                <div class="modal-header bornon texalilef">
+                                                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                                                                    <h4 class="modal-title" id="myModalLabel-{{@liste.invitationid}}">
+                                                                        <i class="glyphicon glyphicon-remove-circle"></i> {{ ucfirst(@remove[@l]) }} <b class="fonstyita">{{ @liste.guestname }}</b> {{ @from_guests[@l] }}
+                                                                    </h4>
+                                                                </div>
+                                                                <form action="{{ @BASE.'/event/'.@event.eid.'/remove/guest' }}" method="post" class="
+                                                                form-delete" role="form" id="form-removefromguests-{{ @liste.invitationid }}">
+                                                                    <div class="modal-footer bornon padtopnon martopnon">
+                                                                        <input type="hidden" name="delg" value="d" />
+                                                                        <input type="hidden" name="invitationID" value="{{ @liste.invitationid }}">
+                                                                        <input type="hidden" name="eventID" value="{{ @event.eid }}">
+                                                                        <input type="hidden" name="guestname" value="{{ @liste.guestname }}">
+                                                                        <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                                            {{ @cancel[@l] }}
+                                                                        </button>
+
+                                                                        <button id="modal-removefromguests-{{@liste.invitationid}}" class="btn btn-danger" type="submit">
+                                                                            {{ @remove_from_guests[@l] }}
+                                                                        </button>
+                                                                    </div>
+                                                                </form>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </true>
+                                            <false>
+                                                <td class="valid borrignoni">
+                                                    <span class="btn btn-link curnot has-tip-left validated" title="{{ @invitation_already_validated[@l] }}">
+                                                        <i class="glyphicon glyphicon-saved glyphicon-black"></i>
+                                                    </span>
+                                                </td>
+                                            </false>
+                                        </check>
+                                    </check>
+
+                                    <check if="{{ @isdone == true && @isold == true }}">
+                                        <td class="pres">
+                                            <div class="dropdown disinl">
+                                                <button class="btn btn-link curpoi has-tip-left dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" title="{{ ucfirst(@event_presence[@l]) }}">
+                                                    <i class="glyphicon glyphicon-flash glyphicon-black"></i>
+                                                </button>
+                                                <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2">
+                                                    <li role="presentation">
+                                                        <a class="texalilef" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @liste['invitationid'] }}/presence/0/event_{{ @event.eid }}_show_guests">{{ ucfirst(@answered_no[@l]) }} {{ @liste.presence == 0 ? '<i class="glyphicon glyphicon-ok marlef5"></i>' : '' }}</a>
+                                                    </li>
+                                                    <li role="presentation">
+                                                        <a class="texalilef" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @liste['invitationid'] }}/presence/1/event_{{ @event.eid }}_show_guests">{{ ucfirst(@answered_yes[@l]) }} {{ @liste.presence == 1 ? '<i class="glyphicon glyphicon-ok marlef5"></i>' : '' }}</a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        <check if="{{ @liste.validated == 0 }}">
+                                            <true>
+                                                <td class="valid">
+                                                    <span class="btn btn-link curnot has-tip-left validated" title="{{ @invitation_not_validated[@l] }}">
+                                                        <i class="glyphicon glyphicon-save"></i>
+                                                    </span>
+                                                </td>
+                                                <check if="{{@liste.presence==0}}">
+                                                    <td class="remo borrignoni">
+                                                        <span class="btn btn-link curpoi has-tip-left" data-toggle="modal" data-target="#myModal-removefromguests-{{ @liste.invitationid }}" title="{{ @remove_from_guests[@l] }}">
+                                                            <i class="glyphicon glyphicon-remove glyphicon-black"></i>
+                                                        </span>
+                                                        <!-- removefromguest.htm -->
+                                                        <div class="modal fade bs-example-modal-sm" id="myModal-removefromguests-{{@liste.invitationid}}" tabindex="-1" role="dialog" aria
+                                                        -labelledby="myModalLabel-{{@liste.invitationid}}" aria-hidden="true">
+                                                            <div class="modal-dialog">
+                                                                <div class="modal-content">
+                                                                    <div class="modal-header bornon texalilef">
+                                                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+
+                                                                        <h4 class="modal-title" id="myModalLabel-{{@liste.invitationid}}">
+                                                                            <i class="glyphicon glyphicon-remove-circle"></i> {{ ucfirst(@remove[@l]) }} <b class="fonstyita">{{ @liste.guestname }}</b> {{ @from_guests[@l] }}
+                                                                        </h4>
+                                                                    </div>
+                                                                    <form action="{{ @BASE.'/event/'.@event.eid.'/remove/guest' }}" method="post" class="
+                                                                    form-delete" role="form" id="form-removefromguests-{{ @liste.invitationid }}">
+                                                                        <div class="modal-footer bornon padtopnon martopnon">
+                                                                            <input type="hidden" name="delg" value="d" />
+                                                                            <input type="hidden" name="invitationID" value="{{ @liste.invitationid }}">
+                                                                            <input type="hidden" name="eventID" value="{{ @event.eid }}">
+                                                                            <input type="hidden" name="guestname" value="{{ @liste.guestname }}">
+                                                                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                                                {{ @cancel[@l] }}
+                                                                            </button>
+
+                                                                            <button id="modal-removefromguests-{{@liste.invitationid}}" class="btn btn-danger" type="submit">
+                                                                                {{ @remove_from_guests[@l] }}
+                                                                            </button>
+                                                                        </div>
+                                                                    </form>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </td>
+                                                </check>
+                                            </true>
+                                            <false>
+                                                <td class="valid borrignoni">
+                                                    <span class="btn btn-link curnot has-tip-left validated" title="{{ @invitation_already_validated[@l] }}">
+                                                        <i class="glyphicon glyphicon-saved glyphicon-black"></i>
+                                                    </span>
+                                                </td>
+                                            </false>
+                                        </check>
+                                    </check>
+
+                                </tr>
+                            </table>
+                        </td>
+                    </tr>
+                </repeat>
+
+                <check if="{{ @totaux > 30 }}">
+                    <tr>
+                        <td colspan="7" class="paginate bottom_pager">
+                            {{ @pagebrowser | raw }}
+                        </td>
+                    </tr>
+                </check>
+
+            </true>
+            <false>
+                <tr>
+                    <td colspan="5">{{ @no_guest[@l] }}</td>
+                </tr>
+            </false>
+        </check>
+    </tbody>
+</table>
+
+<check if="{{ @SESSION.lvl<=3 && strstr(@PATTERN,'eid') && (isset(@isold) || @isold==true) && ((( strstr(@PATTERN,'guest') || (strstr(@PATTERN,'status') && @PARAMS.status=='guests') )) || @SESSION.lvl==3) }}">
+    <!-- attached to nav export -->
+    <include href="event/modal/exportguests.htm" />
+</check>

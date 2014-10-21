@@ -1,0 +1,127 @@
+<h2 class="page-heading">
+    {{ @page_header }}
+    <a href="{{ @BASE.'/group/create' }}" class="veralimid backto" title="{{ @create_new_group[@l] }}">
+        <i class="glyphicon glyphicon-plus-sign"></i>
+    </a>
+</h2>
+
+<check if="{{ isset(@SESSION.msg) && strlen(@SESSION.msg)>1 }}">
+    <true>
+        <include href="forminfos.htm" />
+    </true>
+</check>
+
+<table class="table table-striped responsive-utilities list grouplist">
+    <thead>
+
+        <tr>
+            <td colspan="{{ count(@lists_keys) + 2 }}" class="paginate">
+                {{ @pagebrowser | raw }}
+            </td>
+        </tr>
+        <check if="{{ !empty(@lists_keys) }}">
+        <tr>
+            <repeat group="{{ @lists_keys }}" key="{{ @key }}" value="{{ @value }}" counter="{{ @ctr }}">
+                <check if="{{ in_array(@value, array('name', 'nbUsers')) }}">
+                    <th class="{{ @value }}">
+                        <div class="th-wrapper" with="<?php $k=$$value ?>">
+                            <div class="flolef padtop10 padrig5 padbot10 padlef5">{{ @k[@l] }}</div>
+                            <div class="sorterwrap">
+                                <a href="{{ @BASE.'/'.@listtype.'/'.@value.(@value==@filter && strlen(@filtervalue)>0 ? '/'.@filtervalue:'').'/order/asc' }}"
+                                class="btn btn-link sorter up has-tip-up"
+                                title="{{ @sortby[@l] }} {{ @k[@l] }} {{ @value=='nbUsers' ? '[ASC]': '[A-Z]' }}">
+                                    <i class="sortby glyphicon glyphicon-chevron-up"></i>
+                                </a>
+                                <a href="{{ @BASE.'/'.@listtype.'/'.@value.(@value==@filter && strlen(@filtervalue)>0 ? '/'.@filtervalue:'').'/order/desc' }}"
+                                class="btn btn-link sorter down has-tip-down"
+                                title="{{ @sortby[@l] }} {{ @k[@l] }} {{ @value=='nbUsers' ? '[DESC]' : '[Z-A]' }}">
+                                    <i class="sortby glyphicon glyphicon-chevron-down"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </th>
+                </check>
+            </repeat>
+            <th>&nbsp;</th>
+        </tr>
+        </check>
+    </thead>
+
+    <tbody>
+        <check if="{{ @totaux > 0 }}">
+            <true>
+            <repeat group="{{ @lists }}" value="{{ @liste }}">
+                <tr>
+                    <repeat group="{{ @liste }}" key="{{ @key }}" value="{{ @value }}" counter="{{ @ctr }}">
+                        <check if="{{ in_array(@key, array('name', 'nbUsers')) }}">
+                            <td class="{{ @key }}{{ @key=='nbUsers' ? ' texalicen' : '' }}">
+                            <check if="{{ @key=='name' }}">
+                                <false>
+                                    <span class="disinlblo widful">{{ @value }}</span>
+                                </false>
+                                <true>
+                                    <a href="{{ @BASE.'/group/'.@liste.gid.'/show' }}" class="">
+                                        {{ @value }}
+                                    </a>
+                                </true>
+                            </td>
+                        </check>
+                    </repeat>
+
+                    <td class="actions texalirig">
+                        <a href="{{ @BASE.'/group/'.@liste.gid.'/show' }}" class="btn btn-link texalicen has-tip" title="{{ @users_in_group[@l] }}">
+                            <i class="glyphicon glyphicon-list"></i>
+                        </a>
+                        <a href="{{ @BASE.'/group/'.@liste.gid.'/update' }}" class="btn btn-link texalicen has-tip" title="{{ @update[@l] }}">
+                            <i class="glyphicon glyphicon-pencil glyphicon-black"></i>
+                        </a>
+                        <span class="btn btn-link curpoi has-tip" data-toggle="modal" data-target="#myModal-delete-{{@liste.gid}}" title="{{ @delete[@l] }}">
+                            <i class="glyphicon glyphicon-remove glyphicon-black"></i>
+                        </span>
+                        <!-- delete.htm -->
+                        <div class="modal fade bs-example-modal-sm" id="myModal-delete-{{@liste.gid}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-{{@liste.gid}}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header bornon texalilef">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="myModalLabel-{{@liste.gid}}">
+                                            <i class="glyphicon glyphicon-exclamation-sign"></i> {{ @group_delete[@l] }} <b class="fonstyita">{{ @liste.name }}</b>
+                                        </h4>
+                                    </div>
+                                    <form action="{{ @BASE.'/group/'.@liste.gid.'/delete' }}" method="post" class="form-delete" role="form" id="form-delete-{{@liste.gid}}">
+                                        <div class="modal-footer bornon padtopnon martopnon">
+                                            <input type="hidden" name="del" value="d" />
+                                            <input type="hidden" name="gid" value="{{ @liste.gid }}">
+                                            <input type="hidden" name="groupname" value="{{ @liste.name }}">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                {{ @cancel[@l] }}
+                                            </button>
+                                            <button class="btn btn-danger" type="submit">
+                                                {{ @group_delete_confirm[@l] }}
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </repeat>
+
+            <check if="{{ @totaux > 30 }}">
+                <tr>
+                    <td colspan="{{ count(@lists['subset'][0]->fields) + 2 }}" class="paginate">
+                        {{ @pagebrowser | raw }}
+                    </td>
+                </tr>
+            </check>
+
+            </true>
+            <false>
+                <tr>
+                    <td colspan="4">{{ @no_group[@l] }}</td>
+                </tr>
+            </false>
+        </check>
+    </tbody>
+</table>

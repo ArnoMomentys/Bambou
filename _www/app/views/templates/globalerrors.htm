@@ -1,0 +1,5 @@
+<div class="alert alert-danger">
+    <repeat group="{{ @SESSION.errors }}" value="{{ @errors }}" counter="{{ @ctr }}">
+        {{ @ctr==1 ? '<i class="glyphicon glyphicon-warning-sign"></i>&nbsp;&nbsp;&nbsp;':'<span class="msg-spacer">&nbsp;</span>'}}{{ html_entity_decode(@errors) }}<br>
+    </repeat>
+</div>

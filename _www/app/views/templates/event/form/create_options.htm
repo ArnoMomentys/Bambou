@@ -1,0 +1,55 @@
+<form action="{{ @BASE.'/event/'.@PARAMS['eid'].'/create/options' }}" method="post" class="form-create-options" role="form">
+
+    <h2 class="form-create-heading">{{ @event_create_options[@l] }}</h2>
+
+    <label class="has-check"><input name="showContact" type="checkbox" class="form-control" autofocus /> {{ @show_contact[@l] }}</label>
+
+    <label class="has-check"><input name="withSms" type="checkbox" class="form-control" />{{ @with_sms[@l] }}</label>
+
+    <label class="has-check"><input name="withRepr" type="checkbox" class="form-control" />{{ @with_repr[@l] }}</label>
+
+    <label class="has-check"><input name="withAcc" type="checkbox" class="form-control" />{{ @with_acc[@l] }}</label>
+
+    <label class="has-check"><input name="sendType" type="checkbox" class="form-control" />{{ @send_type[@l] }}</label>
+
+    <label class="has-check"><input name="withBusinessCard" type="checkbox" class="form-control" />{{ @with_business_card[@l] }}</label>
+
+    <div class="form-group">
+        <label>{{ @card_address[@l] }}</label>
+        <input name="cardAddress" type="text" class="form-control" placeholder="{{ @card_address[@l] }}" />
+    </div>
+
+    <div class="form-group">
+        <label>{{ @limit_message[@l] }}</label>
+        <input name="limitMsg" type="text" class="form-control" placeholder="{{ @limit_message[@l] }}" />
+    </div>
+
+    <div class="form-group">
+        <br>
+        <label class="textraup">{{ @billing_infos_create[@l] }}</label>
+        <br>
+        <small class="dimgray">{{ @default_template_added1[@l] }}, {{ @default_template_added2[@l] }}</small>
+    </div>
+
+    <div class="form-group">
+        <label class="textraup">{{ @eotp[@l] }}</label>
+        <input name="eotp" type="text" class="form-control" placeholder="{{ @eotp[@l] }}" />
+    </div>
+
+    <div class="form-group">
+        <label>{{ @invoice_price[@l] }}</label>
+        <input name="invoiceCost" type="text" class="form-control" placeholder="{{ @invoice_price[@l] }}" />
+    </div>
+
+    <div class="form-group">
+        <input type="hidden" name="setOptions" value="setOptions" />
+        <input name="eventID" type="hidden" value="{{ @PARAMS['eid'] }}" />
+    </div>
+
+    <button class="btn btn-default btn-primary btn-block martop30" type="submit">
+        <small class="glyphicon glyphicon-plus"></small> {{ @event_add_options[@l] }}
+    </button>
+    <br>
+    <br>
+
+</form>

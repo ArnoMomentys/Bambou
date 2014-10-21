@@ -1,0 +1,40 @@
+<form action="{{ @BASE.'/user/update' }}" method="post" class="form-update" role="form">
+
+    <h2 class="form-update-heading">{{ @user_update[@l] }}</h2>
+
+    <input name="email" type="email" class="form-control first" placeholder="Adresse mail" value="{{ @user.email }}" required>
+
+    <input name="password" type="password" pattern=".{8,}" class="form-control middle" placeholder="Mot de passe" value="{{ @user.password }}" required>
+    <i class="btn btn-lg glyphicon glyphicon-eye-close curpoi pwi"></i>
+
+    <input name="level" type="number" min="1" max="5" class="form-control last" placeholder="Niveau" value="{{ @user.level }}" required>
+
+    <input type="hidden" name="uid" value="{{ @user.uid }}" />
+    <input type="hidden" name="update" value="update" />
+
+    <button class="btn btn-primary btn-block" type="submit">
+        <span class="glyphicon glyphicon-ok"></span> {{ @user_update[@l] }}
+    </button>
+    
+</form>
+<script type="text/javascript">
+	var trig = document.getElementsByClassName ("pwi"),
+		prev = trig[0].previousSibling.previousSibling,
+		unlocked = prev.classList.contains("shown")
+
+	trig[0].onclick = function() {
+		if (unlocked === true) {
+			unlocked = false
+			prev.setAttribute("type", "password")
+			prev.classList.remove("shown")
+			this.classList.remove("glyphicon-eye-open")
+			this.classList.add("glyphicon-eye-close")
+		} else {
+			unlocked = true
+			prev.setAttribute("type", "text")
+			prev.classList.add("shown")
+			this.classList.remove("glyphicon-eye-close")
+			this.classList.add("glyphicon-eye-open")
+		}
+	}
+</script>

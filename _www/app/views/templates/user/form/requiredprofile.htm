@@ -1,0 +1,149 @@
+<form action="{{ @BASE.'/event/'.@event.eid.'/add/new/guest' }}" method="post" class="form-complete-profile" role="form">
+
+    <h2 class="page-heading marbotnon">
+        <a href="{{ @BASE.'/event/'.@event.eid.'/show' }}">
+            <span class="textracap">{{ @eventname[@l] }}</span> : {{ @event.nom }}&nbsp;<i class="glyphicon glyphicon-chevron-right padlef10"></i>
+        </a>
+    </h2>
+    <small class="dimgra"><span class="textraupp">{{ @starting_at[@l] }}</span> : {{ strftime("%A %d %B %G", strtotime(@event.debut)) }}</small>
+    <br>
+    <small class="dimgra"><span class="textraupp">{{ @limit_displayed[@l] }}</span> : {{ strftime("%A %d %B %G", strtotime(@event.limitB)) }}</small><br>
+
+    <check if="{{ isset(@SESSION.errors) && count(@SESSION.errors)>0 }}">
+        <br>
+        <include href="globalerrors.htm" />
+    </check>
+
+    <h3 class="pull-left disblo widful page-subheading padtop20 marbotnon">
+        {{ @event_guest_add_new[@l] }}<br>
+        <small>{{ @all_user_fields_required[@l] }}</small>
+    </h3>
+
+    <fieldset class="first padlefnon padrignon">
+
+        <legend>{{ @guest_infos[@l] }}</legend>
+
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 infos-block infos-block-left">
+            <div class="input-group">
+            	<span class="input-group-addon first">{{ @gender[@l] }}</span>
+        		<input name="civilite" type="text" class="form-control first" placeholder="{{ @gender_minus[@l] }}" value="{{ (@post_has_data && @post_has_data['civilite']?@post_has_data['civilite']:'') }}" required />
+        	</div>
+            <div class="input-group">
+            	<span class="input-group-addon middle">{{ @name[@l] }}</span>
+        		<input name="nom" type="text" class="form-control middle" placeholder="{{ @name[@l] }}" value="{{ (@post_has_data && @post_has_data['nom']?@post_has_data['nom']:'') }}" required />
+        	</div>
+            <div class="input-group">
+                <span class="input-group-addon middle">{{ @firstname[@l] }}</span>
+                <input name="prenom" type="text" class="form-control middle" placeholder="{{ @firstname[@l] }}" value="{{ (@post_has_data && @post_has_data['prenom']?@post_has_data['prenom']:'') }}" required />
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon middle">{{ @address[@l] }}</span>
+                <input name="adresse" type="text" class="form-control middle" placeholder="{{ @address[@l] }}" value="{{(@post_has_data && @post_has_data['adresse']?@post_has_data['adresse']:'') }}" />
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon middle">{{ @town[@l] }}</span>
+                <input name="ville" type="text" class="form-control middle" placeholder="{{ @town[@l] }}" value="{{ (@post_has_data && @post_has_data['ville']?@post_has_data['ville']:'') }}" />
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon middle">{{ @zip_code[@l] }}</span>
+                <input name="cp" type="text" class="form-control middle" placeholder="{{ @zip_code[@l] }}" value="{{ (@post_has_data && @post_has_data['cp']?@post_has_data['cp']:'') }}" //>
+            </div>
+            <div class="input-group">
+            	<span class="input-group-addon end">{{ @country[@l] }}</span>
+        		<input name="pays" type="text" class="form-control endrig" placeholder="{{ @country[@l] }}" value="{{ (@post_has_data && @post_has_data['pays']?@post_has_data['pays']:'') }}" />
+        	</div>
+        </div>
+
+        <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 infos-block infos-block-right">
+            <div class="input-group">
+                <span class="input-group-addon first">{{@user_mail[@l]}}</span>
+                <input name="email" type="email" class="form-control first" placeholder="{{@user_mail[@l]}}" value="{{(@post_has_data && @post_has_data['email']?@post_has_data['email']:'')}}" required />
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon middle">{{@mobile_phone[@l]}}</span>
+                <input name="portable" type="number" pattern=".{10}" class="form-control middle" placeholder="{{@mobile_phone_complete[@l]}}" value="{{(@post_has_data && @post_has_data['portable']?@post_has_data['portable']:'')}}" />
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon middle">{{@user_phone[@l]}}</span>
+                <input name="fixe" type="number" pattern=".{10}" class="form-control middle" placeholder="{{@user_phone_complete[@l]}}" value="{{(@post_has_data && @post_has_data['fixe']?@post_has_data['fixe']:'')}}"  />
+            </div>
+            <div class="input-group">
+                <span class="input-group-addon middle">{{@function[@l]}}</span>
+                <input name="fonction" type="text" class="form-control middle" placeholder="{{@function[@l]}}" value="{{ (@post_has_data && @post_has_data['fonction']?@post_has_data['fonction']:'') }}" />
+            </div>
+            <div class="input-group">
+            	<span class="input-group-addon middle">{{@branch[@l]}}</span>
+            	<input name="branche" type="text" class="form-control middle" placeholder="{{@branch[@l]}}" value="{{ (@post_has_data && @post_has_data['branche']?@post_has_data['branche']:'') }}" />
+            </div>
+            <div class="input-group">
+            	<span class="input-group-addon end">{{@company[@l]}}</span>
+        		<input name="societe" type="text" class="form-control endrig" placeholder="{{@company[@l]}}" value="{{(@post_has_data && @post_has_data['societe']?@post_has_data['societe']:'')}}" required />
+        	</div>
+        </div>
+
+    </fieldset>
+
+    <check if="{{ @event.withAcc==1 || @event.withRepr==1 }}">
+    <br>
+    <fieldset class="last padlefnon padrignon">
+
+        <legend>{{ @guest_event_infos[@l] }}</legend>
+
+        <check if="{{ @event.withAcc==1 }}">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 infos-block-event infos-block infos-block-left">
+                <label>Accompagnant</label>
+                <div class="input-group">
+                    <span class="input-group-addon first">{{@gender[@l]}}</span>
+                    <input name="accgender" type="text" class="form-control first" placeholder="Civilité de l'accompagnant" value="{{ (@post_has_data && @post_has_data['accgender']?@post_has_data['accgender']:'') }}">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon middle">{{@name[@l]}}</span>
+                    <input name="accnom" type="text" class="form-control middle" placeholder="Nom de l'accompagnant" value="{{ (@post_has_data && @post_has_data['accnom']?@post_has_data['accnom']:'') }}">
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon middle">{{@firstname[@l]}}</span>
+                    <input name="accprenom" type="text" class="form-control middle" placeholder="Prénom de l'accompagnant" value="{{ (@post_has_data && @post_has_data['accprenom']?@post_has_data['accprenom']:'') }}" >
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon end">{{@user_mail[@l]}}</span>
+                    <input name="accemail" type="email" class="form-control endrig" placeholder="Email de l'accompagnant" value="{{ (@post_has_data && @post_has_data['accemail']?@post_has_data['accemail']:'') }}" >
+                </div>
+            </div>
+        </check>
+
+        <check if="{{ @event.withRepr==1 }}">
+            <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 infos-block-event infos-block infos-block-right">
+                <label>Représentant</label>
+                <div class="input-group">
+                    <span class="input-group-addon first">{{@gender[@l]}}</span>
+                    <input name="reprgender" type="text" class="form-control first" placeholder="Civilité du représentant" value="{{ (@post_has_data && @post_has_data['reprgender']?@post_has_data['reprgender']:'') }}" >
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon middle">{{@name[@l]}}</span>
+                    <input name="reprnom" type="text" class="form-control middle" placeholder="Nom du représentant" value="{{ (@post_has_data && @post_has_data['reprnom']?@post_has_data['reprnom']:'') }}" >
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon middle">{{@firstname[@l]}}</span>
+                    <input name="reprprenom" type="text" class="form-control middle" placeholder="Prénom du représentant" value="{{ (@post_has_data && @post_has_data['reprprenom']?@post_has_data['reprprenom']:'') }}" >
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon end">{{@user_mail[@l]}}</span>
+                    <input name="repremail" type="email" class="form-control endrig" placeholder="Email du représentant" value="{{ (@post_has_data && @post_has_data['repremail']?@post_has_data['repremail']:'') }}" >
+                </div>
+            </div>
+        </check>
+
+    </fieldset>
+    </check>
+
+    <input type="hidden" name="reqprof">
+
+    <div class="pull-left widful">
+        <button class="btn btn-primary btn-block" type="submit">
+            <span class="glyphicon glyphicon-ok"></span>&nbsp;&nbsp;{{ @save_invitation[@l] }}
+        </button>
+        <br>
+        <br>
+    </div>
+
+</form>

@@ -1,0 +1,40 @@
+<form action="{{ @BASE.'/event/create' }}" method="post" class="form-create" role="form">
+
+    <h2 class="page-heading">
+        {{ @event_create[@l] }}&nbsp;<i class="glyphicon glyphicon-chevron-right padlef10"></i>
+    </h2>
+
+    <check if="{{ isset(@SESSION.errors) && count(@SESSION.errors)>0 }}">
+        <include href="globalerrors.htm" />
+    </check>
+
+    <input name="nom" type="text" class="form-control first" placeholder="{{ @event_name[@l] }}" required autofocus value="{{ @post_has_data?@post_has_data['nom']:''}}" required />
+
+    <input name="lieu" type="text" class="form-control middle" placeholder="{{ @event_place[@l] }}" required value="{{ @post_has_data?@post_has_data['lieu']:''}}" required />
+
+    <input name="adresse" type="text" class="form-control middle" placeholder="{{ @address[@l] }}" required value="{{ @post_has_data?@post_has_data['adresse']:''}}" required />
+
+    <input name="cp" type="text" class="form-control middle" placeholder="{{ @zip_code[@l] }}" required value="{{ @post_has_data?@post_has_data['cp']:''}}" />
+
+    <input name="ville" type="text" class="form-control middle" placeholder="{{ @town[@l] }}" required value="{{ @post_has_data?@post_has_data['ville']:''}}" />
+
+    <input name="debut" type="text" class="form-control middle" placeholder="{{ @date_start[@l]}} ({{@date_format[@l]}})" value="{{ @post_has_data?@post_has_data['debut']:''}}" required />
+
+    <input name="fin" type="text" class="form-control middle" placeholder="{{ @date_end[@l]}} ({{@date_format[@l]}})" required value="{{ @post_has_data?@post_has_data['fin']:''}}" required />
+
+    <input name="limitA" type="text" class="form-control middle" placeholder="{{ @date_limit_1[@l]}} ({{@date_format[@l]}})" required value="{{ @post_has_data?@post_has_data['limitA']:''}}" />
+
+    <input name="limitB" type="text" class="form-control middle" placeholder="{{ @date_limit_2[@l]}} ({{@date_format[@l]}})" required value="{{ @post_has_data?@post_has_data['limitB']:''}}" />
+
+    <input name="deadLine" type="text" class="form-control last" placeholder="{{ @dead_line[@l]}} ({{@date_format[@l]}})" value="{{ @post_has_data?@post_has_data['deadLine']:''}}" />
+
+    <input type="hidden" name="create" value="create" />
+
+    <a class="btn btn-default" href="{{ @BASE.'/events' }}">
+        {{ @cancel[@l] }}
+    </a>
+    <button class="btn btn-default btn-primary" type="submit">
+        <small class="glyphicon glyphicon-plus"></small> {{@event_add[@l]}}
+    </button>
+
+</form>

@@ -1,0 +1,25 @@
+<div class="modal fade bs-example-modal-sm" id="myModal-activate-{{@event.eid}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-{{@event.eid}}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bornon">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel-{{@event.eid}}">
+                    <i class="glyphicon glyphicon-ok-circle"></i> {{ @activate[@l] }} <b class="fonstyita">{{ @event.nom }}</b>
+                </h4>
+            </div>
+            <form action="{{ @BASE.'/event/activate' }}" method="post" class="form-activate" role="form" id="form-activate-{{@event.eid}}">
+                <div class="modal-footer bornon padtopnon martopnon">
+                    <input type="hidden" name="act" value="act" />
+                    <input type="hidden" name="eid" value="{{@event.eid}}">
+                    <input type="hidden" name="status" value="1" />
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        {{ @cancel[@l] }}
+                    </button>
+                    <button class="btn btn-success" type="submit">
+                        {{ @event_activate_confirm[@l] }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

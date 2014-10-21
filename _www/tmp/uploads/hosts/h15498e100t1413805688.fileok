@@ -1,0 +1,215 @@
+Civilité;Nom;Prénom;Fonction;Branche;BU;Société/Organisme/Collectivité;Adresse;Code Postal;Ville;Pays;Telephone Fixe;Telephone portable;email
+Mr;ALLAMELLON;Daniel;Resp Commercial;ENERGIE EUROPE;Marketing & Sales Entreprises et Collectivités;GDF SUEZ E&C;Immeuble Terra Nova - 68/70, rue de Lagny;93100;MONTREUIL;FRANCE;01 48 51 20 42;06 85 82 96 79;daniel.allamellon@gdfsuez.com
+Mme;ARNAL;Jany;Directeur de l'Entreprise Régionale Pyrénées Méditerranée;ENVIRONNEMENT;LYONNAISE DES EAUX;Lyonnaise des Eaux;8, rue Evariste Gallois;34535;BEZIERS CEDEX;FRANCE;04 67 35 43 26;06 08 91 63 40;jany.arnal@lyonnaise-des-eaux.fr
+Mr;ARNOUX;Stéphane;Responsable Grands Comptes - Marché Industrie;ENERGIE SERVICES;COFELY SERVICES;COFELY SERVICES ;Le Voltaire - 1 place des Degrés;92059;PARIS LA DEFENSE;FRANCE;01 41 20 14 87;06 32 27 00 87;stephane.arnoux@cofely-gdfsuez.com
+Mr;AUCLAIR;Thierry;Directeur Délégué;ENERGIE SERVICES ;COFELY INEO;Cofely Ineo;9 rue Edouard Branly;45700;VILLEMANDEUR;FRANCE;02 54 50 50 80;06 74 95 29 64;thierry.auclair@ineo-gdfsuez.com
+Mme;AYRAULT ;Elisabeth;Président du Directoire;ENERGIE EUROPE;ENERGIES RENOUVELABLES;Compagnie Nationale du Rhône ;2, rue A Bonin ;69316;LYON CEDEX 04;FRANCE;;06 08 77 33 95;elisabeth.ayrault@cnr.tm.fr
+Mr;AZARIO;Eric;Directeur Commercial;ENVIRONNEMENT ;DEGREMONT;Degrémont France ;270 RUE PIERRE DUHEM;13799;AIX EN PROVENCE;FRANCE;;06 70 11 30 39;eric.azario@degremont.com
+Mme;AZZOPARDI;Catherine;Directeur Régional;ENVIRONNEMENT;LYONNAISE DES EAUX;LYONNAISE DES EAUX;988, chemin Pierre Drevet;69141;RILLEUX LA PAPE;FRANCE;04 78 98 78 78;06 84 27 50 57;catherine.azzopardi@lyonnaise-des-eaux.fr
+Mr;BAILLY;Jérôme;Directeur Régional;ENVIRONNEMENT;LYONNAISE DES EAUX;Lyonnaise des Eaux;51 avenue de Sénart;91230;MONTGERON;FRANCE ;;06 79 62 91 14;jerome.bailly@lyonnaise-des-eaux.fr
+Mme;BALLIGAND;Valérie;responsable commerciale;ENERGIE EUROPE;Marketing & Sales Entreprises et Collectivités;GDF SUEZ E&C;10 Rue Macquet Vion - CS 80633;80011;AMIENS;FRANCE;03 22 22 62 15;06 63 23 05 18;valerie.balligand@gdfsuez.com
+Mr;BALSAN;Henri;Directeur Délégué IDF;CENTRE;CORPORATE;GDF SUEZ DCINM;Tour T2 - 2 place Samuel de Champlain;92930;PARIS LA DÉFENSE CEDEX;FRANCE;01 56 65 55 07;;henri.balsan@gdfsuez.com
+Mr;BARRIER;Marc;Directeur Général Adjoint;ENERGIE SERVICES;COFELY SERVICES;CPCU;185 rue de Bercy;75012;PARIS;FRANCE ;;06 74 36 37 04;marc.barrier@cpcu.cofely.fr
+Mr;BAVUZ;Gilles;Directeur Général Adjoint;INFRASTRUCTURES;ELENGY;Elengy;11 avenue Michel Ricard;92276;BOIS COLOMBES CEDEX;FRANCE ;;06 24 48 37 22;GILLES.BAVUZ@ELENGY.com
+Mr;BEAUDOUIN;Thierry;Délégué régional Limousin;CENTRE;CORPORATE;GDF SUEZ DCINM;59 allée de Faugeras CS 70015;87067;LIMOGES;FRANCE;;06 89 99 53 36;thierry.beaudouin@gdfsuez.com
+Mr;BELDJENNA;Hamid;Responsable Commercial;ENERGIE SERVICES;COFELY SERVICES;Cofely Services;5, rue Saarinen  ;94533;RUNGIS;FRANCE;01 45 60 36 79;06 03 34 20 45;hamid.beldjenna@cofely-gdfsuez.com
+Mr;BERARDI;Patrick;Directeur d'Agence;ENERGIE SERVICES;COFELY SERVICES;THASSALIA - COFELY SERVICES SUD EST;BASTIDE BLANCHE BAT A3;13127;VITROLLES;FRANCE ;;06 89 71 36 89;patrick.berardi@cofely-gdfsuez.com
+Mr;BERNET;Franck;Chef d'Agence Oise-Somme-Vermandois;ENVIRONNEMENT;LYONNAISE DES EAUX;LYONNAISE DES EAUX;ZAC du gros grelot;60150;THOUROTTE;FRANCE;03 44 96 37 75;06 30 51 33 71;franck.bernet@lyonnaise-des-eaux.fr
+Mr;BESNIER;Guillaume;Responsable commercial;ENERGIE SERVICES;COFELY INEO;INEO ISI;165, rue Jean Jaurès;78130;LES MUREAUX;FRANCE;01 30 91 31 70;06 14 63 89 40;guillaume.besnier@cofelyineo-gdfsuez.com
+Mr;BESSE;Laurent;Directeur Entreprise régionale;ENVIRONNEMENT;LYONNAISE DES EAUX;Entreprise régionale Normandie Picardie Champagne;Rue Buhl;60316;CREIL CEDEX;FRANCE;03 44 29 35 42;06 76 05 90 79;laurent.besse@lyonnaise-des-eaux.fr
+Mr;BIRET;Benoît;Directeur Général Délégué;ENVIRONNEMENT;LYONNAISE DES EAUX;Société Guyanaise des Eaux;2738 route de Montabo;97300;CAYENNE;FRANCE;05 94 25 59 27;06 94 23 77 55;benoit.biret@sgde.fr
+Mr;BLANC;Denis;Directeur Général ;ENVIRONNEMENT;Degrémont;DEGREMONT SERVICES ;116 rue des Houtraits ;92508;RUEIL MALMAISON CEDEX;FRANCE ;01 46 25 60 10 ;06 30 52 12 32;denis.blanc@degremont.com
+Mr;BOESMANS;Bart;Directeur général;ENERGIE EUROPE;LABORELEC;LABORELEC;Rodestraat 125;1630;LINKEBEEK;BELGIQUE;;+32 479 32 00 29;bart.boesmans@gdfsuez.com
+Mr;BONNET;Jean-Charles;Chef de Secteur;ENVIRONNEMENT ;DEGREMONT;Degrémont;Parc d'activités EDONIA ;35768;SAINT GREGOIRE CEDEX;FRANCE;02 99 23 13 00;06 88 38 65 27;jean.charles.bonnet@degremont.com
+Mr;BONNIEUX;Marc;Directeur régional;ENVIRONNEMENT;LYONNAISE DES EAUX;LYONNAISE DES EAUX;16 Bd du Docteur Jean Veillet;21066;DIJON CEDEX;FRANCE;03 80 27 39 11;06 86 58 96 15;marc.bonnieux@lyonnaise-des-eaux.fr
+Mr;BORGHINI;Roberto;DIR DEV Italie & Suisse;CENTRE;CORPORATE;GDF SUEZ;16/18 via G. Malipiero;20138;MILANO;ITALY;;+39335270443;roberto.borghini@gdfsuez.com
+Mr;BOUCHARD;Laurent;Directeur Commercial;ENERGIE SERVICES;COFELY SERVICES;Cofely Services;2 Rue de la Touche Lambert CS21754;35517;CESSON SEVIGNE;FRANCE;02 99 27 65 65;06 88 05 88 75;laurent.bouchard@cofely-gdfsuez.com
+Mr;BOUCHETEIL;Fabrice;Directeur Degremont Construction Régions;ENVIRONNEMENT;DEGREMONT;Degrémont;270 rue Pierre Duhem;13799;AIX EN PROVENCE CEDEX 3;FRANCE;;06 88 29 61 89;fabrice.boucheteil@degremont.com
+Mr;BOUHANA;Michel;DGA;ENERGIE SERVICES;COFELY INEO;COFELY INEO;1 place des Degrés;92059;PARIS LA DEFENSE;FRANCE;01 57 60 42 55;06 71 61 23 99;marcel.bouhana@cofelyineo-gdfsuez.com
+Mr ;BOULLE;Laurent;Directeur Délégué;Energies Services / Installations;COFELY INEO;Ineo Réseaux Sud Est ;30 Rue de la Poudrette;69627;VILLEURBANNE;FRANCE ;;06 32 54 45 45 ;laurent.boulle@cofelyineo-gdfsuez.com
+Mme;BRIDEY;Christelle;déléguée régionale Lorraine;CENTRE;CORPORATE;GDF SUEZ;6 rue Franiatte;57953;MONTIGNY-LES-METZ;FRANCE;;06 20 88 57 99;christelle.bridey@gdfsuez.com
+Mr;BRIQUET;Patrick;Chef d'agence Oise Sud;ENVIRONNEMENT;LYONNAISE DES EAUX;Lyonnaise des Eaux;Zone de Vaux;60100;CREIL;FRANCE;03 44 29 35 35 ;06 80 18 32 44;patrick.briquet@lyonnaise-des-eaux.fr
+Mr;BUHAJ;Ivan;Responsable Développement Chaud Froid Urbain;ENERGIE SERVICES;COFELY SERVICES;Cofely Services;59 rue Denuzière;69285;LYON CEDEX 02;FRANCE ;04 72 60 64 75;06 75 65 81 26;ivan.buhaj@cofely-gdfsuez.com
+Mr;CAMEIJO;Paulo;Délégué régional;CENTRE;CORPORATE;GDF SUEZ;8-10 rue LaFayette BP 1565;25009;BESANÇON;FRANCE;;06 08 45 34 99;paulo.cameijo@gdfsuez.com
+Mr;CANEPA;Jean-Marc;Directeur Délégué;ENERGIE SERVICES ;COFELY INEO;Cofely Ineo;205 rue Georges Claude;13797;AIX EN PROVENCE;FRANCE;04 42 16 58 00;06 09 98 67 83;jean-marc.canepa@cofelyineo-gdfsuez.com
+Mr;CASSOU;Jean-Yves;Directeur Développement Transport;ENERGIE SERVICES;COFELY INEO;Cofely Ineo;1, place des Degrés;92059;PARIS LA DEFENSE CEDEX;FRANCE ;01 57 60 42 89;06 07 22 65 74;jean-yves.cassou@ineo-gdfsuez.com
+Mr;CHAIGNEAU;Alain;Secrétaire général;CENTRE;CORPORATE;GDF SUEZ;1 place samuel de Champlain;92930;PARIS LA DEFENSE;FRANCE;;06 78 09 81 18;alain.chaigneau@gdfsuez.com
+Mr;CHAMBON;Pierre;Directeur Général;ENERGIE EUROPE;ENERGIES RENOUVELABLES;SHEM;1, rue Louis Renault - BP 13383;31133;BALMA;FRANCE ;01 44 22 47 45;06 27 39 35 68;pierre.chambon@shem.fr
+Mr;CHATEL;Jérôme;Directeur adjoint Agence;ENERGIE SERVICES;COFELY SERVICES;COFELY SERVICES;Carrefour du Tapis vert;92365;MEUDON LA FORET;FRANCE;01 40 83 88 05;06 71 32 00 79;jerome.chatel@cofely-gdfsuez.com
+Mr;CLAVE;Didier;Responsable Comptes Nationaux Industrie;ENVIRONNEMENT;SITA;SITA France;Tour CB 21 - 16, place de l'Iris;92040;PARIS LA DEFENSE;FRANCE ;01 58 81 32 08;06 38 50 27 07;didier.CLAVE@sita.fr
+Mr;COCHEPAIN;Stéphane;Directeur adjoint Clients Publics;ENERGIE EUROPE;Marketing & Sales Entreprises et Collectivités;Entreprises et Collectivités;2 place Samuel de Champlain CC 4003;92930;PARIS LA DÉFENSE;FRANCE;01 44 22 93 99;06 76 12 96 16;stephane.cochepain@gdfsuez.com
+Mr;CODOUL;Yves;Directeur du Développement;ENERGIE SERVICES;COFELY INEO;Cofely Ineo;205, rue Georges Claude;13797;AIX EN PROVENCE;FRANCE;04 42 16 58 00;06 16 67 36 14;yves.codoul@cofelyineo-gdfsuez.com
+Mme;COLLIN;Agnès;Responsable Comptes Nationaux Industrie;ENVIRONNEMENT;SITA;SITA France;Tour CB 21 - 16, place de l'Iris;92040;PARIS LA DEFENSE;FRANCE;01 58 81 32 01;06 71 25 33 73;agnes.collin@sita.fr
+Mr;CONNESSON;Emmanuel;Directeur Marché Syndics & Copropriétés ;ENERGIE EUROPE;Marketing & Sales Entreprises et Collectivités;GDF SUEZ E & C;59, rue Denuzière - CS 30018;69285;LYON - CEDEX 02;FRANCE;04 72 74 34 00;06 60 99 78 90;emmanuel.connesson@gdfsuez.com
+Mr;CORDIER;Stéphane;Directeur;ENVIRONNEMENT;LYONNAISE DES EAUX;Eau et Force;300 rue Paul Vaillant Couturier;92000;NANTERRE;FRANCE;01 46 97 52 07;06 82 56 29 08;stephane.cordier@lyonnaise-des-eaux.fr
+Mr;CORDIER;Stéphane;;ENVIRONNEMENT;LYONNAISE DES EAUX;Lyonnaise des Eaux;;;;FRANCE ;;;
+Mme;CORRUBLE;Fabienne;Directeur Délégué Manche Mer du Nord;CENTRE;CORPORATE;GDF SUEZ DCINM;94, rue Louis Blériot;76230;BOIS GUILLAUME;FRANCE;02 32 80 03 41;06 75 70 96 58;fabienne.corruble@gdfsuez.com
+Mr;COTTE;Gilles;Directeur du développement;ENERGIE SERVICES;COFELY AXIMA;COFELY AXIMA;Tour Voltaire - 1, Place des Degrés;92059;PARIS LA DEFENSE;FRANCE;01 57 60 43 91;06 74 79 68 13;gilles.cotte@aximaseitha-gdfsuez.com
+Mr;COURJARET;Cyril;"Directeur de l'Entreprise Régionale
+Rhône-Alpes-Auvergne";ENVIRONNEMENT;LYONNAISE DES EAUX;LYONNAISE DES EAUX;"988 Chemin Pierre Drevet -
+CS 20152";69141;RILLIEUX-LA-PAPE CEDEX;FRANCE;04 78 98 78 16;06 89 73 79 38;cyril.courjaret@lyonnaise-des-eaux.fr
+Mr;CREUZEVAULT;Didier;Directeur du marché ELD;ENERGIE EUROPE;Marketing & Sales Entreprises et Collectivités;GDF SUEZ Entreprises et Collectivités;59, rue Denuzière;69285;LYON;FRANCE ;04 72 74 34 24;06 07 18 32 59;didier.creuzevault@gdfsuez.com
+Mr;DANDRIEUX;Laurent;Directeur de Développement ;ENERGIE SERVICES;COFELY SERVICES;Cofely Services;"Immeuble ""Le Voltaire""";92059;PARIS LA DEFENSE;FRANCE;01 41 20 67 85;06 86 43 82 16;laurent.dandrieux@cofely-gdfsuez.com
+Mme;DAO;Sylvie;Directeur Commercial;ENERGIE SERVICES;COFELY INEO;Cofely Ineo;1 Place des degrés;92059;PARIS LA DEFENSE;FRANCE;;0687807954;sylvie.dao@cofelyineo-gdfsuez.com
+Mr;DE CALONNE;Arnault;Directeur Développement France;CENTRE;CORPORATE;GDF SUEZ DCINM;2 place Samuel de champlain;92930;PARIS LA DEFENSE;FRANCE;;06 89 99 53 36;arnault.decalonne@gdfsuez.com
+Mr;DE CHILLAZ;Grégoire;Directeur d'Agence;ENERGIE SERVICES;COFELY SERVICES;Cofely Réseaux ;153, boulevard Anatole France;93521;SAINT DENIS CEDEX;FRANCE ;01 48 13 54 34;;gregoire.dechillaz@cofely-gdfsuez.com
+Mr;DE GOYON;FREDERIC;Dir de Marché;CENTRE;CORPORATE;GDF SUEZ;2 PLACE Samuel de Champlain;92930;PARIS LA DEFENSE;FRANCE;;06 68 93 12 47;frederic.de-goyon@gdfsuez.com
+Mr;De LAGOUTINE;Hugues;Directeur Délégué IDF Seine;ENVIRONNEMENT ;SAFEGE;SAFEGE;444 ave du Général Leclerc;77190;DAMMARIE-LES-LYS;FRANCE;01 46 14 71 00;06 08 86 42 98;hugues.delagoutine@safege.fr
+Mr;DE PERETTI;Pascal;Directeur Général;ENERGIE SERVICES;COFELY AXIMA;COFELY AXIMA;Tour Voltaire, 1 place des degrés;92059;PARIS LA DEFENSE;FRANCE ;;06 07 81 37 27;jp.deperetti@cofelyineo-gdfsuez.com
+Mr;DELCHAMBRE;Serge;Directeur de marché;CENTRE;CORPORATE;GDF SUEZ;2 place samuel de champlain;92930;PARIS LA DÉFENSE;FRANCE;;0032475808727;serge.delchambre@gdfsuez.com
+Mr;DERAMECOURT;Philippe;Directeur des PPP;ENERGIE SERVICES ;COFELY SERVICES;Cofely Services;1, place des Degrés;92059;PARIS LA DÉFENSE CEDEX;FRANCE;01 41 20 67 72;06 87 73 59 51;philippe.deramecourt@cofely-gdfsuez.com
+Mme;DEROCHE;Isabelle;Directeur d'Agence;ENERGIE SERVICES;COFELY SERVICES;COFELY SERVICES;535, rue Pierre et Marie Curie;54710;LUDRES;FRANCE;03 83 59 40 40;06 77 03 54 87;isabelle.deroche@cofely-gdfsuez.com
+Mr;DRONEAU;Philippe;Directeur Délégué;ENERGIE SERVICES;COFELY SERVICES;Cofely Services ;2 Rue de la Touche Lambert CS21754;35517;CESSON SEVIGNE;FRANCE;;0603690632;philippe.droneau@cofely-gdfsuez.com
+Mr;DUBOIS;Nicolas;Responsable Commercial - Direction Commerciale HYDRO;ENERGIE SERVICES;TRACTEBEL ENGINEERING;Tractebel Engineering France;"Le Delage 
+5, rue du 19 mars 1962 ";92632;GENNEVILLIERS CEDEX;FRANCE;01 41 85 01 60;06 08 31 73 60;nicolas4.dubois@gdfsuez.com
+Mr;DUBUC;Charles;Ingénieur Commercial;ENERGIE SERVICES;COFELY SERVICES;COFELY Réseaux;WILSON 2, 80 avenue du Général de Gaulle;92031;PARIS LA DEFENSE Cedex;FRANCE ;;06 09 81 38 54;charles.dubuc@cofely-gdfsuez.com
+Mme;DUCHATEL;Laure;Chef d'Agence Ile-de-France Nord;ENVIRONNEMENT;LYONNAISE DES EAUX;Lyonnaise des Eaux;Chemin de Coye-la-Forêt;95270;CHAUMONTEL;FRANCE;01 30 29 32 71;06 71 08 08 59;laure.duchatel@lyonnaise-des-eaux.fr
+Mr;DUPRAT;Franck;Directeur d'Agence;ENERGIE SERVICES;COFELY SERVICES;COFELY Services;"6 Rue Léandre Pourcelot
+BP 216";37540;SAINT CYR SUR LOIRE;FRANCE;02 47 85 54 03;06 84 54 53 50;franck.duprat@cofely-gdfsuez.com
+Mr;DUPRAZ;Philippe;Directeur de l'ER CENTRE LOIRE;ENVIRONNEMENT;LYONNAISE DES EAUX;Lyonnaise des Eaux;26 rue Chaude Tuile;45000;ORLEANS;FRANCE;02 38 61 82 40;06 07 91 12 89;philippe.dupraz@lyonnaise-des-eaux.fr
+Mr;DUSAUTOIR;Guillaume;Chef de Secteur;ENVIRONNEMENT;Degrémont;DEGREMONT;7, rue Jean Marie Leclair;69336 ;LYON CEDEX 09;FRANCE ;;07 86 10 13 79;guillaume.dusautoir@degremont.com
+Mr;ESTEVE;Michel;Directeur délégué  ;CENTRE;CORPORATE;GDF SUEZ DCINM;bat A le Crossroad - 270, rue Pierre Duhem - CS 20333;13799;AIX-EN-PROVENCE;FRANCE;;06 72 88 87 89;michel.esteve@gdfsuez.com
+Mr;FAJOLLES;Yann;Directeur Délégué Ouest;ENVIRONNEMENT;SAFEGE;SAFEGE;1, rue du Général de Gaulle CS 90293 ;35761;SAINT GREGOIRE;FRANCE ;;06 48 20 70 06;yann.fajolles@safege.fr
+Mr;FAURE;Olivier;Directeur;ENVIRONNEMENT;LYONNAISE DES EAUX;LYONNAISE DES EAUX;"64, Boulevard Pierre Premier
+CS11317";33082;BORDEAUX CEDEX;FRANCE;05 57 57 27 51;06 80 67 33 84;olivier.faure@lyonnaise-des-eaux.fr
+Mr;FECAMP;David;Chef d'agence;SUEZ ENVIRONNEMENT;LYONNAISE DES EAUX;Lyonnaise des eaux;1 rue Jean BERTIN ZAC Porte Sud;28500;VERNOUILLET;FRANCE;;06 75 24 43 00;david.fecamp@lyonnaise-des-eaux.fr
+Mr;FERRIER;Sylvain;Dir Commercial Travaux Rhône-Alpes;ENERGIE SERVICES;COFELY AXIMA;COFELY AXIMA;30 rue de la Poudrette;69100; VILLEURBANNE;FRANCE;;06 71 12 78 29;christian.ferrier@cofelyaxima-gdfsuez.com
+Mr;FERRO;Eugenio;CEO;ENERGIE SERVICES;TRACTEBEL ENGINEERING;Tractebel Engineering S.p.A.;Via Caldera 21 ;20153;MILAN;ITALY;;;eugenio.ferro@gdfsuez.com
+Mr;FIEVEZ;Christophe  ;Directeur de marché;ENERGIE SERVICES;COFELY SERVICES;COFELY SERVICES;1 place des degrés;92059;PARIS LA DÉFENSE CEDEX;FRANCE;;06 98 13 28 77;christophe.fievez@cofely-gdfsuez.com
+Mr;FRANCHINI;Patrick;Directeur Marchés Industrie Metallurgie & Matériaux ;CENTRE;CORPORATE;GDF SUEZ;1 rue d'Astorg;75008;PARIS ;FRANCE;01 49 24 71 71;06 47 89 02 88;patrick.franchini@gdfsuez.com
+Mr;FRANCOIS-EUGENE;Arnaud;Ingénieur commercial;ENERGIE SERVICES;COFELY SERVICES;Cofely Services;2 Bis rue d'Alembert - BP 281;76140; LE PETIT QUEVILLY;FRANCE;02.35.18.32.60;;arnaud.francois-eugene@cofely-gdfsuez.com
+Mr;FRAYSSE;Marc;Directeur des Relations Institutionnelles;ENERGIE SERVICES;COFELY SERVICES;Cofely Services Gdf Suez;1, place des Degrés;92059;PARIS LA DÉFENSE CEDEX;FRANCE ;01 41 20 14 85;06 84 76 36 12;marc.fraysse@cofely-gdfsuez.com
+Mr;FREBILLOT;Stéphane;Directeur d'Agence Auvergne;ENERGIE SERVICES;COFELY SERVICES;Cofely Services;16, rue Pierre Boulanger;63017;CLERMONT FERRAND CEDEX 02;FRANCE ;04 73 34 64 82;06 83 81 19 15;stephane.frebillot@cofely-gdfsuez.com
+Mr;FREMION;Guillaume ;Directeur commercial;ENERGIE SERVICES;COFELY SERVICES;SEC;1 bd Ney;75018;PARIS;FRANCE;;06 17 19 67 97;guillaume.fremion@sec-sas.fr
+Mr;FRESIERS;Dominique;Directeur de Marché;CENTRE;CORPORATE;GDF SUEZ;2 Place Samuel de Champlain;92930;PARIS LA DEFENSE CEDEX;FRANCE;01 56 65 55 58;06 77 04 56 19;dominique.fresiers@gdfsuez.com
+Mme;FRESSINET;Clotilde;Chef de secteur;SUEZ ENVIRONNEMENT;DEGREMONT;DEGREMONT France ASSAINISSEMENT;c/o OIS - 20, avenue Didier Daurat;31400;TOULOUSE;FRANCE;;06 74 61 81 35;clotilde.fressinet@degremont.com
+Mme;GAUTIER;Capucine;Directeur des marchés publics;ENVIRONNEMENT;SITA;SITA France;TOUR CB21 16 PLACE DE L'IRIS;92040;LA DEFENSE;FRANCE;01 58 81 30 95;;capucine.gautier@sita.fr
+Mr;GAUTRONNEAU;François;Délégué Grands Comptes;ENVIRONNEMENT;DEGREMONT;Degrémont; 183, avenue du 18 juin 1940;92508;RUEIL MALMAISON CEDEX;FRANCE;01 46 25 39 53;06 07 34 91 70;francois.gautronneau@degremont.com
+Mr;Gérard;Jean-François;Directeur général;ENERGIE EUROPE;Degrémont;Degrémont Benelux;Pl des Hauts-Sarts, rue de Hermée, 225;4040;HERSTAL;BELGIUM;+32 04 240 50 22;+32 478 53 19 52;jean.francois.gerard@ondeo-is.com
+Mr;GERONIMI;Jean-Baptiste;Directeur commercial;ENERGIE SERVICES;COFELY SERVICES;Cofely Services;23 avenue Jules Rimet;93210;SAINT-DENIS;FRANCE;;06 08 67 67 52;jean-baptiste.geronimi@cofely-gdfsuez.com
+Mr;GOIFFON;Arnaud;Directeur des Opérations;ENVIRONNEMENT;LYONNAISE DES EAUX;Lyonnaise des Eaux;13, quater avenue de Coucy;2200;SOISSONS;FRANCE;03 23 93 31 16;06 80 35 64 50;arnaud.goiffon@lyonnaise-des-eaux.fr
+Mr;GOLDBERG;Alexis;Responsable des Ventes et de la Relation Clients;ENERGIE SERVICES;COFELY SERVICES;Cofely Réseaux;80 avenue du Général de Gaulle;92031;PARIS LA DEFENSE;FRANCE;01 40 90 54 63;06 07 87 15 79;alexis.goldberg@cofely-gdfsuez.com
+Mr;GOLDBERG;Alexis;Responsable des Ventes et de la Relation Clients;ENERGIE SERVICES;COFELY SERVICES;Cofely Réseaux;80 avenue du Général de Gaulle;92031;PARIS LA DEFENSE;FRANCE ;01 40 90 54 63;06 07 87 15 79;alexis.goldberg@cofely-gdfsuez.com
+Mr;GRAU;Guillem;Directeur des projets;ENVIRONNEMENT ;DEGREMONT;Degrémont;183, avenue du 18 juin 1940;92508;RUEIL MALMAISON CEDEX;FRANCE;01 46 25 66 63;06 70 11 44 86;guillem.grau@degremont.com
+Mr;GRESLE;Olivier;Directeur ;ENERGIE EUROPE;CORPORATE;Département Innovation Projets Services;23 rue Philibert Delorme;75840;PARIS CEDEX 17;FRANCE;01 58 57 41 61;06 84 95 45 12;olivier.gresle@gdfsuez.com
+Mme;GUILLIEN;Sabine;Déléguée Régionale Centre ;CENTRE;CORPORATE;GDF SUEZ;14, rue Albert 1er;45038;ORLÉANS;FRANCE;02 38 83 45 74;;sabine.guillien@gdfsuez.com
+Mr;GUILLOT;Michel;Directeur Technique;ENVIRONNEMENT;LYONNAISE DES EAUX;EAU ET FORCE;300 rue Paul Vaillant Couturier;92000;NANTERRE;FRANCE;01 46 97 52 03;06 78 09 66 49;michel.guillot@lyonnaise-des-eaux.fr
+Mr;GUYARD;Pierre;Directeur des marchés Collectivités et Habitat;ENERGIE SERVICES;COFELY SERVICES;Cofely Services;1, place des Degrés;92059;PARIS LA DÉFENSE CEDEX;FRANCE;01 41 20 10 83;06 72 88 65 89;pierre.guyard@cofely-gdfsuez.com
+Mr;GUYOT;Jean Michel;Dir d'agence;ENVIRONNEMENT;SITA;Sita Nord;Siège social - BP 70001;59316;VALENCIENNES CEDEX 9 ;FRANCE;;06 08 80 19 74;jean-michel.guyot@sita.fr
+Mr;HINCELIN;Luc;Directeur Commercial;ENVIRONNEMENT;LYONNAISE DES EAUX;Entreprise régionale Normandie Picardie Champagne;8, bd Gambetta;02200;SOISSONS;FRANCE;03 23 93 31 38;06 75 24 69 32;luc.hincelin@lyonnaise-des-eaux.fr
+Mr;HUON;Baudouin;Directeur Délégué;ENERGIE SERVICES ;COFELY INEO;Ineo Systrans;Ave de Gonflans - 2 allée Edouard Branly;78260;ACHERES;FRANCE;01 39 22 57 00;;baudouin.huon@cofelyineo-gdfsuez.com
+Mr;IMBERT ;Didier;Dir Relations Institutionnelles;ENVIRONNEMENT;SITA;SITA;TOUR CB21 - 16 Place de l'Iris ;92040;NANTERRE CEDEX;FRANCE;;06 08 90 69 88;didier.imbert@sita.fr
+Mr;ISSAAD;Malek;Directeur d'agence;ENERGIE SERVICES;COFELY AXIMA;Cofeli Axima;40 Rue du Moulin des Bruyères;92405;COURBEVOIE Cedex;FRANCE;;06 60 35 23 92;malek.issaad@cofelyaxima-gdfsuez.com
+Mr;JACOLIN;Etienne;Directeur Général Délégué;ENERGIE SERVICES;CORPORATE;GDF SUEZ ENERGIE SERVICES;Tour Voltaire, 1 place des Degrés ;92059;PARIS LA DÉFENSE;FRANCE ;01 41 20 10 04;06 77 68 61 99;etienne.jacolin@gdfsuez.com
+Mr;JOBIN ;Didier;RCA;ENERGIE SERVICES;COFELY SERVICES;COFELY Services ;4 rue de l'eclipse;95000;CERGY-SAINT CHRISTOPHE;FRANCE;;06 18 69 86 26;didier.jobin@cofely-gdfsuez.com
+Mme;JOURNET;Capucine;Chef d'agence;ENVIRONNEMENT;LYONNAISE DES EAUX;Lyonnaise des Eaux;52 Bd de la Vrille;36000;CHATEAUROUX;FRANCE;;06 32 20 50 74;capucine.journet@lyonnaise-des-eaux.fr
+Mme;JUNILLON;Laurence;Directrice Juridique;ENERGIE SERVICES;COFELY SERVICES;COFELY Réseaux;Wilson 2 , 80 avenue du Général de Gaulle;92031;PARIS LA DEFENSE CEDEX;FRANCE ;01 40 90 55 24;06 30 28 21 42;laurence.junillon@cofely-gdfsuez.com
+Mr;LABAQUERE;Hervé ;Directeur du Développement;ENVIRONNEMENT;LYONNAISE DES EAUX;Eau et Force;300, rue Paul Vaillant-Couturier;92000;NANTERRE;FRANCE;01 46 97 52 01;06 07 61 45 98;herve.labaquere@lyonnaise-des-eaux.fr
+Mr;LACAZE;Philippe;Directeur Délégué Délégation CFU;ENERGIE SERVICES;COFELY SERVICES;Cofely Services;59, rue Denuziere - CS 50020;69285;LYON CEDEX 02;FRANCE;04 72 60 64 88;06 87 59 91 91;philippe.lacaze@cofely-gdfsuez.com
+Mr;LAHAYE;Thierry;Directeur Régional Ile de France;ENERGIE SERVICES ;COFELY SERVICES;COFELY Services;1 Place des Degrés;92800;PUTEAUX;FRANCE;01 41 20 11 76;06 86 56 83 66;thierry.lahaye@cofely-gdfsuez.com
+Mr;LAMBERT;Jean-François;Directeur de Centre;ENERGIE SERVICES;COFELY SERVICES;COFELY Réseaux;16 Bd de la République;71324;CHALON SUR SAONE;FRANCE ;03 85 94 04 05;06 75 25 05 92;jeanfrancois.lambert@cofely-gdfsuez.com
+Mr;LAMENDOUR;Eric;Directeur de marché;ENERGIE SERVICES;COFELY SERVICES;Cofely Services;Tour Voltaire - 1 place des Degrés;92059;PARIS LA DÉFENSE;FRANCE;01 41 20 11 59;06 14 46 79 00;eric.lamendour@cofely-gdfsuez.com
+Mme;LANCELOT;Catherine;Directrice Commerciale;ENERGIE EUROPE;Marketing & Sales Entreprises et Collectivités;GDF SUEZ E&C;"2, Place Samuel de Champlain
+Faubourg de l'Arche";92930;PARIS LA DEFENSE CEDEX;FRANCE;01 44 22 93 84;06 20 66 80 42;catherine.lancelot@gdfsuez.com
+Mr;LANDAIS;Thierry;Directeur de Projets;ENERGIE SERVICES;COFELY SERVICES;Cofely Services;2 Rue de la Touche Lambert CS21754;35517;CESSON SEVIGNE;FRANCE;02 99 27 65 74;06 87 80 44 11;thierry.landais@cofely-gdfsuez.com
+Mr;LE CRENN;Nicolas;Commercial;INFRASTRUCTURE;GrDF;DCT SUD OUEST;16 rue Sébastopol;31685;TOULOUSE CEDEX 6;FRANCE;;;nicolas.le-crenn@grdf.fr
+Mr;LE ROY;Bernard;Directeur Délégué;ENERGIE SERVICES;COFELY INEO;INEO RESEAUX NORD OUEST;5, avenue Henri Adnot;60201;COMPIEGNE CEDEX;FRANCE;03 44 90 98 91;06 09 69 07 16;bernard.le-roy@cofelyineo-gdfsuez.com
+Mr;LEFEVRE;Pascal;Directeur delegue adjoint develop;ENVIRONNEMENT;SAFEGE;SAFEGE;1 rue du General de Gaule CS90293;35761;ST GREGOIRE CEDEX;FRANCE ;;06 89 80 02 94;pascal.lefevre@safege.fr
+Mr;LESUR;Sébastien;Directeur délégué Nord Est;ENVIRONNEMENT;SAFEGE;SAFEGE;Parc de l'Ile - 15/27 rue du Port;92022;NANTERRE;FRANCE ;01 46 14 72 27;;sebastien.lesur@safege.fr
+Mr;LOMBARD;Pierre ;Responsable Développement;ENERGIE SERVICES;COFELY SERVICES;COFELY Services;1 place des Degrés;92059;PARIS LA DEFENSE;FRANCE;;06 83 07 37 75;pierre.lombard@cofely-gdfsuez.com
+Mr;LOUBEYRE;Rémi;Directeur Ile-de-France Grand Paris;ENVIRONNEMENT;LYONNAISE DES EAUX;Lyonnaise des Eaux;16, place de l'Iris;92040;PARIS LA DEFENSE CEDEX;FRANCE;01 58 81 46 84;06 74 44 58 94;remi.loubeyre@lyonnaise-des-eaux.fr
+Mr;LOUSBERG;Thierry;Key account Manager;ENERGIE EUROPE ;PRODUCTION GLOBAL ENERGY ;Electrabel;Boulevard Simon Bolivar, 34 ;B- 1000  ;BRUXELLES;BELGIUM;;0032 475 90 90 06 ;thierry.lousberg@gdfsuez-globalenergy.be
+Mr;LUBY;Patrick;Directeur Délégué Adjoint;ENERGIE SERVICES;COFELY INEO;INEO AQUITAINE PAYS BASQUE;2, rue du Moulin de Brindos;64600;ANGLET;FRANCE ;05 59 03 92 50;06 84 54 07 35;patrick.luby@cofelyineo-gdfsuez.com
+Mr;LUSSAGNET;Pierre ;Directeur du Développement Commercial;ENVIRONNEMENT;COFELY ENDEL;COFELY ENDEL;Tour Voltaire - 1 Place des Degrés;92059;PARIS LA DEFENSE CEDEX;FRANCE;01 57 60 90 13;06 82 57 65 56;pierre.lussagnet@cofelyendel-gdfsuez.com
+Mr;MADIEC;Hervé;Directeur ER Provence;ENVIRONNEMENT;LYONNAISE DES EAUX;LYONNAISE DES EAUX;"270, Rue Pierre Duhem
+BP 20008";13791;AIX EN PROVENCE;FRANCE;;06 88 21 66 70;herve.madiec@lyonnaise-des-eaux.fr
+Mr;MAILLARD;Philippe;Directeur Général  ;ENVIRONNEMENT;LYONNAISE DES EAUX;LYONNAISE DES EAUX;Tour CB21 - 16 Place de l'Iris ;92040;PARIS LA DEFENSE CEDEX;FRANCE;01 58 81 45 27;06 72 09 61 22;philippe.maillard@lyonnaise-des-eaux.fr
+Mme;MANTEL;Catherine;DIRECTEUR PROJETS RUSSIE;CENTRE;CORPORATE;GDF SUEZ Direction Internationale;1 - 2 place Samuel de Champlain - Faubourg de l'Arche;92930;PARIS LA DEFENSE CEDEX;FRANCE ;01 44 22 95 37;06 64 39 97 23;catherine.mantel@gdfsuez.com
+Mr;MARCUCCI;Jean-Louis;Directeur  ;ENERGIE SERVICES;COFELY INEO;INEO DEFENSE;Route militaire - Zone aéronautique Louis Breguet;78140;VELIZY-VILLACOUBLAY;FRANCE;01 39 26 92 02;06 32 64 33 63;jean-louis.marcucci@cofelyineo-gdfsuez.com
+Mme;MARTIN;Thérèse;Directeur commercial;ENERGIE SERVICES / COFELY SERVICES;COFELY SERVICES;Cofely Services;59, rue de Denuziere;69285;LYON CEDEX 02;FRANCE;04 72 60 64 93;06 08 41 90 99;therese.martin@cofely-gdfsuez.com
+Mr;MARTIN;Benoit;Directeur de l'Agence COFELY Services Centre Nord;ENERGIE SERVICES;COFELY SERVICES;Cofely Services;7 rue Jean Baptiste Corot;45074;ORLEANS CEDEX 2;FRANCE;02 38 41 77 66;06 08 48 83 67;benoit.martin@cofely-gdfsuez.com
+Mr;MARTIN;Frédéric;Directeur Général Adjoint en charge du Pôle Réseaux;ENERGIE & SERVICES;CORPORATE;GDF SUEZ;Wilson 2 , 80 avenue du Général de Gaulle;92031;PARIS LA DEFENSE CEDEX;FRANCE;;06 42 27 67 42;frederic.martin@gdfsuez.com
+Mr;MASSE;Christian;Responsable Commercial;ENVIRONNEMENT;DEGREMONT;DEGREMONT;270 rue Pierre Duhem;13799;AIX EN PROVENCE;FRANCE;;06 89 76 96 59;christian.masse@degremont.com
+Mr;MAUGÉ;Christian  ;Délegué Developpement Local;ENERGIE EUROPE;CORPORATE;GDF SUEZ Energie France;6, rue de la Liberté;93500;PANTIN;FRANCE ;01 75 34 36 11;06 64 72 08 42;christian.mauge@gdfsuez.com
+Mr ;MESQUIDA;Pascal;Directeur d'Agence;ENERGIE SERVICES;COFELY INEO;Ineo Réseaux Sud Est ;5 Traverse de la Maubuissonne;04200;SISTERON;FRANCE ;;06 30 02 88 49 ;pascal.mesquida@cofelyineo-gdfsuez.com
+Mme;MICHEL;Angélique;Directeur Général Adjoint;ENERGIE SERVICES;GNVERT;GNVERT;Parc d'Activités des Maisons Rouges -  31-33 Rue des Clotais;94360;BRY SUR MARNE;FRANCE;01 55 98 56 41;06 07 76 33 46;angelique.michel@gdfsuez.com
+Mr;MONEGER;Jean-Pierre;Directeur Général Cofely Services;ENERGIE SERVICES;COFELY SERVICES;COFELY SERVICES;Tour Voltaire, 1 place des degrés;92059;PUTEAUX LA DEFENSE CEDEX;FRANCE;01 41 20 14 48;06 08 54 00 94;jean-pierre.moneger@cofely-gdfsuez.com
+Mr;MONNIER;Bruno;Président Directeur Général;CENTRE;CORPORATE;GDF SUEZ Culturespaces;153, boulevard Haussmann;75008;PARIS;FRANCE ;01 53 77 66 02;06 07 34 01 76;monnier@culturespaces.com
+Mme;MOQUIN;Blandine;Déléguée Régionale Champagne-Ardenne;CENTRE;CORPORATE;GDF SUEZ Commerciale & Marketing Groupe;14, rue Edouard Mignot;51066;REIMS CEDEX;FRANCE ;03 26 36 98 40;06 88 08 07 14;blandine.moquin@gdfsuez.com
+Mr;MORTIER;Claude;Directeur SCDC;ENERGIE SERVICES;COFELY SERVICES;COFELY SERVICES;193 rue du pré Demaison ZI Blssy;73000;CHAMBERY;FRANCE;04 79 69 92 62;06 73 84 78 58;claude.mortier@cofely-gdfsuez.com
+Mr;MUÑOZ;José;Délégué au Grand Paris et aux Affaires Territoriales;ENVIRONNEMENT;CORPORATE;SUEZ ENVIRONNEMENT;16, place de l'Iris;92040;LA DEFENSE CEDEX;FRANCE;01 58 81 29 03;06 88 61 50 12;jose.munoz@suez-env.com
+Mr;NEBOUT;Bruno;Directeur Général Adjoint;ENERGIE SERVICES;COFELY INEO;Cofely Ineo;Tour Voltaire, 1 place des Degrés ;92059;PARIS LA DEFENSE;FRANCE ;01 57 60 42 26;06 83 05 81 87;bruno.nebout@cofelyineo-gdfsuez.com
+Mme;NICOLI;Nelly;Directeur Commercial IDF ES;ENERGIE SERVICES;COFELY SERVICES;Cofely Services;1, place des Dégrés;92059;PUTEAUX LA DEFENSE CEDEX;FRANCE;01 41 20 10 58;06 68 95 23 49;nelly.nicoli@cofely-gdfsuez.com
+Mr;NORMAND;Guillaume;Directeur délégué Rhône-Alpes Bourgogne;CENTRE;CORPORATE;GDF SUEZ Direction du Développement France;59 rue Denuzière;69285;LYON ;FRANCE ;04 72 74 34 33;06 79 83 98 41;guillaume.normand@gdfsuez.com
+Mr;NOUZAREDE;Lionel;Responsable études et projets;ENERGIE SERVICES;COFELY INEO;INEO DIGITAL;15 impasse Dumur;92110;CLICHY;FRANCE ;;;lionel.nouzarede@cofelyineo-gdfsuez.com
+Mr;ODILLE;Jean-Luc;Directeur Commercial;ENERGIE SERVICES ;COFELY INEO;INEO Réseaux Est;76, avenue Raymond Poincaré;21000;DIJON;FRANCE;03 80 73 74 13;06 86 27 58 22;jean-luc.odille@cofelyineo-gdfsuez.com
+Mr;ODIN;Bruno;Délégué Régional Poitou-Charentes;CENTRE;CORPORATE;GDF SUEZ;4 rue du Pré Médard;86280;SAINT BENOÎT;FRANCE;05 49 38 45 90;06 10 45 05 06;bruno.odin@gdfsuez.com
+Mr;OHANA;Michaël;Directeur Délégué;ENERGIE SERVICES;COFELY INEO;INEO DIGITAL;15 Impasse Dumur;92110;CLICHY;FRANCE;01 49 68 48 55 ;;michael.ohana@cofelyineo-gdfsuez.com
+Mme;ORSINI;Santa;Délégué régional;CENTRE;CORPORATE;GDF SUEZ DCINM;11, rue Arthur III - BP 76306;44263;NANTES CEDEX 02;FRANCE;;06 27 38 18 41;santa.orsini@gdfsuez.com
+Mme;PAGAND;Marie-José;DA;ENVIRONNEMENT;SITA;SITA;53, chemin des Essarts;25000;BESANCON;FRANCE;03 81 47 69 69;06 80 71 15 76;marie_jose@sita.fr
+Mr;PAGANELLI;Guy;Responsable;ENERGIE SERVICES;COFELY INEO;COFELY INEO - INEO INFRACOM;24, blv de l'Europe - BP 62;13742;VITROLLES;FRANCE;04 42 77 60 35;06 03 90 52 15;guy.paganelli@cofelyineo-gdfsuez.com
+Mr;PARLANT;Olivier;Directeur Commercial;ENVIRONNEMENT;LYONNAISE DES EAUX;EAU ET FORCE;300 rue Paul Vaillant Couturier;92000;NANTERRE;FRANCE;01 46 97 52 89;06 82 80 07 96;olivier.parlant@lyonnaise-des-eaux.fr
+Mr;PELLEGRINO;Alex;Directeur Commercial;ENERGIE SERVICES;COFELY INEO;COFELY INEO PIGNATTA SAS;Chemin de Provence;6250;MOUGINS;FRANCE;04 92 18 74 55;06 22 61 68 83;alex.pellegrino@pignatta.fr
+Mr;PERRAUD;Stéphane;Directeur Général Adjoint;ENVIRONNEMENT;LYONNAISE DES EAUX;Lyonnaise des Eaux;Tour CB 21 - 16, place de l'Iris;92040;PARIS LA DEFENSE;FRANCE ;01 58 81 47 21;06 87 83 07 71;stephane.perraud@lyonnaise-des-eaux.fr
+Mr;PETIT;Raphaël;Directeur délégué;ENVIRONNEMENT;SAFEGE;Safege;2A, avenue de Berlincan;33610;ST MEDARD EN JALLES;FRANCE;05 56 05 62 60;06 07 85 23 77;raphael.petit@safege.fr
+Mr;PETITDEMANGE;Rodolphe;Chef d'agence;ENVIRONNEMENT;LYONNAISE DES EAUX;LYONNAISE DES EAUX;26 rue de la Chaude Tuile;45000;ORLEANS;FRANCE;02 38 61 82 95;06 73 28 63 45;rodolphe.petitdemange@lyonnaise-des-eaux.fr
+Mr;PETITEAU;Damien;Directeur Centre OUEST;ENERGIE SERVICES;COFELY SERVICES;COFELY Réseaux;8 Avenue Henri FREVILLE;35200;RENNES CEDEX;FRANCE ;;06 21 61 88 73;damien.petiteau@cofely-gdfsuez.com
+Mme;PEYRONNET;Agnès;Directeur Degrémont Construction Ile de France;ENVIRONNEMENT ;DEGREMONT;DEGREMONT France;183, avenue du 18 Juin 1940;92500;RUEIL MALMAISON;FRANCE;01 46 25 65 80;06 07 66 84 57;AGNES.PEYRONNET@DEGREMONT.COM
+Mr;PINA;Serge;Directeur régional;CENTRE;CORPORATE; GDF SUEZ DCINM;11, avenue Mercure - CS 33367 - Quint Fonsegrives;31133;BALMA;FRANCE;05 62 71 88 93;06 70 74 28 89;serge.pina@gdfsuez.com
+Mr;PISITIEN;Eric;Directeur des Activités Opérationnelles;ENERGIE SERVICES;COFELY;COFELY GDF SUEZ;102, blv Héloïse;95106;ARGENTEUIL;FRANCE;01 34 34 54 61;06 73 68 69 22;eric.pistien@cofely-gdfsuez.com
+Mr ;PITEK;Laurent;Dir commercial;ENERGIE SERVICES;COFELY INEO;INEO DIGITAL;Route Militaire;78140;VELIZY VILLACOUBLAY ;FRANCE ;;06 16 28 93 10;laurent.pitek@cofelyineo-gdfsuez.com
+Mr;POILLOT;Charles-Henri;Dir Projet;ENVIRONNEMENT;LYONNAISE DES EAUX;Lyonnaise des Eaux;Tour CB21 - 16, Place de l'Iris;92040;PARIS LA DEFENSE;FRANCE ;;06 87 60 40 92;CHARLES-HENRI.POILLOT@LYONNAISE-DES-EAUX.FR
+Mr;POMARES;Pierre;Directeur d'agence Sud Est;ENERGIE EUROPE;Marketing & Sales Entreprises et Collectivités;GDF SUEZ E & C;Place du champ de Mars;83055;TOULON CEDEX;FRANCE;04 94 01 61 52;06 07 25 22 26;pierre.pomares@gdfsuez.com
+Mr;PRATE;Gauthier;Directeur Général Délégué;ENVIRONNEMENT;SEVESC;SEVESC;5-7 rue Pierre Lescot ;78000;VERSAILLES;FRANCE;01 39 24 39 11;06 32 64 47 01;gauthier.prate@lyonnaise-des-eaux.fr
+Mr;PRESA;Hervé;Directeur d'Agence Atlantique Anjou;ENERGIE SERVICES;COFELY SERVICES;Cofely Services;28, rue Jan Palach;44220;COUËRON;FRANCE;02.40.16.94.51;06 32 54 24 86;herve.presa@cofely-gdfsuez.com
+Mr;PRIGENT;Gilles;Délégué aux Relations avec les Collectivités;CENTRE;CORPORATE;GDF SUEZ Relations Institutionnelles;1 Place Samuel de Champlain;92930;PARIS LA DEFENSE;FRANCE;01 56 65 56 19;06 16 26 28 97;gilles.prigent@gdfsuez.com
+Mr;QUARANTA;Serge;Directeur Pôle GPSI;ENERGIE SERVICES;COFELY ENDEL;ENDEL;7 rue des Claires;50460;QUERQUEVILLE;FRANCE;02 33 08 81 09;06 08 46 81 93;serge.quaranta@cofelyendel-gdfsuez.com
+Mr;QUERO;Frédéric;Resp. comptes nationaux;ENVIRONNEMENT;SITA;SITA France;Tour CB 21 - 16 place de L'Iris;92040;PARIS LA DEFENSE;FRANCE;;06 88 62 88 51;frederic.quero@sita.fr
+Mr;RAMOS;Sébastien;Délégué Régional Bretagne;CENTRE;CORPORATE;GDF SUEZ;1 rue du Général de Gaulle;35760;SAINT GRÉGOIRE ;FRANCE;02 99 23 12 12;06 72 28 76 59;sebastien.ramos@gdfsuez.com
+Mr;RASSAT;Philippe;DGA;ENERGIE SERVICES;COFELY INEO;COFELY INEO;1 Place des Degrés Tour Voltaire;92059;PARIS LA DEFENSE;FRANCE;;06 11 11 18 55;philippe.rassat@cofelyineo-gdfsuez.com
+Mr;REBILLARD;Christian;Responsable Développement;ENERGIE SERVICES;COFELY SERVICES;Cofely Services;59, rue Denuziere;69285;LYON CEDEX 02;FRANCE;04 72 60 64 52;06 80 58 86 16;christian.rebillard@cofely-gdfsuez.com
+Mr;RICHARD;Jerome;Directeur Commercial;ENVIRONNEMENT;SITA;SITA FD;Tour CB21 - 16 place de l'Iris;92040;PARIS LA DEFENSE;FRANCE;01 58 81 30 53;06 30 55 63 22;jerome.richard@sita.fr
+Mr;RIDENT;Nicolas;Responsable commercial;ENERGIE SERVICES ;COFELY SERVICES;Cofely Services;10, rue de la Longeraie;35768;SAINT GREGOIRE CEDEX;FRANCE;02 99 87 48 10;06 85 86 04 64;nicolas.rident@cofely-gdfsuez.com
+Mr;RIGOLLE;Damien;Directeur Commercial, Marketing;ENVIRONNEMENT;TERRALYS;Terralys;38, rue Jean Jaurès;78440;GARGENVILLE;FRANCE ;01 30 98 11 28;06 89 62 30 78;damien.rigolle@terralys.fr
+Mme;RODRIGUEZ;Béatrice;directrice générale Altiservice;ENERGIE EUROPE ;COFELY SERVICES;Altiservice;18 rue des Cosmonautes;31400;TOULOUSE;FRANCE;05 61 34 30 05;06 38 79 68 24;beatrice.rodriguez@altiservice.com
+Mr;ROLLAND;Yann;Directeur Général Adjoint;ENVIRONNEMENT;LYONNAISE DES EAUX;LYONNAISE DES EAUX;Tour CB 21, 16 Place de l'Iris;92040;PARIS LA DEFENSE CEDEX;FRANCE ;;;yann.rolland@lyonnaise-des-eaux.fr
+Mr;ROUX;Alain;Directeur de Marché;CENTRE;CORPORATE;GDF SUEZ;2 place samuel de champlain;92930;PARIS LA DEFENSE;FRANCE;;+324 74 89 16 44;alain.roux@gdfsuez.com
+Mr;SAID;Franck;Directeur Commercial;ENVIRONNEMENT;DEGREMONT;DEGREMONT France;183 avenue du 18 Juin 1940;92500;RUEIL MALMAISON;FRANCE;01 46 25 60 91;06 74 28 90 47;franck.said@degremont.com
+Mme;SAJUS;Pascale;Directeur Développement Commercial;ENVIRONNEMENT;DEGREMONT;DEGREMONT France;183 avenue du 18 Juin 1940 ;92508;RUEIL MALMAISON ;FRANCE;;06 85 50 01 68;pascale.sajus@degremont.com
+Mr;SANCHEZ;Jean-Michel;Directeur Général Délégué;ENERGIE SERVICES;COFELY INEO;Cofely Ineo;1, Place des Degrés;92059;PARIS LA DEFENSE CEDEX;FRANCE ;01 57 60 44 45;06 60 42 53 36;jean-michel.sanchez@cofelyineo-gdfsuez.com
+Mr;SARRAZIN;Eric;DIRECTEUR DELEGUE SUD-OUEST;CENTRE;CORPORATE;GDF SUEZ;31, avenue Gustave Eiffel;33615;PESSAC;FRANCE;05 57 26 51 71;06 80 64 30 88;eric.sarrazin@gdfsuez.com
+Mme;SASSOLAT;Coralie;Directeur d'Agence;ENVIRONNEMENT;SITA;SITA;213 rue Denis Papin;73290;LA MOTTE SERVOLES;FRANCE ;;06 44 11 78 67;coralie.sassolat@sita.fr
+Mr;SCANU;Antoine;Directeur Régional Nord;ENERGIE EUROPE;Marketing & Sales CHP;SAVELYS;Bd Michel Strogoff - CS60512 Boves;80332;LONGUEAU;FRANCE ;03 22 22 52 30;;antoine.scanu@savelys.fr
+Mr;SCHLIENGER;Marc;Directeur Commercial Adjoint;ENERGIE EUROPE;Marketing & Sales Entreprises et Collectivités;GDF SUEZ E&C;"Tour GDF SUEZ T2
+2, Place Samuel de Champlain
+Faubourg de l'Arche";92930;PARIS LA DEFENSE CEDEX;FRANCE;01 44 22 93 96;06 65 49 98 37;marc.schlienger@gdfsuez.com
+Mr;SCHOENTGEN;Raphaël;Directeur de la Recherche;CENTRE;CORPORATE;GDF SUEZ;1, Place Samuel de Champlain;92930;PARIS LA DEFENSE;FRANCE;01 44 22 50 12;06 08 04 71 34;raphael.schoentgen@gdfsuez.com
+Mr;SEBAOUN;Eric;Directeur de Marché;CENTRE;CORPORATE;GDF SUEZ;1 rue d'Astorg;75008;PARIS;FRANCE;01 49 24 71 76;06 74 45 96 21;eric.sebaoun@gdfsuez.com
+Mr;SEMO;Igor;Directeur des Relations Institutionnelles;ENVIRONNEMENT;LYONNAISE DES EAUX;Lyonnaise des Eaux;Tour CB 21 - 16 place de l'Iris;92040;PARIS LA DEFENSE;FRANCE;01 58 81 43 27;;igor.semo@lyonnaise-des-eaux.fr
+Mr;SERRURIE;Raphaël;directeur d'Agence Nord Pas de Calais ;ENERGIE SERVICES;COFELY SERVICES;Cofely Services;10 avenue de l'Horizon;59651;VILLENEUVE D'ASCQ CEDEX;FRANCE;03 28 53 23 57;06 81 89 75 60;raphael.serrurie@cofely-gdfsuez.com
+Mr;SIMONCINI;Gilles;Directeur délégué Grand Est;CENTRE;CORPORATE;GDF SUEZ ;3 rue de Berne;67300;SCHILTIGHEIM;FRANCE;03 90 23 69 23;06 07 81 28 76;gilles.simoncini@gdfsuez.com
+Mr;SIMPSON;Nicholas;Sales & Mkting Director;ENVIRONNEMENT;ONDEO IS;Ondeo IS UK;30 Bluestar Gardens, Hedge End;SO30 2UZ;SOUTHAMPTON;UNITED KINGDOM;;00447973454376;Nicholas.SIMPSON@ondeo-is.com
+Mr;SORET;David;Directeur Délégué;ENVIRONNEMENT;SAFEGE;SAFEGE;26, rue de la Gare;69009;LYON;FRANCE;04 72 19 89 70;06 07 78 98 73;david.soret@safege.fr
+Mr;STEINBAUER;Bastien;Responsable Comptes nationaux;ENVIRONNEMENT;SITA;SITA France;Tour CB 21 - 16, place de l'Iris;92040;PARIS - LA DEFENSE - CEDEX;FRANCE;;;bastien.steinbauer@sita.fr
+Mr;SUBLARD;Alexandre;Directeur General Delegue;ENVIRONNEMENT;SITA;SITA CENTRE EST;19 RUE PIERRE GILLES DE GENNES;69007;LYON;FRANCE ;;06 07 75 51 33;alexandre.sublard@sita.fr
+Mr;TAILLARDAS;Joël;Directeur d'agence;ENERGIE SERVICES;COFELY SERVICES;Cofely Services;45 AVENUE VICTOR HUGO  ;93300;AUBERVILLIERS;FRANCE;01 48 11 43 32;06 75 42 70 69;joel.taillardas@cofely-gdfsuez.com
+Mr ;TAILLEBEAU;Francis;Responsable commercial Industrie, entreprise Régionale Grand-Ouest;ENVIRONNEMEMT;LYONNAISE DES EAUX;LYONNAISE DES EAUX France;Tour CB 21 - 16 place de L'Iris;92040;PARIS LA DÉFENSE ;FRANCE;;06 89 08 02 26;francis.taillebeau@lyonnaise-des-eaux.fr
+Mr;TERNEAUD;Olivier;;ENERGIE SERVICES;COFELY SERVICES;COFELY Réseaux, Agence IDF Sud;;;;;;;
+Mr;TEROUANNE;Damien;Directeur Général;ENERGIE SERVICES;COFELY SERVICES;COFELY RESEAUX ;Wilson 2 - CS 90021;92031;PARIS LA DEFENSE;FRANCE;01 40 90 54 59;06 65 39 19 36;damien.terouanne@cofely-gdfsuez.com
+Mr;TERUEL;Florent;Directeur du Développement Commercial;ENERGIE & SERVICES;COFELY SERVICES;Cofely Réseaux;Wilson 2 , 80 avenue du Général de Gaulle;92031;PARIS LA DEFENSE CEDEX;FRANCE;;06 89 96 38 79;florent.teruel@cofely-gdfsuez.com
+Mr;TESSIER;Denis;Directeur Délégué régional;CENTRE;CORPORATE;GDF SUEZ DCINM;34, avenue de la République;63966;CLERMONT FERRAND CEDEX 09;FRANCE ;;;
+Mr;TORTORA;Vincent;Chef de secteur Languedoc - Paca;ENVIRONNEMENT;Degrémont;Degrémont;272 rue Pierre Duhem;13 801;AIX EN PROVENCE CEDEX 5;FRANCE ;04 42 39 36 51;06 74 58 14 42;vincent.tortora@degremont.com
+Mr;TRONCHE;Jean-Claude;Responsable Commercial;ENVIRONNEMENT;DEGREMONT;Degrémont;26,Bis rue Léonard de vinci;33600;PESSAC;FRANCE;05 57 22 23 00;06 86 07 84 80;jean.claude.tronche@degremont.com
+Mr;TROTIN;Philippe;Responsable Relations Institutionnelles;ENVIRONNEMENT ;DEGREMONT;DEGREMONT;183 avenue du 18 juin 1940;92508;RUEIL MALMAISON;FRANCE;;06 12 51 01 85;philippe.trotin@degremont.com
+Mr;TRUNTZER;Stéphane;Directeur d'agence;ENVIRONNEMENT;SITA;SITA SUD;CS 17216 - rue Antoine Becquerel;11785;NARBONNE ;FRANCE;04 68 41 17 17;;stephane.truntzer@sita.fr
+Mr;TURBET;Claude;Directeur Stratégie;ENERGIE SERVICES;CORPORATE;GDF SUEZ;1, place des Degrés;92059;PARIS LA DEFENSE CEDEX;FRANCE ;01 49 03 56 11;06 07 55 10 32;claude.turbet@gdfsuez.com
+Mr;VALLEE;Grégory;Chef d'Agence Aisne;ENVIRONNEMENT;LYONNAISE DES EAUX;Lyonnaise des Eaux;Rue J.B. Godin;02200;VILLENEUVE SAINT GERMAIN;FRANCE;03 23 75 34 11;06 74 40 45 53;gregory.vallee@lyonnaise-des-eaux.fr
+Mr;VALLON;Didier;Directeur outremer;ENVIRONNEMENT;LYONNAISE DES EAUX;Lyonnaise des Eaux;16, place de l'Iris;92040;PARIS LA DÉFENSE;FRANCE;01 58 81 47 85;06 82 80 28 90;dider.vallon@lyonnaise-des-eaux.fr
+Mr;VAN ISTERDAEL;Marc;Business Development Manager;ENERGIE SERVICES;COFELY SERVICES;Cofely Services;Egide Walschaertsstraat 15/1;2800;MECHELEN;BELGIUM;;0032 475 28.11.08;marc.vanisterdael@cofelyservices-gdfsuez.be
+Mr;VENTURA;Jean-Luc;Directeur du Pôle France;ENVIRONNEMENT;DEGREMONT;Degrémont;183 avenue du 18 juin 1940;92500;RUEIL MALMAISON;FRANCE;01 46 25 57 24;06 80 58 47 62;jean.luc.ventura@degremont.com
+Mme;VERNIER;Karine;Présidente;ENERGIE EUROPE;ENERGIES RENOUVELABLES;LNGENERATION;6 rue de la liberté;93500;PANTIN;FRANCE;01 75 34 36 09;06 62 28 13 44;karine.vernier@gdfsuez.com
+Mr;VIALLE;Didier;Directeur d'Agence;ENERGIE SERVICES;COFELY SERVICES;Cofely Services;10, rue de la Longeraie;35768;SAINT GREGOIRE CEDEX;FRANCE;02.99.87.48.10;0674263436;didier.vialle@cofely-gdfsuez.com
+Mr;VINCENTELLI;Fernand;Chargé de Mission;ENERGIE SERVICES;COFELY INEO;Cofely Ineo;Résidence Les Minelli;20200;VILLE DI PIETRABUGNO;FRANCE;;06 08 01 54 28;fernand.vincentelli@cofelyineo-gdfsuez.com
+Mme;WACQUEZ;Marie-Laurence;Directeur de projet;CENTRE;CORPORATE;GDF SUEZ DCINM;2 Place Samuel Champlain;92930;PARIS LA DEFENSE;FRANCE;01 56 65 56 55;06 08 97 28 95;marielaurence.wacquez@gdfsuez.com
+Mr;WALRYCK;Jean-Philippe;Directeur Régional;ENVIRONNEMENT;LYONNAISE DES EAUX;Lyonnaise des Eaux Côte d'Azur;836, chemin de la Plaine;06255;MOUGINS CEDEX;FRANCE ;04 92 92 40 69;06 86 27 06 10;jean-philippe.walryck@lyonnaise-des-eaux.fr
+Mr;WINTREBERT;Grégoire;Directeur d'Agence IdF Est & Champagne;ENERGIE SERVICES;COFELY SERVICES;Cofely Réseaux / Soccram;229 rue Lafontaine;94120;FONTENAY-SOUS-BOIS;FRANCE;;06 30 65 50 44;gregoire.wintrebert@soccram.fr

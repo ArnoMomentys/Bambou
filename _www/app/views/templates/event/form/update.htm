@@ -1,0 +1,139 @@
+<form action="{{ @BASE.'/event/update' }}" method="post" class="form-update-event" role="form" enctype="multipart/form-data">
+
+    <h2 class="page-heading marbotnon">
+        <a href="{{ @BASE.'/event/'.@event.eid.'/show' }}">
+            <span class="textracap">{{ @eventname[@l] }}</span> : {{ @event.nom }}&nbsp;<i class="glyphicon glyphicon-chevron-right padlef10"></i>
+        </a>
+    </h2>
+    <br>
+    <small class="dimgra"><span class="textraupp">{{ @starting_at[@l] }}</span> : {{ strftime("%A %d %B %G", strtotime(@event.debut)) }}</small>
+    <br>
+    <small class="dimgra"><span class="textraupp">{{ @limit_displayed[@l] }}</span> : {{ strftime("%A %d %B %G", strtotime(@event.limitB)) }}</small><br><br>
+
+    <h3 class="pull-left disblo widful page-subheading">
+        {{ ucfirst(@event_update[@l]) }}
+    </h3>
+
+    <input name="nom" type="text" class="form-control first" placeholder="{{ @event_name[@l] }}" value="{{ @event.nom }}" required />
+
+    <input name="lieu" type="text" class="form-control middle" placeholder="{{ @event_place[@l] }}" value="{{ @event.lieu }}" required />
+
+    <input name="adresse" type="text" class="form-control middle" placeholder="{{ @address[@l] }}" value="{{ @event.adresse }}" required />
+
+    <input name="cp" type="text" class="form-control middle" placeholder="{{ @zip_code[@l] }}" value="{{ @event.codepostal }}" />
+
+    <input name="ville" type="text" class="form-control middle" placeholder="{{ @town[@l] }}" value="{{ @event.ville }}" />
+
+    <input name="debut" type="text" class="form-control middle" placeholder="{{ @date_start[@l]}} ({{@date_format[@l]}})" value="{{ @event.debut }}" required />
+
+    <input name="fin" type="text" class="form-control middle" placeholder="{{ @date_end[@l]}} ({{@date_format[@l]}})" value="{{ @event.fin }}" required />
+
+    <input name="limitA" type="text" class="form-control middle" placeholder="{{ @date_limit_1[@l]}} ({{@date_format[@l]}})" value="{{ @event.limitA }}" required />
+
+    <input name="limitB" type="text" class="form-control middle" placeholder="{{ @date_limit_2[@l]}} ({{@date_format[@l]}})" value="{{ @event.limitB }}" required />
+
+    <input name="deadLine" type="text" class="form-control last" placeholder="{{ @dead_line[@l]}} ({{@date_format[@l]}})" value="{{ @event.deadLine }}" />
+
+    <br>
+
+    <h3 class="pull-left disblo widful page-subheading">
+        {{ @event_update_options[@l] }}
+    </h3>
+
+    <check if="{{ @event.status===3 }}">
+        <false>
+            <label class="has-check">
+                <input name="status" type="checkbox" class="form-control" {{ @event.status===2 ? 'checked="checked"':'' }} />{{ @maintenance_status[@l] }}
+            </label>
+        </false>
+    </check>
+
+    <label class="has-check">
+        <input name="showContact" type="checkbox" class="form-control" {{ @event.showContact===1 ? 'checked="checked"':'' }} />{{ @show_contact[@l] }}
+    </label>
+
+    <label class="has-check">
+        <input name="withSms" type="checkbox" class="form-control"  {{ @event.withSms===1 ? 'checked="checked"':'' }} />{{ @with_sms[@l] }}
+    </label>
+
+    <label class="has-check">
+        <input name="withRepr" type="checkbox" class="form-control" {{ @event.withRepr===1 ? 'checked="checked"':'' }} />{{ @with_repr[@l] }}
+    </label>
+
+    <label class="has-check">
+        <input name="withAcc" type="checkbox" class="form-control" {{ @event.withAcc===1 ? 'checked="checked"':'' }} />{{ @with_acc[@l] }}
+    </label>
+
+    <label class="has-check">
+        <input name="sendType" type="checkbox" class="form-control" {{ @event.sendType===1 ? 'checked="checked"':'' }} />{{ @send_type[@l] }}
+    </label>
+
+    <label class="has-check">
+        <input name="withBusinessCard" type="checkbox" class="form-control" {{ @event.withBusinessCard==1 ? 'checked="checked"':'' }} />{{ @with_business_card[@l] }}
+    </label>
+
+    <div class="form-group">
+        <br>
+        <label>{{ @card_address[@l] }}</label>
+        <input name="cardAddress" placeholder="{{ @card_address[@l] }}"  type="text" class="form-control" value="{{ @event.cardAddress }}" title="{{ @card_address[@l] }}" />
+    </div>
+
+    <div class="form-group">
+        <label>{{ @limit_message[@l] }}</label>
+        <input name="limitMsg" placeholder="{{ @limit_message[@l] }}" type="text" class="form-control" value="{{ @event.limitMsg }}" title="{{ @limit_message[@l] }}" />
+    </div>
+
+    <br>
+
+    <h3 class="pull-left disblo widful page-subheading">
+        {{ @event_update_billing_infos[@l] }}
+        <br>
+        <small class="dimgray">
+            <span class="badge fonweinori">1</span>&nbsp;&nbsp;{{ @can_check_default_bill[@l] }} <a href="{{ @BASE.'/download/bill/'.@event.eid }}" class="nocolr veralimid btn-link baccolnoni texdecundi"> {{ @here[@l] }}</a>.
+            <br>
+            {{ @dont_fill_to_default[@l] }}.
+        </small>
+        <br>
+        <small class="fonweilig">
+            <span class="badge fonweinori">2</span>&nbsp;&nbsp;{{ @choose_billing_to_upload1[@l] }}, {{ @choose_billing_to_upload2[@l] }}
+        </small>
+    </h3>
+
+    <div class="col-xs-12 marlefnon padlefnon padrignon update-billings">
+        <input type="file" name="xls" value="{{ @event_choose_new_template[@l] }}" />
+        <span id="trigger" class="btn btn-primary col-xs-12 ovexhid">{{ @event_choose_new_template[@l] }}</span>
+        <span id="reset" class="btn btn-primary disnon col-xs-1 glyphicon glyphicon-remove texalicen marlef10 padlefnon padrignon has-tip-up" title="{{ @undo_bill_change[@l] }}"></span>
+        <br>
+        <br>
+    </div>
+
+    <br>
+
+    <div class="form-group col-xs-12 marlefnon padlefnon padrignon">
+        <label>{{ @eotp[@l] }}</label>
+        <input name="eotp" placeholder="{{ @eotp[@l] }}" type="text" class="form-control" value="{{ @event.eotp }}" title="{{ @eotp[@l] }}" />
+    </div>
+
+    <div class="form-group col-xs-12 marlefnon padlefnon padrignon">
+        <label>{{ @invoice_price[@l] }}</label>
+        <input name="invoiceCost" placeholder="{{ @invoice_price[@l] }}" type="text" class="form-control" value="{{ (@event.invoiceCost==0?'':@event.invoiceCost) }}" title="{{ @invoice_price[@l] }}" />
+    </div>
+
+    <div class="col-xs-12">&nbsp;</div>
+
+    <input type="hidden" name="eid" value="{{ @event.eid }}" />
+    <input type="hidden" name="eoid" value="{{ @event.eoid }}" />
+    <input type="hidden" name="update" value="update" />
+    <input type="hidden" name="updateOptions" value="updateOptions" />
+
+
+    <a class="btn btn-default col-xs-5" href="{{ @BASE.'/events' }}">
+        {{ @cancel[@l] }}
+    </a>
+    <button class="florig btn btn-primary col-xs-6" type="submit">
+        <span class="glyphicon glyphicon-ok"></span> {{ @update[@l] }}
+    </button>
+
+    <div class="col-xs-12"><br><br></div>
+
+</form>

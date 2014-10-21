@@ -1,0 +1,7 @@
+<div class="alert alert-danger">
+    <repeat group="{{ @form_errors }}" value="{{ @errors }}">
+        <repeat group="{{ @errors }}" value="{{ @error }}">
+            <i class="glyphicon glyphicon-warning-sign"></i>  {{ @error }}<br>
+        </repeat>
+    </repeat>
+</div>

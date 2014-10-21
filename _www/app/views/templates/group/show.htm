@@ -1,0 +1,100 @@
+<h2 class="page-heading textracap">
+    {{ @page_header }} : {{ @group_users.0.name }}
+    <a href="{{ @BASE.'/groups' }}" class="veralimid backto" title="{{ @back_to_groups[@l] }}">
+        <i class="glyphicon glyphicon-list-alt"></i>
+    </a>
+</h2>
+
+<check if="{{ isset(@SESSION.msg) && strlen(@SESSION.msg)>1 }}">
+    <true>
+        <include href="forminfos.htm" />
+    </true>
+</check>
+
+<h3 class="pull-left disblo widful page-subheading marbotnon">
+    {{ ucfirst(@group_members[@l]) }}
+    <a href="{{ '/group/'.@group_users.0.gid.'/add/user' }}" class="pull-right veralimid texdecnon" title="{{ @add_group_member[@l] }}">
+        <small class="hidden-xs hidden-sm">{{ @add_group_member[@l] }}</small>
+        <i class="glyphicon glyphicon-plus-sign"></i>
+    </a>
+</h3>
+
+<table class="table table-striped usergrouplist">
+    <thead>
+        <tr>
+            <td colspan="6" class="cptmembers">
+                {{ @group_users.0.nbUsers ? @group_users.0.nbUsers : 0 }} {{ @group_users.0.nbUsers>1 ? @users_list[@l] : @contact[@l] }}
+            </td>
+        </tr>
+
+        <check if="{{ @group_users.0.nbUsers > 0 }}">
+            <tr>
+                <repeat group="{{ @group_users.1.0 }}" key="{{ @key }}" value="{{ @value }}" counter="{{ @ctr }}">
+                    <check if="{{ in_array(@key, ['nomcomplet','societe','fonction','ville','adresse']) }}">
+                        <th class="{{ @key }}">
+                            {{ @key=='nomcomplet'? @name[@l] : @key }}
+                        </th>
+                    </check>
+                </repeat>
+                <th>&nbsp;</th>
+            </tr>
+        </check>
+    </thead>
+
+    <tbody>
+        <check if="{{ @group_users.0.nbUsers > 0 }}">
+            <true>
+                <repeat group="{{ @group_users.1 }}" value="{{ @group_user }}" counter="{{ @ctr }}">
+                <tr>
+                    <repeat group="{{ @group_user }}" key="{{ @key }}" value="{{ @value }}" counter="{{ @ctr }}">
+                        <check if="{{ in_array(@key, ['nomcomplet','societe','fonction','ville','adresse']) }}">
+                            <td class="{{ @key }}">
+                                <span class="disinlblo widful">{{ @value }}</span>
+                            </td>
+                        </check>
+                    </repeat>
+                    <td class="actions texalirig">
+                        <span class="btn btn-link curpoi has-tip" data-toggle="modal" data-target="#myModal-removefromgroup-{{ @group_user.uid }}" title="{{ @remove_from_group[@l] }}">
+                            <i class="glyphicon glyphicon-remove glyphicon-black"></i>
+                        </span>
+                        <div class="modal fade bs-example-modal-sm" id="myModal-removefromgroup-{{@group_user.uid}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-{{@group_user.uid}}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header bornon texalilef">
+                                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="myModalLabel-{{@group_user.uid}}">
+                                            <i class="glyphicon glyphicon-exclamation-sign"></i> {{ucfirst(@remove[@l])}} <b class="fonstyita">{{ @group_user.nomcomplet }}</b><br>{{ @from_group[@l] }} &laquo;&nbsp;{{ @group_users.0.name }}&nbsp;&raquo;
+                                        </h4>
+                                    </div>
+                                    <form action="{{ @BASE.'/group/'.@group_users[0].gid.'/delete/user/'.@group_user.uid }}" method="post" class="form-delete" role="form" id="form-removefromgroup-{{ @group_user.uid}}">
+                                        <div class="modal-footer bornon padtopnon martopnon">
+                                            <input type="hidden" name="del" value="d" />
+                                            <input type="hidden" name="gid" value="{{@group_users.0.gid }}">
+                                            <input type="hidden" name="uid" value="{{@group_user.uid}}">
+                                            <input type="hidden" name="username" value="{{@group_user.nomcomplet}}">
+                                            <input type="hidden" name="groupname" value="{{@group_users.0.name}}">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                {{ @cancel[@l] }}
+                                            </button>
+                                            <button id="modal-removefromgroup-{{@group_user.uid}}" class="btn btn-danger" type="submit">
+                                                {{ @group_remove_confirm[@l] }}
+                                            </button>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                </repeat>
+            </true>
+            <false>
+                <tr>
+                    <td class="name" colspan="6">
+                        <span>{{ @no_user_in_this_group[@l] }}</span>
+                    </td>
+                </tr>
+            </false>
+        </check>
+    </tbody>
+</table>

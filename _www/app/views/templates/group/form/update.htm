@@ -1,0 +1,19 @@
+<form action="{{ @BASE.'/group/update' }}" method="post" class="form-update" role="form">
+
+    <h2 class="form-update-heading">{{ @group_update[@l] }}</h2>
+
+    <br>
+
+    <input name="name" type="text" class="form-control" placeholder="{{ @group_name[@l] }}" required value="{{ @group.name }}" />
+
+    <input type="hidden" name="gid" value="{{ @group.gid }}" />
+    <input type="hidden" name="update" value="update" />
+
+    <a class="btn btn-default" href="{{ @BASE.'/groups' }}">
+    	{{ @cancel[@l] }}
+    </a>
+    <button class="btn btn-primary" type="submit">
+        <span class="glyphicon glyphicon-ok"></span> {{ @group_update[@l] }}
+    </button>
+    
+</form>

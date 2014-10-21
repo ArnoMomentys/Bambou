@@ -1,0 +1,24 @@
+<div class="modal fade bs-example-modal-sm" id="myModal-delete-{{@liste.gid}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-{{@liste.gid}}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header bornon texalilef">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel-{{@liste.gid}}">
+                    <i class="glyphicon glyphicon-exclamation-sign"></i> {{ @group_delete[@l] }} <b class="fonstyita">{{ @liste.name }}</b>
+                </h4>
+            </div>
+            <form action="{{ @BASE.'/group/'.@liste.gid.'/delete' }}" method="post" class="form-delete" role="form" id="form-delete-{{@liste.gid}}">
+                <div class="modal-footer bornon padtopnon martopnon">
+                    <input type="hidden" name="del" value="d" />
+                    <input type="hidden" name="gid" value="{{ @liste.gid }}">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        {{ @cancel[@l] }}
+                    </button>
+                    <button class="btn btn-danger" type="submit">
+                        {{ @group_delete_confirm[@l] }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
