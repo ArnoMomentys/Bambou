@@ -47,7 +47,7 @@ class DownloadFiles
     /**
      * Stream csv contact list
      */
-    public function exportContacts() 
+    public function exportContacts()
     {
     	$this->mime = 'text/csv; charset=utf-8';
     	$db=new DB\SQL(

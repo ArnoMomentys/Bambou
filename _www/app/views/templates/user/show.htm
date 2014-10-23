@@ -99,18 +99,20 @@
     <div class="group">
         <h4 class="textraupp">{{ @account_history[@l] }}</h4>
         <small>{{ ucfirst(@created_at[@l]) }} :</small>
-        <b>{{ strftime("%A %d %B %G", strtotime(@user.createdAt)) }}</b>
+        <b>{{ strftime("%A %d %B %Y, %Hh%M:%S", strtotime(@user.createdAt)) }}</b>
     </div>
     <div class="group">
         <small>{{ ucfirst(@account_creator[@l]) }} :</small>
         <a href="{{ @BASE.'/user/'.@creator.uid.'/show' }}"><b class="textracap">{{ @creator.nom }} {{ @creator.prenom }}</b></a>
     </div>
 
+	<check if="{{@user.updatedAt}}">
     <div class="group">
         <small>{{ ucfirst(@updated_at[@l]) }} :</small>
-        <b>{{ strftime("%A %d %B %G", strtotime(@user.updatedAt)) }}</b>
+        <b> {{ strftime("%A %d %B %G", strtotime(@user.updatedAt)) }}</b>
     </div>
-
+	</check>
+	
     <check if="{{!empty(@updator)}}">
     <div class="group">
         <small>{{ ucfirst(@updated_by[@l]) }} :</small>
@@ -119,12 +121,13 @@
     </check>
 
     <br>
-
+<!--
     <div class="group">
         <h4 class="textraupp">{{ @billing_infos[@l] }}</h4>
         <small>{{ ucfirst(@billing_contact[@l]) }} :</small>
         <b>{{ strtoupper(@user.interlocuteurNom) }} {{ @user.interlocuteurPrenom }}</b>
     </div>
+-->
     <div class="group">
         <small>{{ ucfirst(@organisation[@l]) }} :</small>
         <b>{{ @user.organisme }}</b>

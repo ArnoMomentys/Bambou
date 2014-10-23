@@ -16,9 +16,9 @@ class viewEventOptions extends DB\SQL\Mapper
      * retrieve all events options
      * @return arrays 	event options filtered by year, events ids
      */
-    public function getEventOptions()
+    public function getEventOptions($status = null)
     {
-		$results = $this->find('', array('order'=>'debut DESC'));
+		$results = $this->find(($status == null ? '' : array('`status` = '.$status)), array('order'=>'debut DESC'));
 		$groups = $ids = array();
 		foreach($results as $event)
 		{
@@ -69,10 +69,10 @@ class viewEventOptions extends DB\SQL\Mapper
      * @param  array 	$values array of eids
      * @return array    list of events with options and stats
      */
-    public function getEventByEidIn($aEids)
+    public function getEventByEidIn($aEids, $status = null)
     {
     	$uid = F3::get('SESSION.uid');
-		$results = $this->db->exec('SELECT `eid`,`nom`,`lieu`,`debut`,`fin`,`annee`,`status`,`limitA`,`limitB`,`showContact`,`withSms`,`withRepr`,`withAcc`,`sendType`,`previousEid`,`withBusinessCard`,`cardAddress`,`limitMsg` FROM `_event_options` WHERE `status` < 4 AND eid IN ('.implode(',', $aEids).') ORDER BY nom DESC');
+		$results = $this->db->exec('SELECT `eid`,`nom`,`lieu`,`debut`,`fin`,`annee`,`status`,`limitA`,`limitB`,`showContact`,`withSms`,`withRepr`,`withAcc`,`sendType`,`previousEid`,`withBusinessCard`,`cardAddress`,`limitMsg` FROM `_event_options` WHERE `status` < 4 AND eid IN ('.implode(',', $aEids).')'.($status == null ? '' : ' AND `status` = '.$status).' ORDER BY `nom` DESC');
 		$groups = $ids = $invitations = array();
 		foreach($results as $event)
 		{
@@ -96,6 +96,14 @@ class viewEventOptions extends DB\SQL\Mapper
 		return array($groups, $ids, $invitations);
     }
 
+    
+    public function getEventNameByEidIn_Raw($eid) {
+    	return $this->db->exec(
+    			"SELECT `nom` FROM `_event_options` WHERE `eid` = ?",
+    			$eid
+    	);
+    }
+
 
     /**
      * retrieve one event by eid
@@ -104,7 +112,16 @@ class viewEventOptions extends DB\SQL\Mapper
     public function getEventOptionsByEid($eid) {
 		$e = new Events($this->db);
 	    $read = $e->setLastRead($eid);
-    	return $this->findone(array('eid=?',$eid));
+    	$event = $this->findone(array('eid=?',$eid));
+
+    	// If NOT Admin
+    	if (F3::get('SESSION.lvl') > 2)
+    	{
+    		$event->withRepr = 0;
+    		$event->withAcc = 0;
+    	}
+    	
+    	return $event;
     }
 
 

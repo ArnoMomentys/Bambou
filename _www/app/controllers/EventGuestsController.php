@@ -416,16 +416,23 @@ class EventGuestsController extends AuthController {
             {
                 $post = array_map('trim', $this->f3->get('POST'));
                 $check = new Test(1);
+                $requiredArray = array('civilite','nom','prenom','societe');
+                if ($this->f3->get('SESSION.lvl') <= 2)
+                {
+                	$requiredArray[] = 'email';
+                }
+                
                 foreach($post as $post_index => $post_value)
                 {
                     if(in_array($post_index, array('accgender','accnom','accprenom','accemail','reprgender','reprnom','reprprenom','repremail','reqprof')))
                         continue;
-                    if(in_array($post_index, array('civilite','nom','prenom','email','societe')))
+                    
+                    if(in_array($post_index, $requiredArray))
                     {
                         $t_text = 'user_'.$post_index.'_required';
                         $check->expect(strlen($post_value)===0, $t_text);
                     }
-                    if($post_index=='email'||$post_index=='accemail'||$post_index=='repremail')
+                    if(($post_index=='email' && array_search($post_index, $requiredArray) !== false) ||$post_index=='accemail'||$post_index=='repremail')
                     {
                         $t_email = 'user_'.$post_index.'_format';
                         $check->expect(filter_var($post_value, FILTER_VALIDATE_EMAIL)===false, $t_email);

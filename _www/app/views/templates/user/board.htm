@@ -11,22 +11,55 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4 col-lg-4 panel-grid padrignon">
-        <div class="panel panel-default events events-active">
-            <div class="panel-body">
-                <span class="count">{{ @count_active_events }}</span>
-                <span class="text">{{ @active_events[@l] }}</span class="">
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4 col-lg-4 panel-grid events-archived">
-        <div class="panel panel-default events events-archived">
-            <div class="panel-body">
-                <span class="count">{{ str_pad(@count_archived_events,2,"0",STR_PAD_LEFT) }}</span>
-                <span class="text">{{ @archived_events[@l] }}</span>
-            </div>
-        </div>
-    </div>
+    <check if="{{ @count_active_events>=1 }}">
+    	<true>
+    		<div class="col-md-4 col-lg-4 panel-grid padrignon">
+		        <div class="panel panel-default events-all">
+		            <div class="panel-body events">
+		            	<a href="{{ @BASE.'/activeevents' }}">
+		                    <span class="count">{{ @count_active_events }}</span>
+		                    <span class="text">{{ @active_events[@l] }}</span>
+		                </a>
+		            </div>
+		        </div>
+		    </div>
+		</true>
+    	<false>
+    		<div class="col-md-4 col-lg-4 panel-grid padrignon events-archived">
+		    	<div class="panel panel-default events events-archived">
+		            <div class="panel-body">
+		                <span class="count">{{ @count_active_events }}</span>
+		                <span class="text">{{ @active_events[@l] }}</span>
+		            </div>
+		        </div>
+		    </div>
+    	</false>
+	</check>
+	
+    <check if="{{ @count_archived_events>=1 }}">
+    	<true>
+		    <div class="col-md-4 col-lg-4 panel-grid padrignon">
+		        <div class="panel panel-default events-all">
+		            <div class="panel-body events">
+		            	<a href="{{ @BASE.'/archivedevents' }}">
+		                    <span class="count">{{ @count_archived_events }}</span>
+		                    <span class="text">{{ @archived_events[@l] }}</span>
+		                </a>
+		            </div>
+		        </div>
+		    </div>
+		</true>
+    	<false>
+		    <div class="col-md-4 col-lg-4 panel-grid events-archived">
+		        <div class="panel panel-default events events-archived">
+		            <div class="panel-body">
+		                <span class="count">{{ @count_archived_events }}</span>
+		                <span class="text">{{ @archived_events[@l] }}</span>
+		            </div>
+		        </div>
+		    </div>
+    	</false>
+	</check>
 </div>
 
 <div class="col-xs-12 col-sm-12 hidden-md hidden-lg"><br><br></div>

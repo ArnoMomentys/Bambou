@@ -14,7 +14,19 @@ class EventController extends AuthController {
 	 *
 	 * @return [type] [description]
 	 */
-	public function showAll()
+	public function showAll() {
+		$this->show();
+	}
+	
+	public function showActive() {
+		$this->show(1);
+	}
+	
+	public function showArchived() {
+		$this->show(3);
+	}
+	
+	public function show($status = null)
 	{
 
 		$events['hosted'] = $events['invited'] = [];
@@ -22,7 +34,7 @@ class EventController extends AuthController {
 		if( $this->f3->get('SESSION.lvl')==1 )
 		{
 			// je suis admin
-			$subset = $eventOptions->getEventOptions();
+			$subset = $eventOptions->getEventOptions($status);
 		}
 		else
 		{
@@ -35,7 +47,7 @@ class EventController extends AuthController {
 			$events['hosted'] = $eventsImHost;
 
 			$merged_events = array_unique(array_merge($events['invited'], $events['hosted']));
-			$subset = $eventOptions->getEventByEidIn($merged_events);
+			$subset = $eventOptions->getEventByEidIn($merged_events, $status);
 		}
 		// events I participated
 		$sets = $subset[0];

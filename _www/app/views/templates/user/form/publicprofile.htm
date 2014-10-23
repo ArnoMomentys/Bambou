@@ -101,7 +101,7 @@
         <input name="level" type="number" min="{{ (@SESSION.lvl>=3 ? 4 : (@SESSION.c==0? '' : 3)) }}" max="5" class="form-control middle" value="{{ @account.level }}" required>
     </div>
     </check>
-
+<!--
     <div class="input-group">
         <span class="input-group-addon short middle hidden-md hidden-lg">{{ @c_lastname[@l] }}</span>
         <span class="input-group-addon middle hidden-xs hidden-sm">{{ @contact_lastname[@l] }}</span>
@@ -113,7 +113,7 @@
         <span class="input-group-addon {{@SESSION.uid==@account.uid && @SESSION.lvl>1?' end':' middle'}} hidden-xs hidden-sm">{{ @contact_firstname[@l] }}</span>
         <input name="interlocuteurPrenom" type="text" class="form-control {{@SESSION.uid==@account.uid && @SESSION.lvl>1?' end':' middle'}}" value="{{ @job.interlocuteurPrenom }}" >
     </div>
-
+-->
     <check if="{{ @SESSION.lvl==1 }}">
 
         <div class="input-group">

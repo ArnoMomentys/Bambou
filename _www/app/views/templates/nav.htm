@@ -127,14 +127,15 @@
                         </true>
                     </check>
                     <check if="{{ @SESSION.c > 0 && @SESSION.lvl <= 3 }}">
-                        <!-- event guest export -->
-                        <li class="texalicen inner{{ strstr(@PARAMS[0], 'export/guests') ? ' subactive': '' }}">
-                            <span class="export veralimid texalicen curpoi  disinlblo" data-toggle="modal" data-target="#myModal-exportguests-{{@PARAMS.eid}}">
+                         <!-- event guest export -->
+                         <li class="texalicen inner{{ strstr(@PARAMS[0], 'export/guests') ? ' subactive': '' }}">
+                             <!--<a href="{{ F3::ROUTE('GET /toto','UploadContactsController->processDownLoad'); }}" class="veralimid texdecnon">-->
+                             <a href="{{ '/event/'.@PARAMS.eid.'/export/guests' }}" class="veralimid texdecnon">
                                 <i class="glyphicon glyphicon-export glyphicon-black"></i>
-                                <span class="texte disblo hidden-xs">{{ @event_guests_export[@l] }}</span>
-                                <small class="visible-xs heiful widful has-tip-right posabs postop0 poslef0" title="{{ @event_guests_export[@l] }}">&nbsp;</small>
-                            </span>
-                        </li>
+                                 <span class="texte disblo hidden-xs">{{ @event_guests_export[@l] }}</span>
+                                 <small class="visible-xs heiful widful has-tip-right posabs postop0 poslef0" title="{{ @event_guests_export[@l] }}">&nbsp;</small>
+                             </a>
+                         </li>
                     </check>
                 </check>
                 <check if="{{ strstr(@PATTERN,'host') || (strstr(@PATTERN,'status') && @PARAMS.status=='hosts') }}">
@@ -186,11 +187,12 @@
                     <check if="{{ @SESSION.c > 0 && @SESSION.lvl == 1 }}">
                         <!-- event host export -->
                         <li class="texalicen inner{{ strstr(@PARAMS[0], 'export/hosts') ? ' subactive': '' }}">
-                            <span class="export veralimid texalicen curpoi disinlblo" data-toggle="modal" data-target="#myModal-exporthosts-{{@PARAMS.eid}}">
+                            <!--<a href="{{ F3::ROUTE('GET /toto','UploadContactsController->processDownLoad'); }}" class="veralimid texdecnon">-->
+                             <a href="{{ '/event/'.@PARAMS.eid.'/export/hosts' }}" class="veralimid texdecnon">
                                 <i class="glyphicon glyphicon-export glyphicon-black"></i>
-                                <span class="texte disblo hidden-xs">{{ @event_hosts_export[@l] }}</span>
-                                <small class="visible-xs heiful widful has-tip-right posabs postop0 poslef0" title="{{ @event_hosts_export[@l] }}">&nbsp;</small>
-                            </span>
+                                 <span class="texte disblo hidden-xs">{{ @event_guests_export[@l] }}</span>
+                                 <small class="visible-xs heiful widful has-tip-right posabs postop0 poslef0" title="{{ @event_guests_export[@l] }}">&nbsp;</small>
+                             </a>
                         </li>
                     </check>
                 </check>

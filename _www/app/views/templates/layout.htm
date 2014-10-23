@@ -1,8 +1,19 @@
 <include href="header.htm" />
 	<include href="{{ @view }}" />
-	<check if="{{ !preg_match('/\/login\/u/i',@PATTERN) }}">
+	
+	<check if="{{ preg_match('/\/login/ui',@PATTERN) }}">
 	<div class="col-xs-12 col-sm-12 hotline texalicen well">
-		{{ @hotline[@LANGUAGE] }} <a href="maito:bambou@momentys.fr">{{@mail[@LANGUAGE]}}</a>
+		<a href="mailto:bambou@momentys.fr" target="_blank">Vous n'arrivez pas à vous connecter à votre compte ?</a>
 	</div>
 	</check>
+	
+	<check if="{{ !preg_match('/\/login/ui',@PATTERN) }}">
+		<div class="col-xs-12 col-sm-12 hotline texalicen well">
+			Hotline :
+			Neilsy Monteiro
+			T. 01 59 66 79 83
+			<a href="mailto:bambou@momentys.fr" target="_blank">bambou@momentys.fr</a>
+		</div>
+	</check>	
+	
 <include href="footer.htm" />

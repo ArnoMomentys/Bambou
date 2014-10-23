@@ -22,11 +22,15 @@ class UploadContactsController extends AuthController
 	private $event;
 	private $status;
 	private $file;
-	private $defaultPassword = "Yp9tzgZs6t4=";
+	private $defaultPassword = "Rn2ipxLMCnj8AkV/gw5bww=="; // Yp9tzgZs6t4= >> momentys  // Rn2ipxLMCnj8AkV/gw5bww== >> Louvre2014
 	private $defaultLevel = 3;
 	private $fileExtensionAllowed = array("csv", "xls", "xlsx", "xlsm");
 	
 	private $offset = 0;
+	
+	private $offsetAutoRGBColor = "FF0000";
+	
+	private $offsetAutoMaxRow = 100;
 	
 	// Pour toute modification ci-dessous, modifier la function checkData
 	private $meta = array(																									// The meta description of columns
@@ -58,6 +62,7 @@ class UploadContactsController extends AuthController
 	private $dataError = array();	
 	
 	private $sheet;
+	
 		// [iRow][erros] 
 	
 	/**
@@ -71,7 +76,7 @@ class UploadContactsController extends AuthController
 	 * return errors if not validated
 	 * display the view
 	 */
-	public function process()
+	public function processUpLoad()
 	{
 		$params = (object) array_map('trim', $this->f3->get('PARAMS'));					// params object
 		$eventsHosted = json_decode($this->f3->get('SESSION.events'));			// events I host(ed)
@@ -142,7 +147,7 @@ class UploadContactsController extends AuthController
 
 						return;					
 					}
-					
+
 					// Check incoming data (CSV or XLS)
 					$valid = $this->checkData();								// check validity of $this->data
 					if(!$valid)													// on validation error
@@ -201,17 +206,307 @@ class UploadContactsController extends AuthController
 
 						return;
 					}
-
-					// OK : reroute
-					$this->f3->reroute('/event/' . $params->eid . '/show/' . $params->status);		// goto imported list					
+					
+					// If don't continue. reroute
+					$continue = $this->f3->get('REQUEST.continue');
+					if (!$continue == "true")
+					{
+						// Re route
+						$this->f3->reroute('/event/' . $params->eid . '/show/' . $params->status);		// goto imported list
+					}					
 
 				}
 				$this->render();												// render upload success view with message
 			}
 		}
-		else
+		else 
 		{
 	 	   $this->f3->reroute('/events');
+		}
+	}
+	
+	public function processDownLoad()
+	{
+		$params = (object) array_map('trim', $this->f3->get('PARAMS'));		
+		$this->status = $params->status;				// params object
+		$eventsHosted = json_decode($this->f3->get('SESSION.events'));			// events I host(ed)
+		$ev = new Events($this->db);											// event object
+		$this->event = $ev->load(array('eid=?', $params->eid));	
+		$list = null;
+		$filename = '';
+		
+		// email obligatoire si liste des invitants
+		if ($this->status == "hosts")
+		{
+			$this->meta["adresse_mail"]["mandatory"] = true;
+		}
+		
+		if ($this->f3->get('SESSION.lvl') <= 3 && ($params->status=='guests' || $params->status=='hosts')) {			
+			// retrieve guests ids
+			if ($params->status=='guests') {
+				$eventGuests = new viewEventsEventGuests($this->db);
+				if ($this->f3->get('SESSION.lvl') == 3) {
+					$list = $eventGuests->getGuestsIdsByHost($this->f3->get('SESSION.uid'), $params->eid);
+				}
+				else {
+					$list = $eventGuests->getGuestsIdsByHost(null, $params->eid);
+				}
+			}
+			// retrieve hosts ids
+			if ($params->status=='hosts') {
+				$eventHosts = new viewEventHostsInfos($this->db);
+				$list = $eventHosts->getHostsIdsByEventId($params->eid);
+			}
+			// retrieve complete profiles
+			$profiles = new viewUserCompleteProfile($this->db);
+			$results = $profiles->getUsersMinimumProfileExportByUidsIn_Raw($list);
+			$pUser = $profiles->getUserExportProfileByUid_Raw($this->f3->get('SESSION.uid'))[0];
+			
+			if ($params->status=='guests') {
+				if ($this->f3->get('SESSION.lvl') == 3) {
+					$filename = $pUser["nom"].'_'.$pUser["prenom"].'_';
+				} else {
+					$filename = 'Liste_Invités_';
+				}
+			} 
+			if ($params->status=='hosts') {
+				$filename = 'Liste_Invitants_';
+			}
+			
+			// Ajout du nom de l'événement
+			$eventOpt = new viewEventOptions($this->db);
+			$pEvent = $eventOpt->getEventNameByEidIn_Raw($params->eid)[0];
+			$filename .= str_replace(" ", "_", $pEvent["nom"]);
+		
+			// Require
+			require_once(dirname(__FILE__).'/../../../_lib/PHPExcel.php');
+			require_once(dirname(__FILE__).'/../../../_lib/PHPExcel/Writer/Excel5.php');
+			
+			// Init PHP XLS
+
+			$oExcel = new PHPExcel();
+			
+			$oExcel->getProperties()->setCreator("Bambou");
+			$oExcel->getProperties()->setLastModifiedBy("Bambou");
+			if ($params->status=='guests') {
+				$oExcel->getProperties()->setTitle("Liste des invités");
+				$oExcel->getProperties()->setSubject("Liste des invités");
+				$oExcel->getProperties()->setDescription("Liste des invités pour l'événement ...");
+			}
+			if ($params->status=='hosts') {
+				$oExcel->getProperties()->setTitle("Liste des invitants");
+				$oExcel->getProperties()->setSubject("Liste des invitants");
+				$oExcel->getProperties()->setDescription("Liste d'invitants (extraction Bambou)");
+			}
+			
+			$styleArray = array(
+					'alignment' => array(
+							'vertical' => PHPExcel_Style_Alignment::VERTICAL_CENTER,
+					),
+					'font'  => array(
+							'size'  => 12,
+        					'name'  => 'Calibri'
+					)
+			);
+			$oExcel->getDefaultStyle()->applyFromArray($styleArray);
+			$oExcel->setActiveSheetIndex(0);
+			$sheet = $oExcel->getActiveSheet();
+			
+			// Ecriture des lignes d'en-tête
+			$styleArray = array(
+					'font'  => array(
+							'size'  => 16,
+							'bold' => true,
+							'color' => array('rgb' => 'FF0000'),
+					)
+			);
+			if ($params->status=='guests') {
+				$sheet->setCellValueByColumnAndRow(0, 1, 'Liste des invités');
+			}
+			if ($params->status=='hosts') {
+				$sheet->setCellValueByColumnAndRow(0, 1, 'Liste des invitants');
+			}
+			$sheet->getStyleByColumnAndRow(0, 1)->applyFromArray($styleArray);
+			
+			$row = 2;
+			if ($this->f3->get('SESSION.lvl') == 3 && $params->status=='guests') {
+
+				$styleArray1 = array(
+						'font'  => array(
+								'size'  => 16,
+								'bold' => true,
+								'color' => array('rgb' => 'FF0000'),
+						)
+				);
+				$sheet->setCellValueByColumnAndRow(0, $row + 1, 'INVITANT');
+				$sheet->getStyleByColumnAndRow(0, $row + 1)->applyFromArray($styleArray1);
+				$sheet->setCellValueByColumnAndRow(0, $row + 12, 'LISTE DE VOS INVITÉS :');
+				$sheet->getStyleByColumnAndRow(0, $row + 12)->applyFromArray($styleArray1);
+				$styleArray1 = array(
+						'font'  => array(
+								'size'  => 13,
+								'bold' => true,
+						)
+				);
+				$styleArray2 = array(
+					'borders' => array(
+							'left' => array(
+									'style' => PHPExcel_Style_Border::BORDER_MEDIUM,
+							),
+							'right' => array(
+									'style' => PHPExcel_Style_Border::BORDER_MEDIUM,
+							),
+							'bottom' => array(
+									'style' => PHPExcel_Style_Border::BORDER_MEDIUM,
+							),
+							'top' => array(
+									'style' => PHPExcel_Style_Border::BORDER_MEDIUM,
+							),
+					),
+				);
+				
+				$sheet->setCellValueByColumnAndRow(0, $row + 3, 'NOM');
+				$sheet->getStyleByColumnAndRow(0, $row + 3)->applyFromArray($styleArray1);
+				$sheet->setCellValueByColumnAndRow(1, $row + 3, $pUser["nom"]);
+				$sheet->getStyleByColumnAndRow(1, $row + 3)->applyFromArray($styleArray2);
+				$sheet->setCellValueByColumnAndRow(0, $row + 5, 'PRÉNOM');
+				$sheet->getStyleByColumnAndRow(0, $row + 5)->applyFromArray($styleArray1);
+				$sheet->setCellValueByColumnAndRow(1, $row + 5, $pUser["prenom"]);
+				$sheet->getStyleByColumnAndRow(1, $row + 5)->applyFromArray($styleArray2);
+				$sheet->setCellValueByColumnAndRow(0, $row + 7, 'ENTITE');
+				$sheet->getStyleByColumnAndRow(0, $row + 7)->applyFromArray($styleArray1);
+				$sheet->setCellValueByColumnAndRow(1, $row + 7, $pUser["societe"]);
+				$sheet->getStyleByColumnAndRow(1, $row + 7)->applyFromArray($styleArray2);
+				$sheet->setCellValueByColumnAndRow(0, $row + 9, 'BRANCHE');
+				$sheet->getStyleByColumnAndRow(0, $row + 9)->applyFromArray($styleArray1);
+				$sheet->setCellValueByColumnAndRow(1, $row + 9, $pUser["branche"]);
+				$sheet->getStyleByColumnAndRow(1, $row + 9)->applyFromArray($styleArray2);
+
+				$row += 13;
+			}
+			$row++;
+			
+			// Ecriture colonnes obligatoires
+			$styleArray = array(
+							'alignment' => array(
+									'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+							),
+					        'fill' => array(
+					            'type' => PHPExcel_Style_Fill::FILL_SOLID,
+					            'color' => array('rgb' => 'FF0000')
+					        ),
+							'font'  => array(
+									'color' => array('rgb' => 'FFFFFF'),
+									'size'  => 12
+							)
+					    );
+			$index = 0;
+			foreach($this->meta as $key => $metData) {
+				$index = array_search($key, array_keys($this->meta));
+				if ($metData["mandatory"]) {
+					$sheet->setCellValueByColumnAndRow($index, $row, Controller::toLatin1('OBLIGATOIRE'));
+					$sheet->getStyleByColumnAndRow($index, $row)->applyFromArray($styleArray);
+				}
+			}
+			$row++;
+			
+			// Ecriture des colonnes de titre
+			$styleArray = array(
+					'alignment' => array(
+							'horizontal' => PHPExcel_Style_Alignment::HORIZONTAL_CENTER,
+					),
+					'borders' => array(
+							'left' => array(
+									'style' => PHPExcel_Style_Border::BORDER_THIN,
+							),
+							'right' => array(
+									'style' => PHPExcel_Style_Border::BORDER_THIN,
+							),
+							'bottom' => array(
+									'style' => PHPExcel_Style_Border::BORDER_THIN,
+							),
+							'top' => array(
+									'style' => PHPExcel_Style_Border::BORDER_THIN,
+							),
+					),
+					'font'  => array(
+							'size'  => 12,
+							'bold' => true,
+					)
+			);
+			foreach($this->meta as $key => $metaData) {
+				$index = array_search($key, array_keys($this->meta));
+				$sheet->setCellValueByColumnAndRow($index, $row, $metaData["titleFile"]);
+				$sheet->getStyleByColumnAndRow($index, $row)->applyFromArray($styleArray);
+			}
+			$row++;
+			
+			// Ecriture des données
+			$styleArray = array(
+					'borders' => array(
+							'left' => array(
+									'style' => PHPExcel_Style_Border::BORDER_THIN,
+							),
+							'right' => array(
+									'style' => PHPExcel_Style_Border::BORDER_THIN,
+							),
+							'bottom' => array(
+									'style' => PHPExcel_Style_Border::BORDER_THIN,
+							),
+							'top' => array(
+									'style' => PHPExcel_Style_Border::BORDER_THIN,
+							),
+					)
+			);
+			foreach ($results as $rowValues) {
+				foreach ($this->meta as $key => $metaData) {
+					$index = array_search($key, array_keys($this->meta));
+					if ($rowValues[$key] != null && $rowValues[$key] != "") {
+						$sheet->setCellValueByColumnAndRow($index, $row, $rowValues[$key]);
+					}
+					$sheet->getStyleByColumnAndRow($index, $row)->applyFromArray($styleArray);
+				}
+				$row++;
+			}
+			// redimensionnement des colonnes
+			foreach ($this->meta as $key => $metaData) {
+				$index = array_search($key, array_keys($this->meta));
+				$aCol = PHPExcel_Cell::stringFromColumnIndex($index);
+				$sheet->getColumnDimension($aCol)->setAutoSize(true);
+			}
+			
+			// Prêt au téléchargement
+			$oWriter = new PHPExcel_Writer_Excel5($oExcel);
+			//$oWriter = PHPExcel_IOFactory::createWriter($oExcel, 'Excel2007');
+			
+			// [START] Buffer
+			ob_start();
+			$oWriter->save('php://output');
+			// [END] Buffer
+			$excelOutput = ob_get_clean();
+			$size = strlen($excelOutput);
+				
+			// Pose des en-tête pour l'envoie
+			header_remove();
+			header('Pragma: public');
+			header("Expires: 0" );
+			header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+			header('Cache-Control: private', false);
+			//header('Content-length: ');
+			header('Content-type: application/vnd.ms-excel');
+			//header('Content-type: application/application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+			header("Content-Type: application/octet-stream");
+			header("Content-Type: application/download");
+			header("Content-Type: application/force-download");
+			header('Content-Length: '.$size);
+			header('Content-Disposition: attachment;filename="'.$filename.'.xls"');
+			header('Content-Transfer-Encoding: binary');
+				
+			echo $excelOutput;
+				
+			exit();
+			
+			$this->render();
 		}
 	}
 
@@ -580,16 +875,17 @@ class UploadContactsController extends AuthController
 				if ($key == 'adresse_mail' && ($valeur == "" || $valeur == null)) {
 					$nom = $array_value[array_search("nom", array_keys($this->metaDynamic))];
 					$prenom = $array_value[array_search("prenom", array_keys($this->metaDynamic))];
-					$sql_load .= ($k == 0 ? "" : ", ")."'".Controller::sanitizeDatas($nom, true).".".Controller::sanitizeDatas($prenom, true)."@nielsy.com'";
+					$sql_load .= ($k == 0 ? "" : ", ").$this->db->quote(Controller::sanitizeDatas(str_replace(" ", "_", $nom), true).".".Controller::sanitizeDatas(str_replace(" ", "_", $prenom), true)."@nielsy.com");
 				} else if ($valeur == "" || $valeur == null) {
 					$sql_load .= ($k == 0 ? "" : ", ")."null";
+				} else if ($key == 'ville') {
+					$ville = $array_value[array_search("ville", array_keys($this->metaDynamic))];
+					$sql_load .= ($k == 0 ? "" : ", ").$this->db->quote(mb_strtoupper(Controller::sanitizeDatas($ville), 'UTF-8'), \PDO::PARAM_STR);
 				} else {
-					$sql_load .= ($k == 0 ? "" : ", ")."'".Controller::sanitizeDatas($valeur)."'";
+					$sql_load .= ($k == 0 ? "" : ", ").$this->db->quote(Controller::sanitizeDatas($valeur), \PDO::PARAM_STR);
 				}
 			}
-			$sql_load .= ");";
-			
-			//echo $sql_load."<br>\n";
+			$sql_load .= ")";
 			
 			$this->db->exec($sql_load);
 		}
@@ -628,6 +924,9 @@ class UploadContactsController extends AuthController
 			$currentTelPortable = $rowCSV['tel_portable'];
 			$currentAdresseMail = $rowCSV['adresse_mail'];
 
+			$currentDept = Controller::cpToDept($currentCodePostal);
+			$currentRegion = Controller::cpToRegion($currentCodePostal);
+			
 			$sqls = array();
 
 			// Insert 1 USER
@@ -642,7 +941,7 @@ class UploadContactsController extends AuthController
 				$sqls[] = array("INSERT IGNORE INTO userprofile (userID,civilite, nom, prenom) VALUES (?, ?, ?, ?)", array(1 => $insertedUserId, 2 => $currentCivilite, 3 => $currentNom, 4 => $currentPrenom));
 
 				// INSERT userjobinfos
-				$sqls[] = array("INSERT IGNORE INTO userjobinfos (userID, fonction, branche, societe, fixe, portable, adresse, cp, ville, pays) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array(1 => $insertedUserId, 2 => $currentFonction, 3 => $currentBranche, 4 => $currentSociete, 5 => $currentTelPortable, 6 => $currentTelPortable, 7 => $currentAdresse, 8 => $currentCodePostal, 9 => $currentVille, 10 => $currentPays));
+				$sqls[] = array("INSERT IGNORE INTO userjobinfos (userID, fonction, branche, societe, fixe, portable, adresse, cp, dept, region, ville, pays) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array(1 => $insertedUserId, 2 => $currentFonction, 3 => $currentBranche, 4 => $currentSociete, 5 => $currentTelFixe, 6 => $currentTelPortable, 7 => $currentAdresse, 8 => $currentCodePostal, 9 => $currentDept, 10 => $currentRegion, 11 => $currentVille, 12 => $currentPays));
 
 
 				// création du contact invité - invitant
@@ -701,12 +1000,21 @@ class UploadContactsController extends AuthController
 	// [XLS] Mise en place de l'offset
 	private function setOffsetExcelSheet() {
 		$i = 1;
-		while ($this->sheet->getStyle('A'.$i)->getFill()->getStartColor()->getRGB() != "FF0000" || $i > 100) 
+		
+		while (($color = $this->sheet->getStyle('A'.$i)->getFill()->getStartColor()->getRGB()) != $this->offsetAutoRGBColor)
 		{
+			// Find the color ($color)...
+			 
+			// END loop	
+			if ($i > $this->offsetAutoMaxRow)
+			{
+				break;
+			}
+			
 			$i++;
 		}
 		
-		if ($this->sheet->getStyle('A'.$i)->getFill()->getStartColor()->getRGB() == "FF0000") {
+		if ($color == $this->offsetAutoRGBColor) {
 			$this->offset = $i + 1;
 		} else {
 			$this->offset = 1;

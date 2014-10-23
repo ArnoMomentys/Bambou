@@ -57,7 +57,7 @@
         <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 infos-block infos-block-right">
             <div class="input-group">
                 <span class="input-group-addon first">{{@user_mail[@l]}}</span>
-                <input name="email" type="email" class="form-control first" placeholder="{{@user_mail[@l]}}" value="{{(@post_has_data && @post_has_data['email']?@post_has_data['email']:'')}}" required />
+                <input name="email" type="email" class="form-control first" placeholder="{{@user_mail[@l]}}" value="{{(@post_has_data && @post_has_data['email']?@post_has_data['email']:'')}}" <check if="{{ @SESSION.lvl <= 2 }}"> required </check> />
             </div>
             <div class="input-group">
                 <span class="input-group-addon middle">{{@mobile_phone[@l]}}</span>

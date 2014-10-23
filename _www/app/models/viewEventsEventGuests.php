@@ -34,12 +34,17 @@ class viewEventsEventGuests extends DB\SQL\Mapper
     public function getHostsList($guestId, $filters) 
     {
     	$hostName = "";
-    	$sql = "select hostname from _events_eventguests where guestid=? and ".$filters[0];
+    	$sql = "select hostname from _events_eventguests where guestid=? and eid=?";
     	$params = array(1 => $guestId, 2 => $filters[1]);
-    	//var_dump($params);die;
-    	$results = $this->db->exec("select hostname from _events_eventguests where guestid=? and ".$filters[0],$params);
+		
+    	//var_dump($filters);die;
+    	$results = $this->db->exec($sql,$params);
     	foreach($results as $host){
-    		$hostName .= " ".$host['hostname'];
+			if (!empty($hostName))
+			{
+				$hostName .= ", ";
+			}
+    		$hostName .= $host['hostname'];
     	}
     	return $hostName;	 
     }

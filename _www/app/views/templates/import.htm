@@ -66,6 +66,16 @@
 
 <div class="col-xs-12 marlefnon padlefnon">
 	<form method="POST" enctype="multipart/form-data" id="ug" role="form">
+	    <check if="{{ @SESSION.lvl<=2 }}">
+		    <div>
+		    	{{ @upload_another_file[@l] }}
+		    	<label for="continueYes">{{ @yes[@l] }}</label>
+		    	<input type="radio" id="continueYes" name="continue" value="true" data-buttonName="btn-primary" checked="checked">
+		    	&nbsp;-&nbsp;
+		    	<label for="continueNo">{{ @no[@l] }}</label>
+		    	<input type="radio" id="continueNo" name="continue" value="false" data-buttonName="btn-primary">
+		    </div>
+		</check>
 	    <input type="file" class="filestyle" name="csv" data-buttonText="&nbsp;&nbsp;{{ @event_choose_file[@l] }}" data-iconName="glyphicon-inbox" data-buttonName="btn-primary custom" data-buttonName="btn-primary">
 	    <div id="fsub" class="btn btn-success disnon">
 	    	<i class="glyphicon glyphicon-open"></i> {{ @event_import_file[@l] }}
