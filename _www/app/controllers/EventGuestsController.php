@@ -587,7 +587,7 @@ class EventGuestsController extends AuthController {
                     $user_profile->save();
                     $msg2 = '<b>' . strtoupper($user_profile->nom).' '.ucfirst($user_profile->prenom).'</b> : Profil complété, ';
                     $user_job->adresse = $post['adresse'];
-                    $user_job->ville = $post['ville'];
+                    $user_job->ville = Controller::utf8_strtoupper($post['ville']);
                     $user_job->cp = $post['cp'];
                     $user_job->pays = $post['pays'];
                     $user_job->portable = $post['portable'];

@@ -4,7 +4,7 @@
  * UserProfile Model
  * CRUD (Create, Update, Delete) userProfile table
  */
-class UserProfile extends DB\SQL\Mapper {
+class UserProfile extends MyMapper {
 
     public function __construct(DB\SQL $db) {
         parent::__construct($db, 'userprofile');

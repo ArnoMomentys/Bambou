@@ -4,7 +4,7 @@
  * UserJobinfos Model
  * CRUD (Create, Update, Delete) userJobinfos table
  */
-class UserJobinfos extends DB\SQL\Mapper {
+class UserJobinfos extends MyMapper {
 
     public function __construct(DB\SQL $db) {
         parent::__construct($db, 'userjobinfos');

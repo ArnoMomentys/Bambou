@@ -5,7 +5,7 @@
  * CRUD the users table
  * No need more explanation otherwise go check what an ORM is. Thank you.
  */
-class Users extends DB\SQL\Mapper {
+class Users extends MyMapper {
 
 
     public function __construct(DB\SQL $db) {

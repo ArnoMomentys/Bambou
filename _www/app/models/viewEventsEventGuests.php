@@ -3,7 +3,7 @@
 /**
  * viewEventsEventGuests Model
  */
-class viewEventsEventGuests extends DB\SQL\Mapper
+class viewEventsEventGuests extends MyMapper
 {
     /**
      *

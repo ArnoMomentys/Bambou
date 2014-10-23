@@ -75,6 +75,20 @@ class Controller {
     	return \ForceUTF8\Encoding::toLatin1($data);
     }
     
+    static public function utf8_strtoupper($data)
+    {
+        $data = mb_strtoupper($data, 'UTF-8');
+        
+        return $data;
+    }
+    
+    static public function utf8_strtolower($data)
+    {
+        $data = mb_strtolower($data, 'UTF-8');
+        
+        return $data;
+    }
+    
     static public function sanitizeDatas($data, $removeAccent = false)
     {
 		require_once(dirname(__FILE__)."/../../../_lib/forceutf8-master/src/ForceUTF8/Encoding.php");

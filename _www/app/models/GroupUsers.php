@@ -4,7 +4,7 @@
  * GroupUsers Model
  * CRUD (Create, Read, Update, Delete) groupUsers table
  */
-class GroupUsers extends DB\SQL\Mapper {
+class GroupUsers extends MyMapper {
 
     public function __construct(DB\SQL $db) {
         parent::__construct($db, 'groupusers');

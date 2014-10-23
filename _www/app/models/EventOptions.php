@@ -4,7 +4,7 @@
  * EventOptions Model
  * CRUD the EventOptions table
  */
-class EventOptions extends DB\SQL\Mapper {
+class EventOptions extends MyMapper {
 
     public function __construct(DB\SQL $db) {
         parent::__construct($db, 'eventoptions');

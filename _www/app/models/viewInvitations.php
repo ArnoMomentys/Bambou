@@ -3,7 +3,7 @@
 /**
  * viewInvitations Model
  */
-class viewInvitations extends DB\SQL\Mapper {
+class viewInvitations extends MyMapper {
 
 
     public function __construct(DB\SQL $db) {

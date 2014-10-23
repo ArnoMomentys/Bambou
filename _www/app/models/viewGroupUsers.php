@@ -3,7 +3,7 @@
 /**
  * viewGroupUsers Model
  */
-class viewGroupUsers extends DB\SQL\Mapper {
+class viewGroupUsers extends MyMapper {
 
 
     public function __construct(DB\SQL $db) {

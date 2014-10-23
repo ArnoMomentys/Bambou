@@ -281,7 +281,7 @@ class EventHostsController extends AuthController {
                     $host_profile->save();
                     $msg2 = '<b>' . strtoupper($host_profile->nom).' '.ucfirst($host_profile->prenom).'</b> : Profil complété, ';
                     if(strlen($post['adresse'])>0) $host_job->adresse = $post['adresse'];
-                    if(strlen($post['ville'])>0) $host_job->ville = $post['ville'];
+                    if(strlen($post['ville'])>0) $host_job->ville = Controller::utf8_strtoupper($post['ville']);
                     if(strlen($post['cp'])>0) $host_job->cp = $post['cp'];
                     if(strlen($post['pays'])>0) $host_job->pays = $post['pays'];
                     if(strlen($post['portable'])>0) $host_job->portable = $post['portable'];

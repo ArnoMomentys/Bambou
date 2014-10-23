@@ -4,7 +4,7 @@
  * Events Model
  * CRUD the Events table
  */
-class Events extends DB\SQL\Mapper {
+class Events extends MyMapper {
 
     public function __construct(DB\SQL $db) {
         parent::__construct($db, 'events');

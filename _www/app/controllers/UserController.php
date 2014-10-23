@@ -335,8 +335,8 @@ class UserController extends AuthController {
 	            	if(strlen($post['prenom'])>0) $profile->prenom = $post['prenom'];
 	            	$profile->save();
 	            	// save modified job infos
-	            	$job->interlocuteurNom = $post['interlocuteurNom'];
-	            	$job->interlocuteurPrenom = $post['interlocuteurPrenom'];
+	            	//$job->interlocuteurNom = $post['interlocuteurNom'];
+	            	//$job->interlocuteurPrenom = $post['interlocuteurPrenom'];
 	            	$job->fonction = $post['fonction'];
 	            	$job->branche = $post['branche'];
 	            	$job->societe = $post['societe'];
@@ -344,7 +344,7 @@ class UserController extends AuthController {
 	            	$job->portable = $post['portable'];
 	            	$job->adresse = $post['adresse'];
 	            	$job->cp = $post['cp'];
-	            	$job->ville = $post['ville'];
+	            	$job->ville = Controller::utf8_strtoupper($post['ville']);
 	            	$job->pays = $post['pays'];
 	            	$job->save();
 	            	// save modified billing infos
@@ -357,7 +357,7 @@ class UserController extends AuthController {
 						$billing->organisme = $post['b_organisme'];
 						$billing->adresse = $post['b_adresse'];
 						$billing->cp = $post['b_cp'];
-						$billing->ville = $post['b_ville'];
+						$billing->ville = Controller::utf8_strtoupper($post['b_ville']);
 						$billing->pays = $post['b_pays'];
 						$billing->imputation = $post['b_imputation'];
 						$billing->smart =$post['b_smart'];

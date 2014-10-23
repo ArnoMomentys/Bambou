@@ -4,7 +4,7 @@
  * InvitationRepresentative Model
  * CRUD (Create, Read, Update, Delete) invitationRepresentative table
  */
-class InvitationRepresentative extends DB\SQL\Mapper {
+class InvitationRepresentative extends MyMapper {
 
     public function __construct(DB\SQL $db) {
         parent::__construct($db, 'invitationrepresentative');

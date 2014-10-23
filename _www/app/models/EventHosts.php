@@ -4,7 +4,7 @@
  * EventHosts Model
  * CRUD (Create, Read, Update, Delete) EventHosts table
  */
-class EventHosts extends DB\SQL\Mapper {
+class EventHosts extends MyMapper {
 
     public function __construct(DB\SQL $db) {
         parent::__construct($db, 'eventhosts');

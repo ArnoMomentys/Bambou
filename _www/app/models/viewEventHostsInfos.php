@@ -3,7 +3,7 @@
 /**
  * viewEventHostsInfos Model
  */
-class viewEventHostsInfos extends DB\SQL\Mapper {
+class viewEventHostsInfos extends MyMapper {
 
 
     public function __construct(DB\SQL $db) {

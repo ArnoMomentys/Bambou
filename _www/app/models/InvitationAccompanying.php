@@ -4,7 +4,7 @@
  * InvitationAccompanying Model
  * CRUD (Create, Read, Update, Delete) invitationAccompanying table
  */
-class InvitationAccompanying extends DB\SQL\Mapper {
+class InvitationAccompanying extends MyMapper {
 
     public function __construct(DB\SQL $db) {
         parent::__construct($db, 'accompanying');

@@ -18,7 +18,7 @@ $f3->config('../_conf/dict.ini');
  */
 $f3->set('ONERROR',
 	function($f3){
-		//var_dump($f3->get('ERROR'));
+		var_dump($f3->get('ERROR'));
 		echo \Template::instance()->render('error.htm');
 	}
 );

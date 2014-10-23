@@ -4,7 +4,7 @@
  * UserContacts Model
  * CRUD (Create, Update, Delete) userContacts table
  */
-class UserContacts extends DB\SQL\Mapper {
+class UserContacts extends MyMapper {
 
     public function __construct(DB\SQL $db) {
         parent::__construct($db, 'usercontacts');

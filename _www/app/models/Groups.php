@@ -4,7 +4,7 @@
  * Groups Model
  * CRUD (Create, Read, Update, Delete) groups table
  */
-class Groups extends DB\SQL\Mapper {
+class Groups extends MyMapper {
 
     public function __construct(DB\SQL $db) {
         parent::__construct($db, 'groups');

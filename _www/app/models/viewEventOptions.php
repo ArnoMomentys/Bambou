@@ -3,7 +3,7 @@
 /**
  * viewEventOptions Model
  */
-class viewEventOptions extends DB\SQL\Mapper
+class viewEventOptions extends MyMapper
 {
 
     public function __construct(DB\SQL $db)

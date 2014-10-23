@@ -4,7 +4,7 @@
  * UserBillinginfos Model
  * CRUD (Create, Update, Delete) UserBillinginfos table
  */
-class UserBillinginfos extends DB\SQL\Mapper {
+class UserBillinginfos extends MyMapper {
 
     public function __construct(DB\SQL $db) {
         parent::__construct($db, 'userbillinginfos');

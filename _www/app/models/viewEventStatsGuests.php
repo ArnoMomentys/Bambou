@@ -3,11 +3,9 @@
 /**
  * viewEventStatsGuests Model
  */
-class viewEventStatsGuests {
+class viewEventStatsGuests extends MyMapper {
 
-	protected $db;
-
-    public function __construct($db)
+	public function __construct($db)
     {
 
     	$this->db = $db;

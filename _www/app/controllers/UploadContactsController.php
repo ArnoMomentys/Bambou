@@ -881,7 +881,7 @@ class UploadContactsController extends AuthController
 					$sql_load .= ($k == 0 ? "" : ", ")."null";
 				} else if ($key == 'ville') {
 					$ville = $array_value[array_search("ville", array_keys($this->metaDynamic))];
-					$sql_load .= ($k == 0 ? "" : ", ").$this->db->quote(mb_strtoupper(Controller::sanitizeDatas($ville), 'UTF-8'), \PDO::PARAM_STR);
+					$sql_load .= ($k == 0 ? "" : ", ").$this->db->quote(Controller::utf8_strtoupper(Controller::sanitizeDatas($ville)), \PDO::PARAM_STR);
 				} else {
 					$sql_load .= ($k == 0 ? "" : ", ").$this->db->quote(Controller::sanitizeDatas($valeur), \PDO::PARAM_STR);
 				}
@@ -919,7 +919,7 @@ class UploadContactsController extends AuthController
 			$currentSociete = $rowCSV['societe'];
 			$currentAdresse = $rowCSV['adresse'];
 			$currentCodePostal = $rowCSV['code_postal'];
-			$currentVille = $rowCSV['ville'];
+			$currentVille = Controller::utf8_strtoupper($rowCSV['ville']);
 			$currentPays = $rowCSV['pays'];
 			$currentTelFixe = $rowCSV['tel_fixe'];
 			$currentTelPortable = $rowCSV['tel_portable'];

@@ -3,7 +3,7 @@
 /**
  * viewUserCompleteProfile Model
  */
-class viewUserCompleteProfile extends DB\SQL\Mapper {
+class viewUserCompleteProfile extends MyMapper {
 
 
     public function __construct(DB\SQL $db) {
