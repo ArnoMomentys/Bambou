@@ -209,7 +209,8 @@ class UploadContactsController extends AuthController
 					
 					// If don't continue. reroute
 					$continue = $this->f3->get('REQUEST.continue');
-					if (!$continue == "true")
+					
+					if ($continue != "true")
 					{
 						// Re route
 						$this->f3->reroute('/event/' . $params->eid . '/show/' . $params->status);		// goto imported list
