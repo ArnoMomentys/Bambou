@@ -2,3 +2,6 @@
 _www/tmp/*.php
 _www/tmp/uploads/hosts/*
 _www/tmp/uploads/guests/*
+/.project
+/.buildpath
+/.settings
