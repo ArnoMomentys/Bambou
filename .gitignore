@@ -1,0 +1,4 @@
+.DS_Store
+_www/tmp/*.php
+_www/tmp/uploads/hosts/*
+_www/tmp/uploads/guests/*
