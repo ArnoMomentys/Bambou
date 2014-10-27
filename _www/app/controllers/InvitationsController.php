@@ -11,16 +11,24 @@ class InvitationsController extends AuthController {
      */
     public function validateInvitation()
     {
-    	$aevents = json_decode($this->f3->get('SESSION.events'));
+        $aevents = json_decode($this->f3->get('SESSION.events'));
     	if( (in_array($this->f3->get('SESSION.lvl'), array(2,3)) && in_array($this->f3->get('POST.eventID'), $aevents)) || $this->f3->get('SESSION.lvl')==1 )
     	{
     		if($this->f3->exists('POST.validate-guest'))
     		{
-	    		$invitations = new Invitations($this->db);
-	    		$invitations->load(array('iid=?',$this->f3->get('POST.invitationID')));
-	    		$invitations->validated = 1;
-	    		$invitations->validatedAt = date('Y-m-d H:i:s');
-	    		$invitations->save();
+    		    $iid = $this->f3->get('POST.invitationID');
+    		    $iid = explode(",", $iid);
+                
+                foreach($iid as $currentIID)
+                {
+                    $currentIID = (int) $currentIID;
+                    $invitations = new Invitations($this->db);
+                    $invitations->load(array('iid=?',$currentIID));
+                    $invitations->validated = 1;
+                    $invitations->validatedAt = date('Y-m-d H:i:s');
+                    $invitations->save();
+                }
+            		
 	    		$msg = ucfirst($this->T('invitation')).' '.$this->T('validated_fem').' '.$this->T('for').' <b class="textracap">'.$this->f3->get('POST.guestname').'</b>';
 	    		$this->setMessage($msg);
 	    	}
@@ -40,6 +48,8 @@ class InvitationsController extends AuthController {
 		    $iid = explode(",", $params->iid);
 		    foreach($iid as $currentIID)
 		    {
+		        $currentIID = (int) $currentIID;
+		        
     			// mettre à jour l'invitation
         		$invitation = new InvitationGuests($this->db);
         		$invitation->load(array('invitationID=?', $currentIID));
@@ -47,6 +57,7 @@ class InvitationsController extends AuthController {
         		$invitation->answeredAt = date('Y-m-d H:i:s');
         		$invitation->save();
 		    }
+		    
     		// recupérer le nom de l'invité pour le message de retour
     		$invite = new Invitations($this->db);
     		$i = $invite->getOneByIidFlat($iid[0]);
@@ -71,14 +82,21 @@ class InvitationsController extends AuthController {
             $params = (object) array_map('trim', $this->f3->get('PARAMS'));
     		if( isset($params->eid) && isset($params->iid) && isset($params->presence) && isset($params->ref) )
     		{
-    			// mettre à jour l'invitation
-	    		$invitation = new InvitationGuests($this->db);
-	    		$invitation->load(array('invitationID=?', $params->iid));
-	    		$invitation->guestPresence = $params->presence;
-	    		$invitation->save();
+    		    $iid = explode(",", $params->iid);
+    		    foreach($iid as $currentIID)
+    		    {
+    		        $currentIID = (int) $currentIID;
+    		        
+    		        // mettre à jour l'invitation
+    		        $invitation = new InvitationGuests($this->db);
+    		        $invitation->load(array('invitationID=?', $currentIID));
+    		        $invitation->guestPresence = $params->presence;
+    		        $invitation->save();
+    		    }
+
 	    		// recupérer le nom de l'invité pour le message de retour
 	    		$invite = new Invitations($this->db);
-	    		$i = $invite->getOneByIidFlat($params->iid);
+	    		$i = $invite->getOneByIidFlat($iid[0]);
 	    		$guest = new viewUserCompleteProfile($this->db);
 	    		$u = $guest->getUserFullProfileByUid_Raw($i[0]['guestID']);
 	    		$msg = ($params->presence==1 ? $this->T('presence_to_event_saved') : $this->T('absence_to_event_saved')).' '.$this->T('for').' <b class="textracap">'.$u[0]['nom'].' '.$u[0]['prenom'].'</b> ';
