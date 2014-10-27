@@ -668,7 +668,7 @@ class EventGuestsController extends AuthController {
      * Generic function to get the SQL array field
      * @return string
      */
-    private function _getArraySqlField($field)
+    public static function _getArraySqlField($field)
     {
         return Controller::SQL_ARRAY_FIELD_PREFIX.$field.' REGEXP ?';
     }
@@ -687,7 +687,7 @@ class EventGuestsController extends AuthController {
      * @param unknown $value
      * @return string
      */
-    private function _getArraySqlRegexp($value)
+    public static function _getArraySqlRegexp($value)
     {
         return '('.Controller::SQL_ARRAY_DELIMITER.'|[^0-9]*)('.$value.')('.Controller::SQL_ARRAY_DELIMITER.'|[^0-9]*)';
     }
