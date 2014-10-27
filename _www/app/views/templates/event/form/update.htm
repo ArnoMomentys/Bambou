@@ -6,9 +6,9 @@
         </a>
     </h2>
     <br>
-    <small class="dimgra"><span class="textraupp">{{ @starting_at[@l] }}</span> : {{ strftime("%A %d %B %G", strtotime(@event.debut)) }}</small>
+    <small class="dimgra"><span class="textraupp">{{ @starting_at[@l] }}</span> : {{ Controller::displayDate(@event.debut) }}</small>
     <br>
-    <small class="dimgra"><span class="textraupp">{{ @limit_displayed[@l] }}</span> : {{ strftime("%A %d %B %G", strtotime(@event.limitB)) }}</small><br><br>
+    <small class="dimgra"><span class="textraupp">{{ @limit_displayed[@l] }}</span> : {{ Controller::displayDate(@event.limitB) }}</small><br><br>
 
     <h3 class="pull-left disblo widful page-subheading">
         {{ ucfirst(@event_update[@l]) }}

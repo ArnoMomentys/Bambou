@@ -81,7 +81,7 @@
                 </div>
                 <small>{{ @event.lieu }}</small>
                 <br>
-                <small>{{ strftime("%A %d %B %G", strtotime(@event.debut)) }}</small>
+                <small>{{ Controller::displayDate(@event.debut) }}</small>
             </div>
             <div class="panel-body">
                 <div class="body-heading stats">

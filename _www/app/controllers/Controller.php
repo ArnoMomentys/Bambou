@@ -7,9 +7,11 @@ class Controller {
 
     protected $f3;
     protected $db;
+    const SQL_ARRAY_DELIMITER = '[__¤~~¤__]';
+    const SQL_ARRAY_FIELD_PREFIX = '__array__';
     private static $geoip2 = null;
     private $errors = array();
-
+    
 
  	/**
  	 * Actions to perform before routing
@@ -121,6 +123,33 @@ class Controller {
 		return $data;
     }
 
+    /**
+     * Format date to human reading (including langage)
+     * @param unknown $dateToDisplay
+     * @return string
+     */
+    public static function displayDate($dateToDisplay)
+    {
+        $lang = Base::instance()->get('SESSION.lang', 'fr');
+        
+        switch ($lang)
+        {
+            case 'en':
+                $pattern = "%A %d %B %Y";
+                break;
+                
+            case 'fr':
+            default :   
+                $pattern = "%A %d %B %Y";
+                break;
+        }
+        
+        $date = strftime($pattern, strtotime($dateToDisplay));
+       
+        $date = utf8_encode($date);
+        
+        return $date;
+    }
     
     /**
      * cpToRegion : give the region name of given CP

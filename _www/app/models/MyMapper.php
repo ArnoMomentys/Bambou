@@ -33,6 +33,12 @@ class MyMapper extends DB\SQL\Mapper
         foreach ($this->fields as $key => $value)
         {
             $this->fields[$key]['value'] = Controller::sanitizeDatas($value['value']);
+            
+            // Doing uppercase
+            if (in_array($key, array('ville', 'b_ville')))
+            {
+                $this->fields[$key]['value'] = Controller::utf8_strtoupper($value['value']);
+            }
         }
     }
 }

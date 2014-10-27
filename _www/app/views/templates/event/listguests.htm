@@ -3,9 +3,9 @@
         <span class="textracap">{{ @eventname[@l] }}</span> : {{ @event.nom }}&nbsp;<i class="glyphicon glyphicon-chevron-right padlef10"></i>
     </a>
 </h2>
-<small class="dimgra"><span class="textraupp">{{ @starting_at[@l] }}</span> : {{ strftime("%A %d %B %G", strtotime(@event.debut)) }}</small>
+<small class="dimgra"><span class="textraupp">{{ @starting_at[@l] }}</span> : {{ Controller::displayDate(@event.debut) }}</small>
 <br>
-<small class="dimgra"><span class="textraupp">{{ @limit_displayed[@l] }}</span> : {{ strftime("%A %d %B %G", strtotime(@event.limitB)) }}</small>
+<small class="dimgra"><span class="textraupp">{{ @limit_displayed[@l] }}</span> : {{ Controller::displayDate(@event.limitB) }}</small>
 <br>
 <check if="{{ isset(@SESSION.msg) && strlen(@SESSION.msg)>1 }}">
     <true>
@@ -154,9 +154,9 @@
                                                             <false>
                                                                 <check if="{{ @key=='hostname' }}">
                                                                     <true>
-                                                                        <a href="/user/{{@liste.hostid}}/show" class="disinlblo widful">
-                                                                            {{ @value }}
-                                                                        </a>
+                                                                    	<repeat group="{{ @value }}" key="{{ @hostnameKey }}" value="{{ @hostnameData }}">
+                                                                        	<a href="/user/{{ @liste['hostid'][@hostnameKey] }}/show" class="disinlblo widful">{{ @hostnameData }}</a>
+                                                                        </repeat>
                                                                     </true>
                                                                     <false>
                                                                         <span class="disinlblo widful">{{ @value }}</span>
@@ -179,21 +179,21 @@
 									    <td class="answ">
                                             <div class="dropdown disinl">
                                                 <button class="btn btn-link curpoi has-tip-left dropdown-toggle" type="button" id="dropdownMenu1" data-toggle="dropdown" title="{{ @answer_invitation[@l] }}">
-                                                    {{ @liste.answer == 0 ? '<i class="glyphicon glyphicon-question-sign bluetxt"></i>' : '' }}
-                                                    {{ @liste.answer == 1 ? '<i class="glyphicon glyphicon-ok-sign greentxt"></i>' : '' }}
-                                                    {{ @liste.answer == 2 ? '<i class="glyphicon glyphicon-minus-sign redtxt"></i>' : '' }}
+                                                    {{ @liste.answer.0 == 0 ? '<i class="glyphicon glyphicon-question-sign bluetxt"></i>' : '' }}
+                                                    {{ @liste.answer.0 == 1 ? '<i class="glyphicon glyphicon-ok-sign greentxt"></i>' : '' }}
+                                                    {{ @liste.answer.0 == 2 ? '<i class="glyphicon glyphicon-minus-sign redtxt"></i>' : '' }}
                                                 </button>
 												<!-- ONLY Admin can change the status -->
 												<check if="{{ @SESSION.lvl <= 2 }}">
 													<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 														<li role="presentation">
-															<a class="texalilef" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @liste['invitationid'] }}/0/event_{{ @event.eid }}_show_guests">{{ @no_answer[@l] }} {{ @liste.answer == 0 ? '<i class="glyphicon glyphicon-ok marlef5"></i>' : '' }}</a>
+															<a class="texalilef" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @liste['invitationids'] }}/0/event_{{ @event.eid }}_show_guests">{{ @no_answer[@l] }} {{ @liste.answer.0 == 0 ? '<i class="glyphicon glyphicon-ok marlef5"></i>' : '' }}</a>
 														</li>
 														<li role="presentation">
-															<a class="texalilef" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @liste['invitationid'] }}/1/event_{{ @event.eid }}_show_guests">{{ @guest_answer_yes[@l] }} {{ @liste.answer == 1 ? '<i class="glyphicon glyphicon-ok marlef5"></i>' : '' }}</a>
+															<a class="texalilef" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @liste['invitationids'] }}/1/event_{{ @event.eid }}_show_guests">{{ @guest_answer_yes[@l] }} {{ @liste.answer.0 == 1 ? '<i class="glyphicon glyphicon-ok marlef5"></i>' : '' }}</a>
 														</li>
 														<li role="presentation">
-															<a class="texalilef" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @liste['invitationid'] }}/2/event_{{ @event.eid }}_show_guests">{{ @guest_answer_no[@l] }} {{ @liste.answer == 2 ? '<i class="glyphicon glyphicon-ok marlef5"></i>' : '' }}</a>
+															<a class="texalilef" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @liste['invitationids'] }}/2/event_{{ @event.eid }}_show_guests">{{ @guest_answer_no[@l] }} {{ @liste.answer.0 == 2 ? '<i class="glyphicon glyphicon-ok marlef5"></i>' : '' }}</a>
 														</li>
 													</ul>
 												</check>

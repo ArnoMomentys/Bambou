@@ -919,7 +919,7 @@ class UploadContactsController extends AuthController
 			$currentSociete = $rowCSV['societe'];
 			$currentAdresse = $rowCSV['adresse'];
 			$currentCodePostal = $rowCSV['code_postal'];
-			$currentVille = Controller::utf8_strtoupper($rowCSV['ville']);
+			$currentVille = $rowCSV['ville'];
 			$currentPays = $rowCSV['pays'];
 			$currentTelFixe = $rowCSV['tel_fixe'];
 			$currentTelPortable = $rowCSV['tel_portable'];

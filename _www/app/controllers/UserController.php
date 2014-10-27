@@ -344,7 +344,7 @@ class UserController extends AuthController {
 	            	$job->portable = $post['portable'];
 	            	$job->adresse = $post['adresse'];
 	            	$job->cp = $post['cp'];
-	            	$job->ville = Controller::utf8_strtoupper($post['ville']);
+	            	$job->ville = $post['ville'];
 	            	$job->pays = $post['pays'];
 	            	$job->save();
 	            	// save modified billing infos
@@ -357,7 +357,7 @@ class UserController extends AuthController {
 						$billing->organisme = $post['b_organisme'];
 						$billing->adresse = $post['b_adresse'];
 						$billing->cp = $post['b_cp'];
-						$billing->ville = Controller::utf8_strtoupper($post['b_ville']);
+						$billing->ville = $post['b_ville'];
 						$billing->pays = $post['b_pays'];
 						$billing->imputation = $post['b_imputation'];
 						$billing->smart =$post['b_smart'];

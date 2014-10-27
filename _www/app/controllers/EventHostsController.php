@@ -69,10 +69,7 @@ class EventHostsController extends AuthController {
                     'isold' => $isold,
                     'totaux' => (isset($list['total']) && $list['total']>0 ? $list['total'] : 0),
                     'filter' => $filter,
-                    'filtervalue' => $filtervalue,
-                    'search_header' => $this->T('search_host'),
-                    'search_pat' => "/event/$params->eid/show/hosts/hostname/___/order/asc",
-                    'no_search_pat' => "/event/$params->eid/show/hosts",
+                    'search_fields' => $this->_getSearchFieldsParam($filtervalue),      
                     'view' => 'event/listhosts.htm'
                 )
             );
@@ -152,10 +149,7 @@ class EventHostsController extends AuthController {
                     'listindex' => 'eid',
                     'listname' => $hosts['total']>1 ? $this->T('contacts') : $this->T('contact'),
                     'filter' => $filter,
-                    'filtervalue' => $filtervalue,
-                    'search_header' => $this->T('search_host'),
-                    'search_pat' => "/event/$params->eid/add/host/nom/___/order/asc",
-                    'no_search_pat' => "/event/$params->eid/add/host",
+                    'search_fields' => $this->_getSearchFieldsParam($filtervalue),
                     'complete_profile' => "event_".$params->eid."_add_host",
                     'view' => 'event/addhost.htm'
                 )
@@ -281,7 +275,7 @@ class EventHostsController extends AuthController {
                     $host_profile->save();
                     $msg2 = '<b>' . strtoupper($host_profile->nom).' '.ucfirst($host_profile->prenom).'</b> : Profil complété, ';
                     if(strlen($post['adresse'])>0) $host_job->adresse = $post['adresse'];
-                    if(strlen($post['ville'])>0) $host_job->ville = Controller::utf8_strtoupper($post['ville']);
+                    if(strlen($post['ville'])>0) $host_job->ville = $post['ville'];
                     if(strlen($post['cp'])>0) $host_job->cp = $post['cp'];
                     if(strlen($post['pays'])>0) $host_job->pays = $post['pays'];
                     if(strlen($post['portable'])>0) $host_job->portable = $post['portable'];
@@ -342,6 +336,14 @@ class EventHostsController extends AuthController {
         $this->f3->reroute('/event/'.$this->f3->get('POST.eventID').'/show/hosts');
     }
 
-
+    private function _getSearchFieldsParam($filtervalue)
+    {
+        $params = (object) array_map('trim', $this->f3->get('PARAMS'));
+    
+        return array(
+            array('filtervalue' => $filtervalue, 'search_header' => $this->T('search_host'), 'search_pat' => "/event/$params->eid/show/hosts/hostname/___/order/asc", 'no_search_pat' => "/event/$params->eid/show/hosts"),
+            array('filtervalue' => "", 'search_header' => $this->T('search_guest'), 'search_pat' => "/event/$params->eid/show/guests/guestname/___/order/asc", 'no_search_pat' => "/event/$params->eid/show/guest")
+        );
+    }
 }
 

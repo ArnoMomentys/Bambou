@@ -49,7 +49,7 @@
                     <div class="panel-body">
                         <small>{{ @event.lieu }}</small>
                         <br>
-                        <small>{{ strftime("%A %d %B %G", strtotime(@event.debut)) }}</small>
+                        <small>{{ Controller::displayDate(@event.debut) }}</small>
 
                         <check if="{{ (isset(@allMyEvents.hosted) && in_array(@event.eid, @allMyEvents.hosted)) || @SESSION.lvl==1 }}">
 

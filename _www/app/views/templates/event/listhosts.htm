@@ -3,9 +3,9 @@
         <span class="textracap">{{ @eventname[@l] }}</span> : {{ @event.nom }}&nbsp;<i class="glyphicon glyphicon-chevron-right padlef10"></i>
     </a>
 </h2>
-<small class="dimgra"><span class="textraupp">{{ @starting_at[@l] }}</span> : {{ strftime("%A %d %B %G", strtotime(@event.debut)) }}</small>
+<small class="dimgra"><span class="textraupp">{{ @starting_at[@l] }}</span> : {{ Controller::displayDate(@event.debut) }}</small>
 <br>
-<small class="dimgra"><span class="textraupp">{{ @limit_displayed[@l] }}</span> : {{ strftime("%A %d %B %G", strtotime(@event.limitB)) }}</small><br><br>
+<small class="dimgra"><span class="textraupp">{{ @limit_displayed[@l] }}</span> : {{ Controller::displayDate(@event.limitB) }}</small><br><br>
 
 <check if="{{ isset(@SESSION.msg) && strlen(@SESSION.msg)>1 }}">
     <true>

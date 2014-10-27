@@ -37,15 +37,19 @@ class InvitationsController extends AuthController {
         $params = (object) array_map('trim', $this->f3->get('PARAMS'));
 		if( isset($params->eid) && isset($params->iid) && isset($params->answer) && isset($params->ref) )
 		{
-			// mettre à jour l'invitation
-    		$invitation = new InvitationGuests($this->db);
-    		$invitation->load(array('invitationID=?', $params->iid));
-    		$invitation->guestAnswer = ($params->answer > 2 || $params->answer <= 0 ? 0 : $params->answer);
-    		$invitation->answeredAt = date('Y-m-d H:i:s');
-    		$invitation->save();
+		    $iid = explode(",", $params->iid);
+		    foreach($iid as $currentIID)
+		    {
+    			// mettre à jour l'invitation
+        		$invitation = new InvitationGuests($this->db);
+        		$invitation->load(array('invitationID=?', $currentIID));
+        		$invitation->guestAnswer = ($params->answer > 2 || $params->answer <= 0 ? 0 : $params->answer);
+        		$invitation->answeredAt = date('Y-m-d H:i:s');
+        		$invitation->save();
+		    }
     		// recupérer le nom de l'invité pour le message de retour
     		$invite = new Invitations($this->db);
-    		$i = $invite->getOneByIidFlat($params->iid);
+    		$i = $invite->getOneByIidFlat($iid[0]);
     		$guest = new viewUserCompleteProfile($this->db);
     		$u = $guest->getUserFullProfileByUid_Raw($i[0]['guestID']);
     		$msg = $this->T('answer_to_invitation_saved').($params->answer > 2 || $params->answer <= 0 ? '' : (' <b class="textracap">'.$u[0]['nom'].' '.$u[0]['prenom'].'</b> '.($params->answer==1 ? $this->T('guest_answer_yes') : $this->T('guest_answer_no'))));

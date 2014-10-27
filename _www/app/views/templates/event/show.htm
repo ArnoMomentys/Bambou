@@ -3,15 +3,15 @@
 	</a>
 </h2>
 <small class="dimgra">
-	<span class="textraupp">{{ @date_start[@l] }}</span> : {{ strftime("%A %d %B %G", strtotime(@event.debut)) }}
+	<span class="textraupp">{{ @date_start[@l] }}</span> : {{ Controller::displayDate(@event.debut) }}
 </small>
 <br>
 <small class="dimgra">
-	<span class="textraupp">{{ @limit_displayed[@l] }}</span> : {{ strftime("%A %d %B %G", strtotime(@event.limitB)) }}
+	<span class="textraupp">{{ @limit_displayed[@l] }}</span> : {{ Controller::displayDate(@event.limitB) }}
 </small>
 <br>
 <small class="dimgra">
-	<span class="textraupp">{{ @date_end[@l] }}</span> : {{ strftime("%A %d %B %G", strtotime(@event.fin)) }}
+	<span class="textraupp">{{ @date_end[@l] }}</span> : {{ Controller::displayDate(@event.fin) }}
 </small>
 <br>
 <small class="dimgra">
@@ -23,7 +23,7 @@
 </small>
 <br>
 <small class="dimgra">
-	<span class="textraupp">{{ @event_town[@l] }}</span> : {{ strtoupper(@event.ville) }}
+	<span class="textraupp">{{ @event_town[@l] }}</span> : {{ @event.ville }}
 </small>
 <br>
 <small class="dimgra">

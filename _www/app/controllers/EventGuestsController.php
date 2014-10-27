@@ -18,7 +18,7 @@ class EventGuestsController extends AuthController {
             $filter = (isset($params->filter) ? $params->filter : '');
             $filtervalue = (isset($params->filtervalue) ? $params->filtervalue : '');
             $filters = $options = [];
-            $filterQuery = $this->f3->get('SESSION.lvl') <= 2 ? 'eid=?' : 'eid=? AND hostid=?';
+            $filterQuery = $this->f3->get('SESSION.lvl') <= 2 ? 'eid=?' : 'eid=? AND '.$this->_getHostIdSqlField();
             $filterValue = '';
             if( empty($params->filter) )
             {
@@ -37,9 +37,9 @@ class EventGuestsController extends AuthController {
             $filters[] = $params->eid;
             if( $this->f3->get('SESSION.lvl') > 2 )
             {
-                $filters[] = $this->f3->get('SESSION.uid');
+                $filters[] = $this->_getHostIdSqlRegexp();
             }
-
+            
             if( !empty($filterValue) )
             {
                 $filters[] = $filterValue;
@@ -50,6 +50,9 @@ class EventGuestsController extends AuthController {
 
             $eventGuests = new viewEventsEventGuests($this->db);
             $list = $eventGuests->getEventGuestsPaginated($filters, $options);
+            
+            //echo '<pre>'; print_r($list); echo '</pre>'; die();
+            
             $isEventOld = ($e->limitB < date('Y-m-d') ? true : false);
             $isEventDone = ($e->debut <= date('Y-m-d') ? true : false);
 
@@ -64,12 +67,9 @@ class EventGuestsController extends AuthController {
                     'isdone' => $isEventDone,
                     'totaux' => (isset($list['total']) && $list['total']>0 ? $list['total'] : 0),
                     'listname' => $list['total']>1 ? $this->T('event_guests') : $this->T('event_guest'),
-                    'search_header' => $this->T('search_guest'),
                     'page_header' => ($this->f3->get('SESSION.lvl')<=2 ? ucfirst($this->T('all_guests_list')) : ucfirst($this->T('my_guests_list'))),
                     'filter' => $filter,
-                    'filtervalue' => $filtervalue,
-                    'search_pat' => "/event/$params->eid/show/guests/guestname/___/order/asc",
-                    'no_search_pat' => "/event/$params->eid/show/guests",
+                    'search_fields' => $this->_getSearchFieldsParam($filtervalue),
                     'view' => 'event/listguests.htm'
                 )
             );
@@ -100,7 +100,7 @@ class EventGuestsController extends AuthController {
             $filter = (isset($params->filter) ? $params->filter : '');
             $filtervalue = (isset($params->filtervalue) ? $params->filtervalue : '');
             $filters = $options = [];
-            $filterQuery = $this->f3->get('SESSION.lvl') <= 2 ? 'eid=?' : 'eid=? AND hostid=?';
+            $filterQuery = $this->f3->get('SESSION.lvl') <= 2 ? 'eid=?' : 'eid=? AND '.$this->_getHostIdSqlField();
             $filterValue = '';
             if( empty($params->filter) )
             {
@@ -115,12 +115,15 @@ class EventGuestsController extends AuthController {
                     $filterValue .= '%'.$params->filtervalue.'%';
                 }
             }
-            $filters[] = $filterQuery." AND guestname != '' AND answer = ".$rep;
+           // $filters[] = $filterQuery." AND guestname != '' AND answer = ".$rep;
+            $filters[] = $filterQuery." AND guestname != '' AND ".$this->_getAnswerSqlField();
+            
             $filters[] = $params->eid;
             if( $this->f3->get('SESSION.lvl') > 2 )
             {
-                $filters[] = $this->f3->get('SESSION.uid');
+                $filters[] = $this->_getHostIdSqlRegexp();
             }
+            $filters[] = $this->_getArraySqlRegexp($rep);;
 
             if( !empty($filterValue) )
             {
@@ -159,9 +162,7 @@ class EventGuestsController extends AuthController {
                     'search_header' => $this->T('search_guest'),
                     'page_header' => $page_header,
                     'filter' => $filter,
-                    'filtervalue' => $filtervalue,
-                    'search_pat' => "/event/$params->eid/show/guests/guestname/___/order/asc",
-                    'no_search_pat' => "/event/$params->eid/show/guests",
+                    'search_fields' => $this->_getSearchFieldsParam($filtervalue),
                     'view' => 'event/listguests.htm'
                 )
             );
@@ -192,7 +193,7 @@ class EventGuestsController extends AuthController {
             $filter = (isset($params->filter) ? $params->filter : '');
             $filtervalue = (isset($params->filtervalue) ? $params->filtervalue : '');
             $filters = $options = [];
-            $filterQuery = $this->f3->get('SESSION.lvl') <= 2 ? 'eid=?' : 'eid=? AND hostid=?';
+            $filterQuery = $this->f3->get('SESSION.lvl') <= 2 ? 'eid=?' : 'eid=? AND '.$this->_getHostIdSqlField();
             $filterValue = '';
             if( empty($params->filter) )
             {
@@ -207,12 +208,13 @@ class EventGuestsController extends AuthController {
                     $filterValue .= '%'.$params->filtervalue.'%';
                 }
             }
-            $filters[] = $filterQuery." AND guestname != ''  AND presence = ".($params->presence > 1 ? 0 : $params->presence);
+            $filters[] = $filterQuery." AND guestname != '' AND ".$this->_getPresenceSqlField(); 
             $filters[] = $params->eid;
             if( $this->f3->get('SESSION.lvl') > 2 )
             {
-                $filters[] = $this->f3->get('SESSION.uid');
+                $filters[] = $this->_getHostIdSqlRegexp();;
             }
+            $filters[] = $this->_getArraySqlRegexp($params->presence > 1 ? 0 : $params->presence);
 
             if( !empty($filterValue) )
             {
@@ -248,9 +250,7 @@ class EventGuestsController extends AuthController {
                     'listname' => $list['total']>1 ? $this->T('event_guests') : $this->T('event_guest'),
                     'search_header' => $this->T('search_guest'),
                     'filter' => $filter,
-                    'filtervalue' => $filtervalue,
-                    'search_pat' => "/event/$params->eid/show/guests/guestname/___/order/asc",
-                    'no_search_pat' => "/event/$params->eid/show/guests",
+                    'search_fields' => $this->_getSearchFieldsParam($filtervalue),
                     'view' => 'event/listguests.htm'
                 )
             );
@@ -347,10 +347,7 @@ class EventGuestsController extends AuthController {
                     'page_header' => ucfirst($this->T('event_list')).' : '.ucfirst($event_options->nom),
                     'listname' =>$list['total']>1 ? $this->T('contacts') : $this->T('contact'),
                     'filter' => $filter,
-                    'filtervalue' => $filtervalue,
-                    'search_header' => $this->T('search_user_to_invite'),
-                    'search_pat' => "/event/$params->eid/add/guest/nom/___/order/asc",
-                    'no_search_pat' => "/event/$params->eid/add/guest",
+                    'search_fields' => $this->_getSearchFieldsParam($filtervalue),
                     'complete_profile' => "event_".$params->eid."_add_guest",
                     'view' => 'event/addguest.htm'
                 )
@@ -587,7 +584,7 @@ class EventGuestsController extends AuthController {
                     $user_profile->save();
                     $msg2 = '<b>' . strtoupper($user_profile->nom).' '.ucfirst($user_profile->prenom).'</b> : Profil complété, ';
                     $user_job->adresse = $post['adresse'];
-                    $user_job->ville = Controller::utf8_strtoupper($post['ville']);
+                    $user_job->ville = $post['ville'];
                     $user_job->cp = $post['cp'];
                     $user_job->pays = $post['pays'];
                     $user_job->portable = $post['portable'];
@@ -652,5 +649,62 @@ class EventGuestsController extends AuthController {
         $this->f3->reroute('/event/'.$this->f3->get('POST.eventID').'/show/guests');
     }
 
+    private function _getHostIdSqlField()
+    {
+        return $this->_getArraySqlField('hostid');
+    }
+    
+    private function _getAnswerSqlField()
+    {
+        return $this->_getArraySqlField('answer');
+    }
+    
+    private function _getPresenceSqlField()
+    {
+        return $this->_getArraySqlField('presence');
+    }
+    
+    /**
+     * Generic function to get the SQL array field
+     * @return string
+     */
+    private function _getArraySqlField($field)
+    {
+        return Controller::SQL_ARRAY_FIELD_PREFIX.$field.' REGEXP ?';
+    }
+    
+    /**
+     * The REGEXP String used to match hostid in sql array string
+     * @return string
+     */
+    private function _getHostIdSqlRegexp()
+    {
+        return $this->_getArraySqlRegexp($this->f3->get('SESSION.uid'));
+    }
+    
+    /**
+     * Generic function to get the SQL array regexp for get the requested values
+     * @param unknown $value
+     * @return string
+     */
+    private function _getArraySqlRegexp($value)
+    {
+        return '('.Controller::SQL_ARRAY_DELIMITER.'|[^0-9]*)('.$value.')('.Controller::SQL_ARRAY_DELIMITER.'|[^0-9]*)';
+    }
+    
+    /**
+     * Search field for "Invitant" and "Invité"
+     * @param unknown $filtervalue
+     * @return multitype:multitype:string unknown  multitype:string unknown Ambigous <string, unknown>
+     */
+    private function _getSearchFieldsParam($filtervalue)
+    {
+        $params = (object) array_map('trim', $this->f3->get('PARAMS'));
+        
+        return array(
+            array('filtervalue' => "", 'search_header' => $this->T('search_host'), 'search_pat' => "/event/$params->eid/show/hosts/hostname/___/order/asc", 'no_search_pat' => "/event/$params->eid/show/hosts"),
+            array('filtervalue' => $filtervalue, 'search_header' => $this->T('search_guest'), 'search_pat' => "/event/$params->eid/show/guests/guestname/___/order/asc", 'no_search_pat' => "/event/$params->eid/show/guests")
+        );
+    }
 }
 

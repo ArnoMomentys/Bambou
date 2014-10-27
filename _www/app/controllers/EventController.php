@@ -140,6 +140,7 @@ class EventController extends AuthController {
 			}
 			$eventOptions = new viewEventOptions($this->db);
 			$event_options = $eventOptions->getEventOptionsByEid($params->eid);
+			//var_dump($event_options); die();
 			$this->f3->mset(
 				array(
 					'event' => $event_options,

@@ -20,11 +20,36 @@ class viewEventsEventGuests extends MyMapper
      */
     public function getEventGuestsPaginated($filters, $options)
     {
+        //echo '<pre>'.print_r($filters).'</pre>'; die();
 		$page = \Pagination::findCurrentPage();
 		$result = $this->paginateToArray($page-1, 30, $filters, $options);
-		foreach($result['subset'] as $key=>$guest) {
-			$result['subset'][$key]['hostname'] = $this->getHostsList($guest['guestid'], $filters);
+		
+		//$data = $this->db->log();
+		//echo '<pre>'.print_r ($result, true).'</pre>';
+		$sqlArrayFieldPrefixLength = strlen(Controller::SQL_ARRAY_FIELD_PREFIX);
+		foreach($result['subset'] as $iRow => $guestData) 
+		{
+		    // Check if sql field are array
+			foreach ($guestData as $key => $currentGuestData)
+			{
+			    if (substr($key, 0, $sqlArrayFieldPrefixLength) == Controller::SQL_ARRAY_FIELD_PREFIX)
+			    {
+			        $newKey = substr($key, $sqlArrayFieldPrefixLength);
+			        
+			        // The field is an array
+			        $result['subset'][$iRow][$newKey] = explode(Controller::SQL_ARRAY_DELIMITER, $currentGuestData);
+			        
+			        // Delete the raw result
+			        unset($result['subset'][$iRow][$key]);
+			    }    
+			}
+			
+			// 
+			$result['subset'][$iRow]['invitationids'] = implode(',', $result['subset'][$iRow]['invitationid']);
 		}
+		
+		//echo '<pre>'.print_r ($result, true).'</pre>'; die("ee");
+		
 		return $result;
     }
 
@@ -33,19 +58,15 @@ class viewEventsEventGuests extends MyMapper
      */
     public function getHostsList($guestId, $filters) 
     {
-    	$hostName = "";
-    	$sql = "select hostname from _events_eventguests where guestid=? and eid=?";
+    	$hostName = [];
+    	$sql = "select hostid, hostname from _events_eventguests where guestid=? and eid=?";
     	$params = array(1 => $guestId, 2 => $filters[1]);
 		
-    	//var_dump($filters);die;
     	$results = $this->db->exec($sql,$params);
     	foreach($results as $host){
-			if (!empty($hostName))
-			{
-				$hostName .= ", ";
-			}
-    		$hostName .= $host['hostname'];
+			$hostName[] = $host;
     	}
+    	
     	return $hostName;	 
     }
 

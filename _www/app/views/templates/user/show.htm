@@ -109,7 +109,7 @@
 	<check if="{{@user.updatedAt}}">
     <div class="group">
         <small>{{ ucfirst(@updated_at[@l]) }} :</small>
-        <b> {{ strftime("%A %d %B %G", strtotime(@user.updatedAt)) }}</b>
+        <b> {{ Controller::displayDate(@user.updatedAt) }}</b>
     </div>
 	</check>
 	
