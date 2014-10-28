@@ -10,5 +10,6 @@ AND `i`.`hostID` = (
 	)
 	WHERE `ig2`.`guestAnswer` = `ig`.`guestAnswer` 
 	AND `i2`.`guestID` = `i`.`guestID`
+	AND `i2`.`eventID` = `i`.`eventID`
 ) AND `ig`.`guestAnswer` = 1 
 GROUP BY `i`.`eventID`
