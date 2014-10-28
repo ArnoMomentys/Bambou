@@ -312,13 +312,14 @@
 				    <div class="stats_response col-xs-7 col-sm-7 col-md-7 col-lg-7 padnon">
 				        <h4>{{ @answers[@l] }} <i class="glyphicon glyphicon-bookmark"></i></h4>
 				        <div class="record first _1">
-				            <div class="bar _1" style="height:{{@stats[@event.eid]->nbGuestsAnswerYes!=0 ? intval((@stats[@event.eid]->nbGuestsAnswerYes/@stats[@event.eid]->nbGuestsTotal)*100) : 1}}% !important;">
+				            <div class="bar _1" style="height:{{ @stats[@event.eid]->nbGuestsAnswerYesPercent }}% !important;">
 				                <check if="{{@stats[@event.eid]->nbGuestsAnswerYes>0}}">
 				                    <true>
 				                        <a href="{{ @BASE . '/event/' . @event.eid . '/show/guests/answer/1' }}">
 				                            <span class="digits">{{ @stats[@event.eid]->nbGuestsAnswerYes }}</span>
 				                            <span class="legend">{{ @presents[@l] }}</span>
 				                        </a>
+				                        
 				                    </true>
 				                    <false>
 				                        <span class="digits">0</span>
@@ -328,7 +329,7 @@
 				            </div>
 				        </div>
 				        <div class="record _2">
-				            <div class="bar _2" style="height:{{ @stats[@event.eid]->nbGuestsAnswerNo!=0 ? intval((@stats[@event.eid]->nbGuestsAnswerNo/@stats[@event.eid]->nbGuestsTotal)*100) : 1 }}% !important;">
+				            <div class="bar _2" style="height:{{ @stats[@event.eid]->nbGuestsAnswerNoPercent }}% !important;">
 				                <check if="{{ @stats[@event.eid]->nbGuestsAnswerNo > 0 }}">
                                     <true>
                                         <a href="{{ @BASE . '/event/' . @event.eid . '/show/guests/answer/2' }}">
@@ -344,7 +345,7 @@
 				            </div>
 				        </div>
 				        <div class="record _3">
-				            <div class="bar _3" style="height:{{@stats[@event.eid]->nbGuestsAnswerNone!=0 ? intval((@stats[@event.eid]->nbGuestsAnswerNone/@stats[@event.eid]->nbGuestsTotal)*100) : 1}}% !important;">
+				            <div class="bar _3" style="height:{{ @stats[@event.eid]->nbGuestsAnswerNonePercent }}% !important;">
 				                <check if="{{ @stats[@event.eid]->nbGuestsAnswerNone > 0 }}">
 	                                <true>
 	                                    <a href="{{ @BASE . '/event/' . @event.eid . '/show/guests/answer/0' }}">
@@ -366,14 +367,16 @@
 				            </div>
 				        </div>
 				    </div>
+					<check if="{{ @event.fin < @date }}">
+                    <!-- Present -->
 				    <div class="stats_presence col-xs-5 col-sm-5 col-md-5 col-lg-5">
 				        <h4>{{ @presence[@l] }} <i class="glyphicon glyphicon-flash"></i></h4>
 				        <div class="record first _1">
-				            <div class="bar _1" style="height:{{@stats[@event.eid]->nbGuestsPresence!=0 ? intval((@stats[@event.eid]->nbGuestsPresence/@stats[@event.eid]->nbGuestsTotal)*100) : 1}}% !important;">
+				            <div class="bar _1" style="height:{{ @stats[@event.eid]->nbGuestsPresenceYesPercent }}% !important;">
 				                <check if="{{ @event.fin < @date }}">
 				                    <true>
 				                        <a href="{{ @BASE . '/event/' . @event.eid . '/show/guests/presence/1' }}">
-				                            <span class="digits">{{ @stats[@event.eid]->nbGuestsPresence }}</span>
+				                            <span class="digits">{{ @stats[@event.eid]->nbGuestsPresenceYes }}</span>
 				                            <span class="legend">{{ @presents[@l] }}</span>
 				                        </a>
 				                    </true>
@@ -385,11 +388,11 @@
 				            </div>
 				        </div>
 				        <div class="record _2">
-				            <div class="bar _2" style="height:{{ intval(@stats[@event.eid]->nbGuestsAnswerYes - @stats[@event.eid]->nbGuestsPresence)!=0 ? intval(((@stats[@event.eid]->nbGuestsTotal - @stats[@event.eid]->nbGuestsPresence)/@stats[@event.eid]->nbGuestsTotal)*100) : 1 }}% !important;">
+				            <div class="bar _2" style="height:{{ @stats[@event.eid]->nbGuestsPresenceNoPercent }}% !important;">
 				                <check if="{{ @event.fin < @date }}">
 				                    <true>
-				                        <a href="{{ @BASE . '/event/' . @event.eid . '/show/guests/presence/0' }}">
-				                            <span class="digits">{{ @stats[@event.eid]->nbGuestsAnswerYes - @stats[@event.eid]->nbGuestsPresence }}</span>
+				                        <a href="{{ @BASE . '/event/' . @event.eid . '/show/guests/presence/2' }}">
+				                            <span class="digits">{{ @stats[@event.eid]->nbGuestsPresenceNo }}</span>
 				                            <span class="legend">{{ @absents[@l] }}</span>
 				                        </a>
 				                    </true>
@@ -407,6 +410,7 @@
 				            </div>
 				        </div>
 				    </div>
+				    </check>
 				</div>
 			</div>
 		</div>

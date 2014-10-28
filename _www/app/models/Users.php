@@ -7,13 +7,11 @@
  */
 class Users extends MyMapper {
 
-
     public function __construct(DB\SQL $db) {
         parent::__construct($db, 'users');
     }
 
-
- 	/**
+  	/**
  	 * Add a user from post datas to mapper
  	 * And save it to users table
  	 */
@@ -27,7 +25,6 @@ class Users extends MyMapper {
             return $newData;
         });
 		$this->password = Encrypt::load()->proceed($this->password);
-		$this->createdAt = date('Y-m-d H:i:s');
         $this->save();
     }
 
@@ -48,12 +45,39 @@ class Users extends MyMapper {
             return $newData;
         });
         if($this->password) $this->password = Encrypt::load()->proceed($this->password);
-        $this->updatedAt = date('Y-m-d H:i:s');
-        $this->updatedBy = $this->f3->get('SESSION.uid');
         $this->update();
     }
-
-
+    
+    public function insert() 
+    {
+        $this->createdAt = date('Y-m-d H:i:s');
+        
+        $this->_setHashIfNeeded();
+       parent::insert();
+    }
+    
+    public function update() 
+    {
+        $f3 = Base::instance();
+        
+        $this->updatedAt = date('Y-m-d H:i:s');
+        $this->updatedBy = $f3->get('SESSION.uid');
+        $this->_setHashIfNeeded();
+        parent::update();
+    }
+    
+    private function _setHashIfNeeded() 
+    {
+        $f3 = Base::instance();
+        
+        $post = array_map('trim', $f3->get('POST'));
+        
+        if (!isset($this->hash) && isset($post['nom']) && isset($post['prenom']) && isset($post['societe']))
+        {
+            $this->hash = MyMapper::getUserHash($post);
+        }
+    }
+    
     /**
      * Delete function
      * @param  int $uid user uid

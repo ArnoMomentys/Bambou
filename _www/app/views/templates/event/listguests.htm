@@ -87,16 +87,16 @@
                                                             <check if="{{ strlen(@value)==0 }}">
                                                                 <true>
                                                                     <td class="posabs">
-                                                                        <!-- /event/@eid/guest/@guestid/invitation/@invitationid/add/repr -->
-                                                                        <a href="{{ '/event/'.@liste.eid.'/guest/'.@liste.guestid.'/invitation/'.@liste.invitationid.'/add/repr' }}" title="{{ @add_representative[@l] }}" class="pull-right has-tip-up">
+                                                                        <!-- /event/@eid/guest/@guestid/invitation/@invitationids/add/repr -->
+                                                                        <a href="{{ '/event/'.@liste.eid.'/guest/'.@liste.guestid.'/invitation/'.@liste.invitationids.'/add/repr' }}" title="{{ @add_representative[@l] }}" class="pull-right has-tip-up">
                                                                             <i class="glyphicon glyphicon-plus"></i>
                                                                         </a>
                                                                     </td>
                                                                 </true>
                                                                 <false>
                                                                     <td>
-                                                                        <!-- /event/@eid/guest/@guestid/invitation/@invitationid/remove/repr/@reprid -->
-                                                                        <a href="{{ '/event/'.@liste.eid.'/guest/'.@liste.guestid.'/invitation/'.@liste.invitationid.'/remove/repr/'.@liste.reprid }}" title="{{ @representative_remove[@l] }}" class="pull-right has-tip-up">
+                                                                        <!-- /event/@eid/guest/@guestid/invitation/@invitationids/remove/repr/@reprid -->
+                                                                        <a href="{{ '/event/'.@liste.eid.'/guest/'.@liste.guestid.'/invitation/'.@liste.invitationids.'/remove/repr/'.@liste.reprid }}" title="{{ @representative_remove[@l] }}" class="pull-right has-tip-up">
                                                                             <i class="glyphicon glyphicon-remove"></i>
                                                                         </a>
                                                                     </td>
@@ -125,7 +125,7 @@
                                                                                     {{ @name }}
                                                                                 </a>
                                                                                 <check if="{{ !@isold }}">
-                                                                                    <a href="{{ '/event/'.@liste.eid.'/invitation/'.@liste.invitationid.'/remove/acc/'.@ids[@namesctr-1] }}" title="{{ @accompanying_remove[@l] }}" class="has-tip-up">
+                                                                                    <a href="{{ '/event/'.@liste.eid.'/invitation/'.@liste.invitationids.'/remove/acc/'.@ids[@namesctr-1] }}" title="{{ @accompanying_remove[@l] }}" class="has-tip-up">
                                                                                         <i class="glyphicon glyphicon-remove"></i>
                                                                                     </a>
                                                                                 </check>
@@ -136,7 +136,7 @@
                                                                 <check if="{{ !@isold }}">
                                                                     <td class="posabs">
                                                                         <!-- /event/100/guest/34407/igid/33590/add/acc -->
-                                                                        <a href="{{ '/event/'.@liste.eid.'/guest/'.@liste.guestid.'/invitation/'.@liste.invitationid.'/add/acc' }}" title="{{ @add_accompanying[@l] }}" class="pull-right has-tip-up">
+                                                                        <a href="{{ '/event/'.@liste.eid.'/guest/'.@liste.guestid.'/invitation/'.@liste.invitationids.'/add/acc' }}" title="{{ @add_accompanying[@l] }}" class="pull-right has-tip-up">
                                                                             <i class="glyphicon glyphicon-plus"></i>
                                                                         </a>
                                                                     </td>
@@ -202,38 +202,38 @@
 									</check>
 
                                     <check if="{{ @isold == false && @isdone == false }}">
-                                        <check if="{{ @liste.validated == 0 }}">
+                                        <check if="{{ @liste.validated.0 == 0 }}">
                                             <true>
 												<!-- ONLY Admin can send invitation -->
 												<check if="{{ @SESSION.lvl <= 2 }}">
 													<td class="valid">
-														<span class="btn btn-link curpoi has-tip-left tobevalidated" data-toggle="modal" data-target="#myModal-validateinvitations-{{ @liste.invitationid }}" title="{{ @send_invitation[@l] }}">
+														<span class="btn btn-link curpoi has-tip-left tobevalidated" data-toggle="modal" data-target="#myModal-validateinvitations-{{ @liste.invitationid.0 }}" title="{{ @send_invitation[@l] }}">
 															<i class="glyphicon glyphicon-envelope"></i>
 														</span>
 														<!-- validateinvitation.htm -->
-														<div class="modal fade bs-example-modal-sm" id="myModal-validateinvitations-{{@liste.invitationid}}" tabindex="-1" role="dialog" aria
-														-labelledby="myModalLabel-{{@liste.invitationid}}" aria-hidden="true">
+														<div class="modal fade bs-example-modal-sm" id="myModal-validateinvitations-{{@liste.invitationid.0}}" tabindex="-1" role="dialog" aria
+														-labelledby="myModalLabel-{{@liste.invitationid.0}}" aria-hidden="true">
 															<div class="modal-dialog">
 																<div class="modal-content">
 																	<div class="modal-header bornon texalilef">
 																		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
-																		<h4 class="modal-title" id="myModalLabel-{{@liste.invitationid}}">
+																		<h4 class="modal-title" id="myModalLabel-{{@liste.invitationid.0}}">
 																			<i class="glyphicon glyphicon-ok-circle"></i> {{ ucfirst(@validate[@l]) }} {{ @invitation_for[@l] }} <b class="fonstyita">{{ @liste.guestname }}</b>
 																		</h4>
 																	</div>
 																	<form action="{{ @BASE.'/event/'.@event.eid.'/invitation/validate' }}" method="post" class="
-																	form-delete" role="form" id="form-validateinvitations-{{ @liste.invitationid }}">
+																	form-delete" role="form" id="form-validateinvitations-{{ @liste.invitationid.0 }}">
 																		<div class="modal-footer bornon padtopnon martopnon">
 																			<input type="hidden" name="validate-guest" value="v" />
-																			<input type="hidden" name="invitationID" value="{{ @liste.invitationid }}">
+																			<input type="hidden" name="invitationID" value="{{ @liste.invitationids }}">
 																			<input type="hidden" name="eventID" value="{{ @event.eid }}">
 																			<input type="hidden" name="guestname" value="{{ @liste.guestname }}">
 																			<button type="button" class="btn btn-default" data-dismiss="modal">
 																				{{ @cancel[@l] }}
 																			</button>
 
-																			<button id="modal-validateinvitations-{{@liste.invitationid}}" class="btn btn-danger" type="submit">
+																			<button id="modal-validateinvitations-{{@liste.invitationid.0}}" class="btn btn-danger" type="submit">
 																				{{ @send_invitation[@l] }}
 																			</button>
 																		</div>
@@ -244,33 +244,33 @@
 													</td>
 												</check>
                                                 <td class="remo borrignoni">
-                                                    <span class="btn btn-link curpoi has-tip-left" data-toggle="modal" data-target="#myModal-removefromguests-{{ @liste.invitationid }}" title="{{ @remove_from_guests[@l] }}">
+                                                    <span class="btn btn-link curpoi has-tip-left" data-toggle="modal" data-target="#myModal-removefromguests-{{ @liste.invitationid.0 }}" title="{{ @remove_from_guests[@l] }}">
                                                         <i class="glyphicon glyphicon-remove glyphicon-black"></i>
                                                     </span>
                                                     <!-- removefromguest.htm -->
-                                                    <div class="modal fade bs-example-modal-sm" id="myModal-removefromguests-{{@liste.invitationid}}" tabindex="-1" role="dialog" aria
-                                                    -labelledby="myModalLabel-{{@liste.invitationid}}" aria-hidden="true">
+                                                    <div class="modal fade bs-example-modal-sm" id="myModal-removefromguests-{{@liste.invitationid.0}}" tabindex="-1" role="dialog" aria
+                                                    -labelledby="myModalLabel-{{@liste.invitationid.0}}" aria-hidden="true">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
                                                                 <div class="modal-header bornon texalilef">
                                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
-                                                                    <h4 class="modal-title" id="myModalLabel-{{@liste.invitationid}}">
+                                                                    <h4 class="modal-title" id="myModalLabel-{{@liste.invitationid.0}}">
                                                                         <i class="glyphicon glyphicon-remove-circle"></i> {{ ucfirst(@remove[@l]) }} <b class="fonstyita">{{ @liste.guestname }}</b> {{ @from_guests[@l] }}
                                                                     </h4>
                                                                 </div>
                                                                 <form action="{{ @BASE.'/event/'.@event.eid.'/remove/guest' }}" method="post" class="
-                                                                form-delete" role="form" id="form-removefromguests-{{ @liste.invitationid }}">
+                                                                form-delete" role="form" id="form-removefromguests-{{ @liste.invitationid.0 }}">
                                                                     <div class="modal-footer bornon padtopnon martopnon">
                                                                         <input type="hidden" name="delg" value="d" />
-                                                                        <input type="hidden" name="invitationID" value="{{ @liste.invitationid }}">
+                                                                        <input type="hidden" name="invitationID" value="{{ @liste.invitationids }}">
                                                                         <input type="hidden" name="eventID" value="{{ @event.eid }}">
                                                                         <input type="hidden" name="guestname" value="{{ @liste.guestname }}">
                                                                         <button type="button" class="btn btn-default" data-dismiss="modal">
                                                                             {{ @cancel[@l] }}
                                                                         </button>
 
-                                                                        <button id="modal-removefromguests-{{@liste.invitationid}}" class="btn btn-danger" type="submit">
+                                                                        <button id="modal-removefromguests-{{@liste.invitationid.0}}" class="btn btn-danger" type="submit">
                                                                             {{ @remove_from_guests[@l] }}
                                                                         </button>
                                                                     </div>
@@ -291,7 +291,7 @@
                                     </check>
 
                                     <check if="{{ @isold == true && @isdone == false }}">
-                                        <check if="{{ @liste.validated == 0 }}">
+                                        <check if="{{ @liste.validated.0 == 0 }}">
                                             <true>
                                                 <td class="valid">
                                                     <span class="btn btn-link curnot has-tip-left validated" title="{{ @invitation_not_validated[@l] }}">
@@ -299,33 +299,33 @@
                                                     </span>
                                                 </td>
                                                 <td class="remo borrignoni">
-                                                    <span class="btn btn-link curpoi has-tip-left" data-toggle="modal" data-target="#myModal-removefromguests-{{ @liste.invitationid }}" title="{{ @remove_from_guests[@l] }}">
+                                                    <span class="btn btn-link curpoi has-tip-left" data-toggle="modal" data-target="#myModal-removefromguests-{{ @liste.invitationid.0 }}" title="{{ @remove_from_guests[@l] }}">
                                                         <i class="glyphicon glyphicon-remove glyphicon-black"></i>
                                                     </span>
                                                     <!-- removefromguest.htm -->
-                                                    <div class="modal fade bs-example-modal-sm" id="myModal-removefromguests-{{@liste.invitationid}}" tabindex="-1" role="dialog" aria
-                                                    -labelledby="myModalLabel-{{@liste.invitationid}}" aria-hidden="true">
+                                                    <div class="modal fade bs-example-modal-sm" id="myModal-removefromguests-{{@liste.invitationid.0}}" tabindex="-1" role="dialog" aria
+                                                    -labelledby="myModalLabel-{{@liste.invitationid.0}}" aria-hidden="true">
                                                         <div class="modal-dialog">
                                                             <div class="modal-content">
                                                                 <div class="modal-header bornon texalilef">
                                                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
-                                                                    <h4 class="modal-title" id="myModalLabel-{{@liste.invitationid}}">
+                                                                    <h4 class="modal-title" id="myModalLabel-{{@liste.invitationid.0}}">
                                                                         <i class="glyphicon glyphicon-remove-circle"></i> {{ ucfirst(@remove[@l]) }} <b class="fonstyita">{{ @liste.guestname }}</b> {{ @from_guests[@l] }}
                                                                     </h4>
                                                                 </div>
                                                                 <form action="{{ @BASE.'/event/'.@event.eid.'/remove/guest' }}" method="post" class="
-                                                                form-delete" role="form" id="form-removefromguests-{{ @liste.invitationid }}">
+                                                                form-delete" role="form" id="form-removefromguests-{{ @liste.invitationid.0 }}">
                                                                     <div class="modal-footer bornon padtopnon martopnon">
                                                                         <input type="hidden" name="delg" value="d" />
-                                                                        <input type="hidden" name="invitationID" value="{{ @liste.invitationid }}">
+                                                                        <input type="hidden" name="invitationID" value="{{ @liste.invitationids }}">
                                                                         <input type="hidden" name="eventID" value="{{ @event.eid }}">
                                                                         <input type="hidden" name="guestname" value="{{ @liste.guestname }}">
                                                                         <button type="button" class="btn btn-default" data-dismiss="modal">
                                                                             {{ @cancel[@l] }}
                                                                         </button>
 
-                                                                        <button id="modal-removefromguests-{{@liste.invitationid}}" class="btn btn-danger" type="submit">
+                                                                        <button id="modal-removefromguests-{{@liste.invitationid.0}}" class="btn btn-danger" type="submit">
                                                                             {{ @remove_from_guests[@l] }}
                                                                         </button>
                                                                     </div>
@@ -349,54 +349,61 @@
                                         <td class="pres">
                                             <div class="dropdown disinl">
                                                 <button class="btn btn-link curpoi has-tip-left dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" title="{{ ucfirst(@event_presence[@l]) }}">
-                                                    <i class="glyphicon glyphicon-flash glyphicon-black"></i>
+                                                    {{ @liste.presence.0 == 0 ? '<i class="glyphicon glyphicon-question-sign bluetxt"></i>' : '' }}
+                                                    {{ @liste.presence.0 == 1 ? '<i class="glyphicon glyphicon-eye-open bluetxt"></i>' : '' }}
+                                                    {{ @liste.presence.0 == 2 ? '<i class="glyphicon glyphicon-eye-close bluetxt"></i>' : '' }}
+                                                    <i class=""></i>
                                                 </button>
+                                                <!-- ONLY Admin can change the status -->
                                                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2">
                                                     <li role="presentation">
-                                                        <a class="texalilef" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @liste['invitationid'] }}/presence/0/event_{{ @event.eid }}_show_guests">{{ ucfirst(@answered_no[@l]) }} {{ @liste.presence == 0 ? '<i class="glyphicon glyphicon-ok marlef5"></i>' : '' }}</a>
+                                                        <a class="texalilef" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @liste['invitationids'] }}/presence/0/event_{{ @event.eid }}_show_guests">{{ ucfirst(@no_answer[@l]) }} {{ @liste.presence.0 == 0 ? '<i class="glyphicon glyphicon-ok marlef5"></i>' : '' }}</a>
                                                     </li>
                                                     <li role="presentation">
-                                                        <a class="texalilef" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @liste['invitationid'] }}/presence/1/event_{{ @event.eid }}_show_guests">{{ ucfirst(@answered_yes[@l]) }} {{ @liste.presence == 1 ? '<i class="glyphicon glyphicon-ok marlef5"></i>' : '' }}</a>
+                                                        <a class="texalilef" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @liste['invitationids'] }}/presence/1/event_{{ @event.eid }}_show_guests">{{ ucfirst(@answered_yes[@l]) }} {{ @liste.presence.0 == 1 ? '<i class="glyphicon glyphicon-ok marlef5"></i>' : '' }}</a>
+                                                    </li>
+                                                    <li role="presentation">
+                                                        <a class="texalilef" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @liste['invitationids'] }}/presence/2/event_{{ @event.eid }}_show_guests">{{ ucfirst(@answered_no[@l]) }} {{ @liste.presence.0 == 2 ? '<i class="glyphicon glyphicon-ok marlef5"></i>' : '' }}</a>
                                                     </li>
                                                 </ul>
                                             </div>
                                         </td>
-                                        <check if="{{ @liste.validated == 0 }}">
+                                        <check if="{{ @liste.validated.0 == 0 }}">
                                             <true>
                                                 <td class="valid">
                                                     <span class="btn btn-link curnot has-tip-left validated" title="{{ @invitation_not_validated[@l] }}">
                                                         <i class="glyphicon glyphicon-save"></i>
                                                     </span>
                                                 </td>
-                                                <check if="{{@liste.presence==0}}">
+                                                <check if="{{@liste.presence.0 == 0}}">
                                                     <td class="remo borrignoni">
-                                                        <span class="btn btn-link curpoi has-tip-left" data-toggle="modal" data-target="#myModal-removefromguests-{{ @liste.invitationid }}" title="{{ @remove_from_guests[@l] }}">
+                                                        <span class="btn btn-link curpoi has-tip-left" data-toggle="modal" data-target="#myModal-removefromguests-{{ @liste.invitationid.0 }}" title="{{ @remove_from_guests[@l] }}">
                                                             <i class="glyphicon glyphicon-remove glyphicon-black"></i>
                                                         </span>
                                                         <!-- removefromguest.htm -->
-                                                        <div class="modal fade bs-example-modal-sm" id="myModal-removefromguests-{{@liste.invitationid}}" tabindex="-1" role="dialog" aria
-                                                        -labelledby="myModalLabel-{{@liste.invitationid}}" aria-hidden="true">
+                                                        <div class="modal fade bs-example-modal-sm" id="myModal-removefromguests-{{@liste.invitationid.0}}" tabindex="-1" role="dialog" aria
+                                                        -labelledby="myModalLabel-{{@liste.invitationid.0}}" aria-hidden="true">
                                                             <div class="modal-dialog">
                                                                 <div class="modal-content">
                                                                     <div class="modal-header bornon texalilef">
                                                                         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
 
-                                                                        <h4 class="modal-title" id="myModalLabel-{{@liste.invitationid}}">
+                                                                        <h4 class="modal-title" id="myModalLabel-{{@liste.invitationid.0}}">
                                                                             <i class="glyphicon glyphicon-remove-circle"></i> {{ ucfirst(@remove[@l]) }} <b class="fonstyita">{{ @liste.guestname }}</b> {{ @from_guests[@l] }}
                                                                         </h4>
                                                                     </div>
                                                                     <form action="{{ @BASE.'/event/'.@event.eid.'/remove/guest' }}" method="post" class="
-                                                                    form-delete" role="form" id="form-removefromguests-{{ @liste.invitationid }}">
+                                                                    form-delete" role="form" id="form-removefromguests-{{ @liste.invitationid.0 }}">
                                                                         <div class="modal-footer bornon padtopnon martopnon">
                                                                             <input type="hidden" name="delg" value="d" />
-                                                                            <input type="hidden" name="invitationID" value="{{ @liste.invitationid }}">
+                                                                            <input type="hidden" name="invitationID" value="{{ @liste.invitationids }}">
                                                                             <input type="hidden" name="eventID" value="{{ @event.eid }}">
                                                                             <input type="hidden" name="guestname" value="{{ @liste.guestname }}">
                                                                             <button type="button" class="btn btn-default" data-dismiss="modal">
                                                                                 {{ @cancel[@l] }}
                                                                             </button>
 
-                                                                            <button id="modal-removefromguests-{{@liste.invitationid}}" class="btn btn-danger" type="submit">
+                                                                            <button id="modal-removefromguests-{{@liste.invitationid.0}}" class="btn btn-danger" type="submit">
                                                                                 {{ @remove_from_guests[@l] }}
                                                                             </button>
                                                                         </div>

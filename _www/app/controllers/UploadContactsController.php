@@ -925,33 +925,20 @@ class UploadContactsController extends AuthController
 			$currentTelPortable = $rowCSV['tel_portable'];
 			$currentAdresseMail = $rowCSV['adresse_mail'];
 
+			$currentHash = MyMapper::getUserHash($rowCSV);
+			
 			$currentDept = Controller::cpToDept($currentCodePostal);
 			$currentRegion = Controller::cpToRegion($currentCodePostal);
 			
 			$sqls = array();
 
-			// Insert 1 USER
-			$sql = array("INSERT IGNORE INTO users (email, password, level, creatorUid) VALUES (?, ?, ?, ?)", array(1 => $currentAdresseMail, 2 => $this->defaultPassword, 3 => $this->defaultLevel, 4 => $sessionUid));
-			$this->db->exec($sql[0], $sql[1]);
-
-			$insertedUserId = $this->db->lastInsertId(); //($this->db->exec("SELECT LAST_INSERT_ID()"));
-
-			if ($insertedUserId > 0)
-			{
-				// INSERT profile
-				$sqls[] = array("INSERT IGNORE INTO userprofile (userID,civilite, nom, prenom) VALUES (?, ?, ?, ?)", array(1 => $insertedUserId, 2 => $currentCivilite, 3 => $currentNom, 4 => $currentPrenom));
-
-				// INSERT userjobinfos
-				$sqls[] = array("INSERT IGNORE INTO userjobinfos (userID, fonction, branche, societe, fixe, portable, adresse, cp, dept, region, ville, pays) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", array(1 => $insertedUserId, 2 => $currentFonction, 3 => $currentBranche, 4 => $currentSociete, 5 => $currentTelFixe, 6 => $currentTelPortable, 7 => $currentAdresse, 8 => $currentCodePostal, 9 => $currentDept, 10 => $currentRegion, 11 => $currentVille, 12 => $currentPays));
-
-
-				// création du contact invité - invitant
-				$sqls[] = array("INSERT IGNORE INTO usercontacts (hostID, contactID) VALUES (?, ?)", array(1 => $sessionUid, 2 => $insertedUserId));
-
-			} else { // user already exists
-				$insertedUserId = $this->db->exec("SELECT uid FROM users WHERE email LIKE ?", $currentAdresseMail);
-				$insertedUserId = $insertedUserId[0]['uid'];
-			}
+			// INSERT (or not) a new user
+			$insertedUserId = MyMapper::saveUserData($sessionUid, $rowCSV, true);
+			
+			// création du contact invité - invitant
+			$sql= "INSERT IGNORE INTO usercontacts (hostID, contactID) VALUES (:hostID, :contactID)";
+			$value = array(':hostID' => $sessionUid, ':contactID' => $insertedUserId);
+			$this->db->exec($sql, $value);
 			
 			// != en fonction du status
 			if ($this->status == 'hosts')

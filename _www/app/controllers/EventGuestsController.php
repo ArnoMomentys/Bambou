@@ -123,7 +123,7 @@ class EventGuestsController extends AuthController {
             {
                 $filters[] = $this->_getHostIdSqlRegexp();
             }
-            $filters[] = $this->_getArraySqlRegexp($rep);;
+            $filters[] = MyMapper::getArraySqlRegexp($rep);
 
             if( !empty($filterValue) )
             {
@@ -214,7 +214,7 @@ class EventGuestsController extends AuthController {
             {
                 $filters[] = $this->_getHostIdSqlRegexp();;
             }
-            $filters[] = $this->_getArraySqlRegexp($params->presence > 1 ? 0 : $params->presence);
+            $filters[] = MyMapper::getArraySqlRegexp($pres);
 
             if( !empty($filterValue) )
             {
@@ -230,11 +230,13 @@ class EventGuestsController extends AuthController {
             $isEventDone = ($e->debut <= date('Y-m-d') ? true : false);
 
             if($this->f3->get('SESSION.lvl')<=2) {
-                if($pres == 0) $page_header = ucfirst($this->T('all_guests_presence_absent'));
+                if($pres == 0) $page_header = ucfirst($this->T('all_guests_presence_noanswer'));
                 if($pres == 1) $page_header = ucfirst($this->T('all_guests_presence_present'));
+                if($pres == 2) $page_header = ucfirst($this->T('all_guests_presence_absent'));
             } else {
-                if($pres == 0) $page_header = ucfirst($this->T('my_guests_presence_absent'));
+                if($pres == 0) $page_header = ucfirst($this->T('my_guests_presence_noanswer'));
                 if($pres == 1) $page_header = ucfirst($this->T('my_guests_presence_present'));
+                if($pres == 2) $page_header = ucfirst($this->T('my_guests_presence_absent'));
             }
 
             $this->f3->mset(
@@ -249,6 +251,7 @@ class EventGuestsController extends AuthController {
                     'totaux' => (isset($list['total']) && $list['total']>0 ? $list['total'] : 0),
                     'listname' => $list['total']>1 ? $this->T('event_guests') : $this->T('event_guest'),
                     'search_header' => $this->T('search_guest'),
+                    'page_header' => $page_header,
                     'filter' => $filter,
                     'search_fields' => $this->_getSearchFieldsParam($filtervalue),
                     'view' => 'event/listguests.htm'
@@ -379,6 +382,10 @@ class EventGuestsController extends AuthController {
                 $invitation->add();
                 $invitation_guest = new InvitationGuests($this->db);
                 $invitation_guest->add($invitation->iid);
+                
+                // Fix currentUser Answer and presence cheching
+                MyMapper::fixInvitationGuests($this->f3->get('POST.eventID'), $this->f3->get('POST.guestID'));
+                
                 if($this->f3->get('POST'))
                 {
                     $guest = new viewUserCompleteProfile($this->db);
@@ -438,59 +445,35 @@ class EventGuestsController extends AuthController {
                 $r = $check->results();
                 if(empty($r))
                 {
-                    $user = new Users($this->db);
-                    $profile = new UserProfile($this->db);
-                    $job = new UserJobinfos($this->db);
                     $contact = new UserContacts($this->db);
                     $invite = new Invitations($this->db);
                     $guest = new InvitationGuests($this->db);
                     $represent = new InvitationRepresentative($this->db);
                     $accompany = new InvitationAccompanying($this->db);
 
-                    $user_exists = $user->load(array('email=?', $post['email']));
-                    if(empty($user_exists))
-                    {
-                        $user_exists = $user;
-                        $user_exists->email = $post['email'];
-                        $user_exists->password = Encrypt::load()->proceed($this->f3->get('db_pass'));
-                        $user_exists->level = 3;
-                        $user_exists->creatorUid = $hostid;
-                        $user_exists->createdAt = date('Y-m-d H:i:s');
-                        $user_exists->save();
-                        $user_exists->load(array('email=?', $post['email']));
-                        $msg .= 'Compte de l\'Invité créé, ';
-                    }
-                    $user_profile = $profile->load(array('userID=?', $user_exists->uid));
-                    if(empty($user_profile))
-                    {
-                        $user_profile = $profile;
-                        $user_profile->userID = $user_exists->uid;
-                    }
-                    $user_job = $job->load(array('userID=?', $user_exists->uid));
-                    if(empty($user_job))
-                    {
-                        $user_job = $job;
-                        $user_job->userID = $user_exists->uid;
-                    }
-                    $user_contact = $contact->load(array('hostID=? AND contactID=?', $hostid, $user_exists->uid));
+                    // INSERT an new user or update email adresse if not setted
+                    $user_uid = MyMapper::saveUserData($hostid, $post);
+                    //echo "<pre>"; var_dump($user_uid); echo "</pre><br>\n"; echo "Location: [<b>".__LINE__."</b>] <b>".__FILE__."</b><br>\n"; die('ici');
+                    
+                    $user_contact = $contact->load(array('hostID=? AND contactID=?', $hostid, $user_uid));
                     if(empty($user_contact))
                     {
                         $user_contact = $contact;
                         $user_contact->hostID = $hostid;
-                        $user_contact->contactID = $user_exists->uid;
+                        $user_contact->contactID = $user_uid;
                         $user_contact->save();
-                        $user_contact->load(array('hostID=? AND contactID=?', $hostid, $user_exists->uid));
+                        $user_contact->load(array('hostID=? AND contactID=?', $hostid, $user_uid));
                         $msg .= 'Contact créé, ';
                     }
-                    $invitation = $invite->load(array('hostID=? AND guestID=? AND eventID=?', $hostid, $user_exists->uid, $params->eid));
+                    $invitation = $invite->load(array('hostID=? AND guestID=? AND eventID=?', $hostid, $user_uid, $params->eid));
                     if(empty($invitation))
                     {
                         $invitation = $invite;
                         $invitation->hostID = $hostid;
-                        $invitation->guestID = $user_exists->uid;
+                        $invitation->guestID = $user_uid;
                         $invitation->eventID = $params->eid;
                         $invitation->save();
-                        $invitation->load(array('hostID=? AND guestID=? AND eventID=?', $hostid, $user_exists->uid, $params->eid));
+                        $invitation->load(array('hostID=? AND guestID=? AND eventID=?', $hostid, $user_uid, $params->eid));
                         $msg .= 'Invitation créée, ';
                     }
                     $invitation_guest = $guest->load(array('invitationID=?', $invitation->iid));
@@ -578,24 +561,17 @@ class EventGuestsController extends AuthController {
                         }
                     }
 
-                    $user_profile->civilite = $post['civilite'];
-                    $user_profile->nom = $post['nom'];
-                    $user_profile->prenom = $post['prenom'];
-                    $user_profile->save();
-                    $msg2 = '<b>' . strtoupper($user_profile->nom).' '.ucfirst($user_profile->prenom).'</b> : Profil complété, ';
-                    $user_job->adresse = $post['adresse'];
-                    $user_job->ville = $post['ville'];
-                    $user_job->cp = $post['cp'];
-                    $user_job->pays = $post['pays'];
-                    $user_job->portable = $post['portable'];
-                    $user_job->fixe = $post['fixe'];
-                    $user_job->fonction = $post['fonction'];
-                    $user_job->societe = $post['societe'];
-                    $user_job->save();
-                    $msg = $msg2 . 'Infos professionnels créés, ' . $msg;
+                    
+                    //$msg2 = '<b>' . strtoupper($user_profile->nom).' '.ucfirst($user_profile->prenom).'</b> : Profil complété, ';
+              
+                    //$msg = $msg2 . 'Infos professionnels créés, ' . $msg;
                     $this->setMessage($msg);
                     // $this->f3->reroute('/event/'.$params->eid.'/show/guests');
-                    $this->f3->reroute('/user/'.$user_exists->uid.'/show');
+                    
+                    // Fix currentUser Answer and presence cheching
+                    MyMapper::fixInvitationGuests($params->eid, $user_uid);
+                    
+                    $this->f3->reroute('/user/'.$user_uid.'/show');
                 }
                 else
                 {
@@ -651,45 +627,26 @@ class EventGuestsController extends AuthController {
 
     private function _getHostIdSqlField()
     {
-        return $this->_getArraySqlField('hostid');
+        return MyMapper::getArraySqlField('hostid');
     }
     
     private function _getAnswerSqlField()
     {
-        return $this->_getArraySqlField('answer');
+        return MyMapper::getArraySqlField('answer');
     }
     
     private function _getPresenceSqlField()
     {
-        return $this->_getArraySqlField('presence');
+        return MyMapper::getArraySqlField('presence');
     }
-    
-    /**
-     * Generic function to get the SQL array field
-     * @return string
-     */
-    public static function _getArraySqlField($field)
-    {
-        return Controller::SQL_ARRAY_FIELD_PREFIX.$field.' REGEXP ?';
-    }
-    
+
     /**
      * The REGEXP String used to match hostid in sql array string
      * @return string
      */
     private function _getHostIdSqlRegexp()
     {
-        return $this->_getArraySqlRegexp($this->f3->get('SESSION.uid'));
-    }
-    
-    /**
-     * Generic function to get the SQL array regexp for get the requested values
-     * @param unknown $value
-     * @return string
-     */
-    public static function _getArraySqlRegexp($value)
-    {
-        return '('.Controller::SQL_ARRAY_DELIMITER.'|[^0-9]*)('.$value.')('.Controller::SQL_ARRAY_DELIMITER.'|[^0-9]*)';
+        return MyMapper::getArraySqlRegexp($this->f3->get('SESSION.uid'));
     }
     
     /**

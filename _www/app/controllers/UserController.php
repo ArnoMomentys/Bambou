@@ -477,19 +477,8 @@ class UserController extends AuthController {
 				{
 					$stats_event=array();
 					$stats_event[0] = new stdClass;
-					$stats_event[0]->eid = $last_active_event->eid;
-					$stats_event[0]->nbGuestsTotal = 0;
-					$stats_event[0]->nbGuestsPresence = 0;
-					$stats_event[0]->nbGuestsAnswerYes = 0;
-					$stats_event[0]->nbGuestsAnswerNone = 0;
-					$stats_event[0]->nbGuestsAnswerNo = 0;
-					$stats_event[0]->nbGuestsAcc = 0;
-					$stats_event[0]->nbGuestsAccPresenceYes = 0;
-					$stats_event[0]->nbHostsTotal = 0;
-					$stats_event[0]->nbInvValidated = 0;
-					$stats_event[0]->nbInvSent = 0;
-					$stats_event[0]->nbInvNotValidated = 0;
-					$stats_event[0]->nbInvNotSent = 0;
+					
+					$stats_event[0] = (object) MyMapper::getEmptyStatsArray($last_active_event->eid);
 				}
 
     			// guest

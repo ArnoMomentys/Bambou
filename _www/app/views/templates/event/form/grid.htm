@@ -89,29 +89,31 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="stats_presence col-xs-5 col-sm-5 col-md-5 col-lg-5">
-                                    <h4>{{ @presence[@l] }}</h4>
-                                    <div class="record first _1">
-                                        <div class="bar _1" style="height:{{@stats[@event.eid]->nbGuestsPresence!=0 ? intval((@stats[@event.eid]->nbGuestsPresence/@stats[@event.eid]->nbGuestsTotal)*100) : 1}}% !important;">
-                                            <span class="digits">{{ @stats[@event.eid]->nbGuestsPresence }}</span>
-                                            <span class="legend">{{ @presents[@l] }}</span>
-                                        </div>
-                                    </div>
-                                    <div class="record _2">
-                                        <div class="bar _2" style="height:{{ intval(@stats[@event.eid]->nbGuestsAnswerYes - @stats[@event.eid]->nbGuestsPresence)!=0 ? intval(((@stats[@event.eid]->nbGuestsTotal - @stats[@event.eid]->nbGuestsPresence)/@stats[@event.eid]->nbGuestsTotal)*100) : 1 }}% !important;">
-                                            <span class="digits">{{ @stats[@event.eid]->nbGuestsAnswerYes - @stats[@event.eid]->nbGuestsPresence }}</span>
-                                            <span class="legend">{{ @absents[@l] }}</span>
-                                        </div>
-                                    </div>
-                                    <div class="record _5">
-                                        <div class="bar _5" style="height:{{ @stats[@event.eid]->nbGuestsAccPresenceYes!=0 ? intval((@stats[@event.eid]->nbGuestsAccPresenceYes/@stats[@event.eid]->nbGuestsTotal)*100) : 1 }}% !important;">
-                                            <span class="digits">{{ @stats[@event.eid]->nbGuestsAccPresenceYes }}</span>
-                                            <span class="legend">Accomp.</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        
+                                <check if="{{ @event.fin < @date }}">
+		                    		<!-- Present -->
+	                                <div class="stats_presence col-xs-5 col-sm-5 col-md-5 col-lg-5">
+	                                    <h4>{{ @presence[@l] }}</h4>
+	                                    <div class="record first _1">
+	                                        <div class="bar _1" style="height:{{@stats[@event.eid]->nbGuestsPresence!=0 ? intval((@stats[@event.eid]->nbGuestsPresence/@stats[@event.eid]->nbGuestsTotal)*100) : 1}}% !important;">
+	                                            <span class="digits">{{ @stats[@event.eid]->nbGuestsPresence }}</span>
+	                                            <span class="legend">{{ @presents[@l] }}</span>
+	                                        </div>
+	                                    </div>
+	                                    <div class="record _2">
+	                                        <div class="bar _2" style="height:{{ intval(@stats[@event.eid]->nbGuestsAnswerYes - @stats[@event.eid]->nbGuestsPresence)!=0 ? intval(((@stats[@event.eid]->nbGuestsTotal - @stats[@event.eid]->nbGuestsPresence)/@stats[@event.eid]->nbGuestsTotal)*100) : 1 }}% !important;">
+	                                            <span class="digits">{{ @stats[@event.eid]->nbGuestsAnswerYes - @stats[@event.eid]->nbGuestsPresence }}</span>
+	                                            <span class="legend">{{ @absents[@l] }}</span>
+	                                        </div>
+	                                    </div>
+	                                    <div class="record _5">
+	                                        <div class="bar _5" style="height:{{ @stats[@event.eid]->nbGuestsAccPresenceYes!=0 ? intval((@stats[@event.eid]->nbGuestsAccPresenceYes/@stats[@event.eid]->nbGuestsTotal)*100) : 1 }}% !important;">
+	                                            <span class="digits">{{ @stats[@event.eid]->nbGuestsAccPresenceYes }}</span>
+	                                            <span class="legend">Accomp.</span>
+	                                        </div>
+	                                    </div>
+	                                </div>
+	                            </check>
+	                    	</div>
                         </check>
                     </div>
                 </div>

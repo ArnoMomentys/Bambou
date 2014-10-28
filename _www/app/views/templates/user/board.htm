@@ -116,17 +116,20 @@
                             </div>
                         </div>
                     </div>
+                    
+                    <check if="{{ @event.fin < @date }}">
+                    <!-- Present -->
                     <div class="stats_presence col-xs-5 col-sm-5 col-md-5 col-lg-5">
                         <h4>{{ @presences[@l] }} <i class="glyphicon glyphicon-flash"></i></h4>
                         <div class="record first _1">
-                            <div class="bar _1" style="height:{{@stats_last_active_event.0->nbGuestsPresence!=0 ? intval((@stats_last_active_event.0->nbGuestsPresence/@stats_last_active_event.0->nbGuestsTotal)*100) : 1}}% !important;">
-                                <span class="digits">{{ @stats_last_active_event.0->nbGuestsPresence }}</span>
+                            <div class="bar _1" style="height:{{ @stats_last_active_event.0->nbGuestsPresenceYesPercent }}% !important;">
+                                <span class="digits">{{ @stats_last_active_event.0->nbGuestsPresenceYes }}</span>
                                 <span class="legend">{{ @presents[@l] }}</span>
                             </div>
                         </div>
                         <div class="record _2">
-                            <div class="bar _2" style="height:{{ intval(@stats_last_active_event.0->nbGuestsAnswerYes - @stats_last_active_event.0->nbGuestsPresence)!=0 ? intval(((@stats_last_active_event.0->nbGuestsTotal - @stats_last_active_event.0->nbGuestsPresence)/@stats_last_active_event.0->nbGuestsTotal)*100) : 1 }}% !important;">
-                                <span class="digits">{{ ( @event.fin > @date ? 0 : @stats_last_active_event.0->nbGuestsAnswerYes - @stats_last_active_event.0->nbGuestsPresence ) }}</span>
+                            <div class="bar _2" style="height:{{ @stats_last_active_event.0->nbGuestsPresenceNoPercent }}% !important;">
+                                <span class="digits">{{ @stats_last_active_event.0->nbGuestsPresenceNo }}</span>
                                 <span class="legend">{{ @absents[@l] }}</span>
                             </div>
                         </div>
@@ -137,6 +140,7 @@
                             </div>
                         </div>
                     </div>
+                    </check>
                 </div>
             </div>
             <div class="panel-footer padnon">

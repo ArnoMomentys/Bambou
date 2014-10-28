@@ -38,7 +38,7 @@ class EventController extends AuthController {
 		}
 		else
 		{
-			// je suis invité | invitant
+		    // je suis invité | invitant
 			$invitations = new viewInvitations($this->db);
 			$eventsImInvited = $invitations->getEventIDsByGuestIDGroupByEventID($this->f3->get('SESSION.uid'));
 			$events['invited'] = $eventsImInvited;
@@ -56,7 +56,7 @@ class EventController extends AuthController {
 		krsort($sets);
 		$idx = $subset[1];
 
-		// if i have been invited
+		// if I have been invited
 		if(isset($subset[2]))
 		{
 			$events['invitations'] = $subset[2];
@@ -75,20 +75,12 @@ class EventController extends AuthController {
 		foreach( $idx as $i ) {
 			if( !array_key_exists($i, $stats) ) {
 				$stats[$i] = new stdClass();
-				$stats[$i]->eid = (int) $i;
-				$stats[$i]->nbGuestsTotal = 0;
-				$stats[$i]->nbGuestsPresence = 0;
-				$stats[$i]->nbGuestsAnswerYes = 0;
-				$stats[$i]->nbGuestsAnswerNone = 0;
-				$stats[$i]->nbGuestsAnswerNo = 0;
-				$stats[$i]->nbGuestsAcc = 0;
-				$stats[$i]->nbGuestsAccPresenceYes = 0;
-				$stats[$i]->nbInvitations = 0;
-				$stats[$i]->nbHostsTotal = 0;
-				$stats[$i]->nbInvValidated = 0;
+				$stats[$i] = (object) MyMapper::getEmptyStatsArray($i);
 			}
 		}
-
+		
+		//echo "<pre>"; print_r($stats); echo "</pre>";
+		
 		$this->f3->mset(
 			array(
 				'lists' => $sets,
@@ -126,21 +118,14 @@ class EventController extends AuthController {
 			if( !array_key_exists($params->eid, $stats) )
 			{
 				$stats[$params->eid] = new stdClass();
-				$stats[$params->eid]->eid = (int) $params->eid;
-				$stats[$params->eid]->nbGuestsTotal = 0;
-				$stats[$params->eid]->nbGuestsPresence = 0;
-				$stats[$params->eid]->nbGuestsAnswerYes = 0;
-				$stats[$params->eid]->nbGuestsAnswerNone = 0;
-				$stats[$params->eid]->nbGuestsAnswerNo = 0;
-				$stats[$params->eid]->nbGuestsAcc = 0;
-				$stats[$params->eid]->nbGuestsAccPresenceYes = 0;
-				$stats[$params->eid]->nbInvitations = 0;
-				$stats[$params->eid]->nbHostsTotal = 0;
-				$stats[$params->eid]->nbInvValidated = 0;
+				$stats[$params->eid] = (object) MyMapper::getEmptyStatsArray($params->eid);
 			}
 			$eventOptions = new viewEventOptions($this->db);
 			$event_options = $eventOptions->getEventOptionsByEid($params->eid);
-			//var_dump($event_options); die();
+
+			//echo "<pre>"; print_r($event_options); echo "</pre><br>\n"; echo "Location: [<b>".__LINE__."</b>] <b>".__FILE__."</b><br>\n"; die('ici');
+			//echo "<pre>"; print_r($stats); echo "</pre><br>\n"; echo "Location: [<b>".__LINE__."</b>] <b>".__FILE__."</b><br>\n"; die('ici');
+			
 			$this->f3->mset(
 				array(
 					'event' => $event_options,
@@ -221,23 +206,11 @@ class EventController extends AuthController {
 			$uid
 		);
 
-		$dump = array(
-			'nbGuestsAcc' => 0,
-			'nbGuestsAccPresenceYes' => 0,
-			'nbGuestsAnswerNo' => 0,
-			'nbGuestsAnswerNone' => 0,
-			'nbGuestsAnswerYes' => 0,
-			'nbGuestsPresence' => 0,
-			'nbGuestsTotal' => 0,
-			'nbInvValidated' => 0,
-			'nbInvitations' => 0,
-			'nbHostsTotal' => 0
-		);
-
+		
 		foreach ($queries as $q) {
 			foreach ($q as $k => $stat) {
 				if(!isset($stats[$stat['eid']])) {
-					$stats[$stat['eid']] = $dump;
+					$stats[$stat['eid']] = MyMapper::getEmptyStatsArray();
 				}
 				$tmp[$stat['eid']] = $stat;
 				$stats[$stat['eid']] = array_merge($stats[$stat['eid']], $tmp[$stat['eid']]);
@@ -247,6 +220,7 @@ class EventController extends AuthController {
 		$s = array();
 		foreach ($stats as $key => $value) {
 			$s[$key] = (object) $value;
+			$s[$key] = MyMapper::addStatsArray($s[$key]);
 		}
 
 		return $s;

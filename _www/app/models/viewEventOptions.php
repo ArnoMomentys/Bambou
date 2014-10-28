@@ -46,7 +46,7 @@ class viewEventOptions extends MyMapper
 			$ids[] = $event['eid'];
 		}
 		// if I've been invited
-		$res_guests = $this->db->exec('SELECT * FROM `_events_eventguests` WHERE eid IN ('.implode(',', $values).') AND guestid = '.$uid);
+		$res_guests = $this->db->exec('SELECT * FROM `_events_eventguests_nohosts` WHERE eid IN ('.implode(',', $values).') AND guestid = '.$uid);
 		$hostinfos = array();
 		if(!empty($res_guests))
 		{
@@ -80,12 +80,14 @@ class viewEventOptions extends MyMapper
 			$ids[] = $event['eid'];
 		}
 		// if I've been invited
-		$res_guests = $this->db->exec('SELECT * FROM `_events_eventguests` WHERE eid IN ('.implode(',', $aEids).') AND guestid = '.$uid);
+		$res_guests = $this->db->exec('SELECT * FROM `_events_eventguests_nohosts` WHERE eid IN ('.implode(',', $aEids).') AND guestid = '.$uid);
+		$res_guests = $this->cleanDataArraySqlToPHP($res_guests);
 		$hostinfos = array();
 		if(!empty($res_guests))
 		{
 			foreach($res_guests as $event)
 			{
+			    
 				$invitations[$event['eid']] = $event;
 				// $res_hosts = $this->db->exec('SELECT eventid, hostname FROM `_event_hosts_infos` WHERE eventid='.$event['eid'].' AND hostid='.$event['hostid']);
 				// $invitations[$event['eid']]['hostname'] = $event['hostname'];

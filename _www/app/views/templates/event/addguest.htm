@@ -17,7 +17,7 @@
 <h3 class="pull-left disblo widful page-subheading padtop20 marbotnon">
     {{ @event_guest_add[@l] }}<br>
     <small class="fonweilig">{{ @choose_in_list_user_to_add[@l] }}</small><br>
-    <small class="required">{{ @guest_not_listed[@l] }}</small>
+    <!-- <small class="required">{{ @guest_not_listed[@l] }}</small> -->
     <check if="{{ @isold == false }}">
         <a href="{{ '/event/'.@event.eid.'/add/new/guest' }}" class="pull-right texdecnon postop-10 posrel" title="{{ @event_guest_add_new[@l] }}">
             <small class="hidden-xs hidden-sm">{{ @event_guest_add_new[@l] }}</small>
