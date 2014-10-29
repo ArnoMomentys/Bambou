@@ -9,7 +9,7 @@ class Controller {
     protected $db;
     private static $geoip2 = null;
     private $errors = array();
-    
+
 
  	/**
  	 * Actions to perform before routing
@@ -39,7 +39,7 @@ class Controller {
  	 * Instanciate a default connexion to database
  	 * And an instance of F3
  	 */
-    function __construct() 
+    function __construct()
     {
         $this->f3 = Base::instance();
     	$this->db = MyMapper::getDbInstance();
@@ -48,12 +48,15 @@ class Controller {
 
     /**
      * T translation helper function
-     * @param  string key the key term to translate
-     * @return  string the corresponding term translation depending on lang param
+     * @param   string      key the key term to translate
+     * @param   boolean     error translation if set
+     * @return  string      the corresponding term translation depending on lang param
      */
     public function T() {
-    	$sArg = func_get_arg(0);
-    	$aTerm = $this->f3->get( $sArg );
+        $sArgs = func_get_args();
+        // transform ERROR.status to i18n equivalent (cf errors.ini)
+        $sArg = isset($sArgs[1]) && $sArgs[1]===true ? strtolower(str_replace([' ', '-'], '_', $sArgs[0] )) : $sArgs[0];
+        $aTerm = $this->f3->get($sArg);
     	$l = $this->f3->get('SESSION.lang') ? $this->f3->get('SESSION.lang') : $this->f3->get('LANGUAGE');
     	if( !empty( $aTerm ) ) {
     		return $aTerm[$l];
@@ -62,44 +65,45 @@ class Controller {
     	}
     }
 
+
     static public function toLatin1($data) {
 		require_once(dirname(__FILE__)."/../../../_lib/forceutf8-master/src/ForceUTF8/Encoding.php");
     	return \ForceUTF8\Encoding::toLatin1($data);
     }
-    
+
     static public function utf8_strtoupper($data)
     {
         $data = mb_strtoupper($data, 'UTF-8');
-        
+
         return $data;
     }
-    
+
     static public function utf8_strtolower($data)
     {
         $data = mb_strtolower($data, 'UTF-8');
-        
+
         return $data;
     }
-    
+
     static public function sanitizeDatas($data, $removeAccent = false)
     {
 		require_once(dirname(__FILE__)."/../../../_lib/forceutf8-master/src/ForceUTF8/Encoding.php");
-		
+
 		// Trim input data
 		$data = trim($data);
-		
+
 		// Convert to latin1 String (for convert ms special carac)
 		$data = \ForceUTF8\Encoding::toLatin1($data);
-		
+
 		// Convert MS Word special carac
 		// Latin1 data
 		$a = array(chr(130), chr(131), chr(132), chr(133), chr(134), chr(135), chr(136), chr(137), chr(138), chr(139), chr(140), chr(145), chr(146), chr(147), chr(148), chr(149), chr(150), chr(151), chr(152), chr(153), chr(154), chr(155), chr(156), chr(159));
 		$b = array(',', 'NLG', '"', '...', '**', '***', '^', 'o/oo', 'Sh', '<', 'OE', "'", "'", '"', '"', '-', '-', '--', '~', '(TM)', 'sh', '>', 'oe', 'Y');
 		$data = str_replace($a, $b, $data);
-		
+
 		// Encode data to UTF8
 		$data = \ForceUTF8\Encoding::toUTF8($data);
-		
+
 		// Convert all HTML special chars to UTF-8
 		$data = html_entity_decode($data, ENT_QUOTES, "utf-8");
 
@@ -111,7 +115,7 @@ class Controller {
 		    $b = array('A', 'A', 'A', 'A', 'A', 'A', 'AE', 'C', 'E', 'E', 'E', 'E', 'I', 'I', 'I', 'I', 'D', 'N', 'O', 'O', 'O', 'O', 'O', 'O', 'U', 'U', 'U', 'U', 'Y', 's', 'a', 'a', 'a', 'a', 'a', 'a', 'ae', 'c', 'e', 'e', 'e', 'e', 'i', 'i', 'i', 'i', 'n', 'o', 'o', 'o', 'o', 'o', 'o', 'u', 'u', 'u', 'u', 'y', 'y', 'A', 'a', 'A', 'a', 'A', 'a', 'C', 'c', 'C', 'c', 'C', 'c', 'C', 'c', 'D', 'd', 'D', 'd', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'E', 'e', 'G', 'g', 'G', 'g', 'G', 'g', 'G', 'g', 'H', 'h', 'H', 'h', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', 'I', 'i', 'IJ', 'ij', 'J', 'j', 'K', 'k', 'L', 'l', 'L', 'l', 'L', 'l', 'L', 'l', 'l', 'l', 'N', 'n', 'N', 'n', 'N', 'n', 'n', 'O', 'o', 'O', 'o', 'O', 'o', 'OE', 'oe', 'R', 'r', 'R', 'r', 'R', 'r', 'S', 's', 'S', 's', 'S', 's', 'S', 's', 'T', 't', 'T', 't', 'T', 't', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'W', 'w', 'Y', 'y', 'Y', 'Z', 'z', 'Z', 'z', 'Z', 'z', 's', 'f', 'O', 'o', 'U', 'u', 'A', 'a', 'I', 'i', 'O', 'o', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'U', 'u', 'A', 'a', 'AE', 'ae', 'O', 'o', 'Α', 'α', 'Ε', 'ε', 'Ο', 'ο', 'Ω', 'ω', 'Ι', 'ι', 'ι', 'ι', 'Υ', 'υ', 'υ', 'υ', 'Η', 'η');
 		    $data = str_replace($a, $b, $data);
 		}
-		
+
 		return $data;
     }
 
@@ -123,26 +127,26 @@ class Controller {
     public static function displayDate($dateToDisplay)
     {
         $lang = Base::instance()->get('SESSION.lang', 'fr');
-        
+
         switch ($lang)
         {
             case 'en':
                 $pattern = "%A %d %B %Y";
                 break;
-                
+
             case 'fr':
-            default :   
+            default :
                 $pattern = "%A %d %B %Y";
                 break;
         }
-        
+
         $date = strftime($pattern, strtotime($dateToDisplay));
-       
+
         $date = utf8_encode($date);
-        
+
         return $date;
     }
-    
+
     /**
      * cpToRegion : give the region name of given CP
      * @param  string cp the CP that we want the region
@@ -151,12 +155,12 @@ class Controller {
     public static function cpToRegion($cp)
     {
     	return null;
-    	
+
     	if (strlen($cp) < 2)
     	{
     		return null;
     	}
-    
+
     	$region = array(
     			'75' => 'Ile-de-France',
     			'77' => 'Ile-de-France',
@@ -258,17 +262,17 @@ class Controller {
     			'2a' => 'Corse',
     			'2b' => 'Corse'
     	);
-    
+
     	$dept = substr($cp,0,2);
-    
+
     	if (!isset($region[$dept]))
     	{
     		return null;
     	}
-    
+
     	return $region[$dept];
     }
-    
+
     /**
      * cpToDept : give the departement name of given CP
      * @param  string cp the CP that we want the departement
@@ -277,13 +281,13 @@ class Controller {
     public static function cpToDept($cp)
     {
        	//$reader = static::geoip2()->city('Paris'); //($cp);
-       	
+
     	return null;
-    	
+
     	return $nom_dept[$dept];
     }
 
-    
+
 /*
     public static function geoip2()
     {
@@ -291,14 +295,14 @@ class Controller {
     	{
     		$geoip2BasePath = dirname(__FILE__).'/../../../_lib/geoip2/';
     		require_once($geoip2BasePath.'geoip2.phar');
-    		
+
     		static::$geoip2 = new \GeoIp2\Database\Reader($geoip2BasePath.'GeoLite2-City.mmdb');
     	}
-    	
+
     	return static::$geoip2;
     }
 */
-    
+
     /**
      * setMessage
      * @param  string key the key term to translate
