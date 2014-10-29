@@ -39,16 +39,16 @@ class UploadContactsController extends AuthController
 		"prenom" 					=> array("mandatory" => true, 	"titleFile" => "Prénom", 							"titleUser" => "Prénom"),
 		"fonction" 					=> array("mandatory" => true, 	"titleFile" => "Fonction", 							"titleUser" => "Fonction"),
 		"branche" 					=> array("mandatory" => false, 	"titleFile" => "Branche", 							"titleUser" => "Branche"),
-		"bu" 						=> array("mandatory" => false, 	"titleFile" => "BU", 								"titleUser" => "BU"),
+		"BU" 						=> array("mandatory" => false, 	"titleFile" => "BU", 								"titleUser" => "BU"),
 		"societe" 					=> array("mandatory" => true, 	"titleFile" => "Société/Organisme/Collectivité", 	"titleUser" => "Société/Organisme/Collectivité"),
 		"adresse" 					=> array("mandatory" => true, 	"titleFile" => "Adresse", 							"titleUser" => "Adresse"),
-		"code_postal" 				=> array("mandatory" => true, 	"titleFile" => "Code Postal", 						"titleUser" => "Code Postal"),
+		"cp" 				        => array("mandatory" => true, 	"titleFile" => "Code Postal", 						"titleUser" => "Code Postal"),
 		"ville" 					=> array("mandatory" => true, 	"titleFile" => "Ville", 							"titleUser" => "Ville"),
 		"pays" 						=> array("mandatory" => false, 	"titleFile" => "Pays", 								"titleUser" => "Pays"),
-		"tel_fixe" 					=> array("mandatory" => false, 	"titleFile" => "Telephone Fixe", 					"titleUser" => "Telephone Fixe"),
-		"tel_portable" 				=> array("mandatory" => false, 	"titleFile" => "Telephone portable", 				"titleUser" => "Telephone portable"),
-		"adresse_mail" 				=> array("mandatory" => false, 	"titleFile" => "email", 							"titleUser" => "email")
-	);	// "adresse_mail" 				=> array("mandatory" => false for guests | true for hosts
+		"fixe" 					    => array("mandatory" => false, 	"titleFile" => "Telephone Fixe", 					"titleUser" => "Telephone Fixe"),
+		"portable" 				    => array("mandatory" => false, 	"titleFile" => "Telephone portable", 				"titleUser" => "Telephone portable"),
+		"email" 				    => array("mandatory" => false, 	"titleFile" => "email", 							"titleUser" => "email")
+	);	// "email" 				=> array("mandatory" => false for guests | true for hosts
 	
 	// meta key >> numCol
 	private $metaDynamic = array(
@@ -239,7 +239,7 @@ class UploadContactsController extends AuthController
 		// email obligatoire si liste des invitants
 		if ($this->status == "hosts")
 		{
-			$this->meta["adresse_mail"]["mandatory"] = true;
+			$this->meta["email"]["mandatory"] = true;
 		}
 		
 		if ($this->f3->get('SESSION.lvl') <= 3 && ($params->status=='guests' || $params->status=='hosts')) {			
@@ -590,7 +590,7 @@ class UploadContactsController extends AuthController
 		// switch status
 		if ($this->status == "hosts")
 		{
-			$this->meta['adresse_mail']['mandatory'] = true;
+			$this->meta['email']['mandatory'] = true;
 		}
 		
 		// Init $this->data array
@@ -766,13 +766,13 @@ class UploadContactsController extends AuthController
 						break;
 					case "branche":
 						break;
-					case "bu":
+					case "BU":
 						break;
 					case "societe":
 						break;
 					case "adresse":
 						break;
-					case "code_postal":
+					case "cp":
 						// la longueur du champ doit être inférieure ou égale à 20 caractères
 						if (strlen($value) > 20) {
 							$this->dataError[] = $this->T('error_line').' '.$row.' - '.$this->T('error_column').' '.$this->meta[$key]["titleUser"].' : '.$this->T('user_cp_format');
@@ -782,19 +782,19 @@ class UploadContactsController extends AuthController
 						break;
 					case "pays":
 						break;
-					case "tel_fixe":
+					case "fixe":
 						// la longueur du champ doit être inférieure ou égale à 30 caractères
 						if (strlen($value) > 20) {
 							$this->dataError[] = $this->T('error_line').' '.$row.' - '.$this->T('error_column').' '.$this->meta[$key]["titleUser"].' : '.$this->T('user_fixe_format');
 						}
 						break;
-					case "tel_portable":
+					case "portable":
 						// la longueur du champ doit être inférieure ou égale à 30 caractères
 						if (strlen($value) > 20) {
 							$this->dataError[] = $this->T('error_line').' '.$row.' - '.$this->T('error_column').' '.$this->meta[$key]["titleUser"].' : '.$this->T('user_portable_format');
 						}
 						break;
-					case "adresse_mail":
+					case "email":
 					// var_dump($value);
 						// le format de l'email doit être correct
 						if(filter_var($value, FILTER_VALIDATE_EMAIL)===false && $value != null && $value != "")
@@ -852,7 +852,7 @@ class UploadContactsController extends AuthController
 	private function createTemporaryDB()
 	{		
 		// CREATE TABLE
-		$sql = "CREATE TABLE IF NOT EXISTS `".$this->file->getName()."` (id int(10) NOT NULL AUTO_INCREMENT, civilite varchar(8) COLLATE utf8_general_ci NOT NULL, nom varchar(50) COLLATE utf8_general_ci NOT NULL, prenom varchar(50) COLLATE utf8_general_ci NOT NULL, fonction varchar(100) COLLATE utf8_general_ci DEFAULT NULL, branche varchar(100) COLLATE utf8_general_ci DEFAULT NULL, bu varchar(100) COLLATE utf8_general_ci DEFAULT NULL, societe varchar(100) COLLATE utf8_general_ci NOT NULL, adresse varchar(150) COLLATE utf8_general_ci DEFAULT NULL, code_postal varchar(20) COLLATE utf8_general_ci DEFAULT NULL, ville varchar(200) COLLATE utf8_general_ci DEFAULT NULL, pays varchar(50) COLLATE utf8_general_ci DEFAULT NULL, tel_fixe varchar(30) COLLATE utf8_general_ci DEFAULT NULL, tel_portable varchar(30) COLLATE utf8_general_ci DEFAULT NULL, adresse_mail varchar(100) COLLATE utf8_general_ci NOT NULL, PRIMARY KEY (`id`)) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci";
+		$sql = "CREATE TABLE IF NOT EXISTS `".$this->file->getName()."` (id int(10) NOT NULL AUTO_INCREMENT, civilite varchar(8) COLLATE utf8_general_ci NOT NULL, nom varchar(50) COLLATE utf8_general_ci NOT NULL, prenom varchar(50) COLLATE utf8_general_ci NOT NULL, fonction varchar(100) COLLATE utf8_general_ci DEFAULT NULL, branche varchar(100) COLLATE utf8_general_ci DEFAULT NULL, BU varchar(100) COLLATE utf8_general_ci DEFAULT NULL, societe varchar(100) COLLATE utf8_general_ci NOT NULL, adresse varchar(150) COLLATE utf8_general_ci DEFAULT NULL, cp varchar(20) COLLATE utf8_general_ci DEFAULT NULL, ville varchar(200) COLLATE utf8_general_ci DEFAULT NULL, pays varchar(50) COLLATE utf8_general_ci DEFAULT NULL, fixe varchar(30) COLLATE utf8_general_ci DEFAULT NULL, portable varchar(30) COLLATE utf8_general_ci DEFAULT NULL, email varchar(100) COLLATE utf8_general_ci DEFAULT NULL, PRIMARY KEY (`id`)) ENGINE=INNODB DEFAULT CHARSET=utf8 COLLATE=utf8_general_ci";
 
 		$this->db->exec($sql);
 		
@@ -873,7 +873,7 @@ class UploadContactsController extends AuthController
 			foreach ($this->metaDynamic as $key => $iCol) {
 				$k = array_search($key, array_keys($this->metaDynamic));
 				$valeur = $array_value[$k];
-				if ($key == 'adresse_mail' && ($valeur == "" || $valeur == null)) {
+				if ($key == 'email' && ($valeur == "" || $valeur == null)) {
 					$nom = $array_value[array_search("nom", array_keys($this->metaDynamic))];
 					$prenom = $array_value[array_search("prenom", array_keys($this->metaDynamic))];
 					$sql_load .= ($k == 0 ? "" : ", ").$this->db->quote(Controller::sanitizeDatas(str_replace(" ", "_", $nom), true).".".Controller::sanitizeDatas(str_replace(" ", "_", $prenom), true)."@nielsy.com");
@@ -915,15 +915,15 @@ class UploadContactsController extends AuthController
 			$currentPrenom = $rowCSV['prenom'];
 			$currentFonction = $rowCSV['fonction'];
 			$currentBranche = $rowCSV['branche'];
-			$currentBu = $rowCSV['bu'];
+			$currentBu = $rowCSV['BU'];
 			$currentSociete = $rowCSV['societe'];
 			$currentAdresse = $rowCSV['adresse'];
-			$currentCodePostal = $rowCSV['code_postal'];
+			$currentCodePostal = $rowCSV['cp'];
 			$currentVille = $rowCSV['ville'];
 			$currentPays = $rowCSV['pays'];
-			$currentTelFixe = $rowCSV['tel_fixe'];
-			$currentTelPortable = $rowCSV['tel_portable'];
-			$currentAdresseMail = $rowCSV['adresse_mail'];
+			$currentTelFixe = $rowCSV['fixe'];
+			$currentTelPortable = $rowCSV['portable'];
+			$currentAdresseMail = $rowCSV['email'];
 
 			$currentHash = MyMapper::getUserHash($rowCSV);
 			
