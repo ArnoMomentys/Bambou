@@ -188,7 +188,7 @@ class UserController extends AuthController {
 			$back = json_decode(Encrypt::load()->invert($this->f3->get('SESSION.switch')));
 	    	$this->f3->mset(
 	    		array(
-	    			'SESSION.name' => $back->hash,
+	    			'SESSION.name' => $back->name,
 	    			'SESSION.uid' => $back->uid,
 	    			'SESSION.lvl' => $back->lvl,
 	    			'SESSION.c' => $back->c,
