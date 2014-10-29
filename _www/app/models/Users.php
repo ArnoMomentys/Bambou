@@ -72,7 +72,7 @@ class Users extends MyMapper {
 
         $post = array_map('trim', $f3->get('POST'));
 
-        // !isset on a zero length string gives false, we need to check definition AND length
+        // !isset on a zero length string gives unexpected result, we need to check definition AND length
         if (empty($this->hash) && isset($post['nom']) && isset($post['prenom']) && isset($post['societe']))
         {
             $this->hash = MyMapper::getUserHash($post);
