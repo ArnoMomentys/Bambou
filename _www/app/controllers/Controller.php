@@ -126,6 +126,8 @@ class Controller {
      */
     public static function displayDate($dateToDisplay)
     {
+        require_once(dirname(__FILE__)."/../../../_lib/forceutf8-master/src/ForceUTF8/Encoding.php");
+
         $lang = Base::instance()->get('SESSION.lang', 'fr');
 
         switch ($lang)
@@ -141,8 +143,7 @@ class Controller {
         }
 
         $date = strftime($pattern, strtotime($dateToDisplay));
-
-        $date = utf8_encode($date);
+        $date = \ForceUTF8\Encoding::toUTF8($date);
 
         return $date;
     }
