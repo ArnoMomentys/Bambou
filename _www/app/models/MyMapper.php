@@ -42,9 +42,32 @@ class MyMapper extends DB\SQL\Mapper
             $cleanValue = Controller::sanitizeDatas($value['value']);
             
             // Doing uppercase
-            if (in_array($key, array('ville', 'b_ville')))
+            if (in_array($key, array('ville', 'b_ville', 'pays')))
             {
                 $this->fields[$key]['value'] = Controller::utf8_strtoupper($cleanValue);
+            }
+            
+            // Doing lowercase
+            if (in_array($key, array('email')))
+            {
+                $this->fields[$key]['value'] = Controller::utf8_strtolower($cleanValue);
+            }
+            
+            // Cleaing tel phone
+            if (in_array($key, array('fixe', 'mobile')))
+            {
+                require_once(dirname(__FILE__)."/../../../_lib/libphonenumber-for-PHP-master/PhoneNumberUtil.php");
+                
+                $phoneUtil = \com\google\i18n\phonenumbers\PhoneNumberUtil::getInstance();
+                if (!empty($cleanValue))
+                {
+                    $telProto = $phoneUtil->parseAndKeepRawInput($cleanValue, "FR");
+                
+                    if ($phoneUtil->isValidNumber($telProto))
+                    {
+                        $this->fields[$key]['value'] =  $phoneUtil->format($telProto, \com\google\i18n\phonenumbers\PhoneNumberFormat::NATIONAL);
+                    }
+                }
             }
             
             // Doing NULL sql
