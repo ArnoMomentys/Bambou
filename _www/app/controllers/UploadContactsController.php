@@ -873,11 +873,7 @@ class UploadContactsController extends AuthController
 			foreach ($this->metaDynamic as $key => $iCol) {
 				$k = array_search($key, array_keys($this->metaDynamic));
 				$valeur = $array_value[$k];
-				if ($key == 'email' && ($valeur == "" || $valeur == null)) {
-					$nom = $array_value[array_search("nom", array_keys($this->metaDynamic))];
-					$prenom = $array_value[array_search("prenom", array_keys($this->metaDynamic))];
-					$sql_load .= ($k == 0 ? "" : ", ").$this->db->quote(Controller::sanitizeDatas(str_replace(" ", "_", $nom), true).".".Controller::sanitizeDatas(str_replace(" ", "_", $prenom), true)."@nielsy.com");
-				} else if ($valeur == "" || $valeur == null) {
+				if ($valeur == "" || $valeur == null) {
 					$sql_load .= ($k == 0 ? "" : ", ")."null";
 				} else if ($key == 'ville') {
 					$ville = $array_value[array_search("ville", array_keys($this->metaDynamic))];

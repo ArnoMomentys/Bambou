@@ -31,16 +31,16 @@ class viewUserCompleteProfile extends MyMapper {
 
 
     public function getUsersMinimumProfileAliasedByUidsIn_Raw($values) {
-    	return $this->db->exec("SELECT `civilite` as `Civilite`, `nom` as `Nom`, `prenom` as `Prénom`, `fonction` as `Fonction`, `societe` as `Société`, `branche` as `Branche`, `adresse` as `Adresse`, `cp` as `Code Postal`, `ville` as `Ville`, `pays` as `Pays`, `portable` as `Tél Portable`, `fixe` as `Tél Fixe`, case when `email` like '%@nielsy.com' then null else `email` end as `Adresse mail` FROM `_complete_user_profile` WHERE `uid` IN ('".implode("','", $values)."') ORDER BY `nom` ASC");
+    	return $this->db->exec("SELECT `civilite` as `Civilite`, `nom` as `Nom`, `prenom` as `Prénom`, `fonction` as `Fonction`, `societe` as `Société`, `branche` as `Branche`, `adresse` as `Adresse`, `cp` as `Code Postal`, `ville` as `Ville`, `pays` as `Pays`, `portable` as `Tél Portable`, `fixe` as `Tél Fixe`, hash, case when `email` like '%@nielsy.com' then null else `email` end as `Adresse mail` FROM `_complete_user_profile` WHERE `uid` IN ('".implode("','", $values)."') ORDER BY `nom` ASC");
     }
 
 
     public function getUsersMinimumProfileByUidsIn_Raw($uids) {
-    	return $this->db->exec("SELECT `uid`, `civilite`, `nomcomplet`, `nom`, `prenom`, `fonction`, `societe`, `branche`, `adresse`, `cp`, `ville`, `pays`, `portable`, `fixe`, case when `email` like '%@nielsy.com' then null else `email` end as email FROM `_complete_user_profile` WHERE `uid` IN ('".implode("','", $uids)."') ORDER BY `nom` ASC");
+    	return $this->db->exec("SELECT `uid`, `civilite`, `nomcomplet`, `nom`, `prenom`, `fonction`, `societe`, `branche`, `adresse`, `cp`, `ville`, `pays`, `portable`, `fixe`, hash, case when `email` like '%@nielsy.com' then null else `email` end as email FROM `_complete_user_profile` WHERE `uid` IN ('".implode("','", $uids)."') ORDER BY `nom` ASC");
     }
 
     public function getUsersMinimumProfileExportByUidsIn_Raw($uids) {
-    	return $this->db->exec("SELECT `civilite`, `nom`, `prenom`, `fonction`, `branche`, `BU` as bu, `societe`, `adresse`, `cp` as code_postal, `ville`, `pays`, `fixe` as tel_fixe, `portable` as tel_portable, case when `email` like '%@nielsy.com' then null else `email` end as adresse_mail FROM `_complete_user_profile` WHERE `uid` IN ('".implode("','", $uids)."') ORDER BY `nom` ASC");
+    	return $this->db->exec("SELECT `civilite`, `nom`, `prenom`, `fonction`, `branche`, `BU` as bu, `societe`, `adresse`, `cp` as code_postal, `ville`, `pays`, `fixe` as tel_fixe, `portable` as tel_portable, hash, case when `email` like '%@nielsy.com' then null else `email` end as adresse_mail FROM `_complete_user_profile` WHERE `uid` IN ('".implode("','", $uids)."') ORDER BY `nom` ASC");
     }
     
     public function getLastLoggedUserFullProfile() {
