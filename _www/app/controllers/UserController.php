@@ -162,7 +162,7 @@ class UserController extends AuthController {
 
 	    	$this->f3->mset(
 	    		array(
-	    			'SESSION.name' => $user->email,
+	    			'SESSION.name' => $user->hash,
 	    			'SESSION.uid' => $user->uid,
 	    			'SESSION.lvl' => $user->level,
 	    			'SESSION.c' => $user->creatorUid,
@@ -188,7 +188,7 @@ class UserController extends AuthController {
 			$back = json_decode(Encrypt::load()->invert($this->f3->get('SESSION.switch')));
 	    	$this->f3->mset(
 	    		array(
-	    			'SESSION.name' => $back->name,
+	    			'SESSION.name' => $back->hash,
 	    			'SESSION.uid' => $back->uid,
 	    			'SESSION.lvl' => $back->lvl,
 	    			'SESSION.c' => $back->c,

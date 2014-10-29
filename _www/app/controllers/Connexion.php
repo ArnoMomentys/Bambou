@@ -88,7 +88,7 @@ class Connexion extends Controller {
 
     	    	$this->f3->mset(
     	    		array(
-    	    			'SESSION.name' => $mail,
+    	    			'SESSION.name' => $auth->hash,
     	    			'SESSION.uid' => $auth->uid,
     	    			'SESSION.lvl' => $auth->level,
     	    			'SESSION.c' => $auth->creatorUid,
