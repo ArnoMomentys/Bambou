@@ -47,37 +47,38 @@ class Users extends MyMapper {
         if($this->password) $this->password = Encrypt::load()->proceed($this->password);
         $this->update();
     }
-    
-    public function insert() 
+
+    public function insert()
     {
         $this->createdAt = date('Y-m-d H:i:s');
-        
+
         $this->_setHashIfNeeded();
        parent::insert();
     }
-    
-    public function update() 
+
+    public function update()
     {
         $f3 = Base::instance();
-        
+
         $this->updatedAt = date('Y-m-d H:i:s');
         $this->updatedBy = $f3->get('SESSION.uid');
         $this->_setHashIfNeeded();
         parent::update();
     }
-    
-    private function _setHashIfNeeded() 
+
+    private function _setHashIfNeeded()
     {
         $f3 = Base::instance();
-        
+
         $post = array_map('trim', $f3->get('POST'));
-        
-        if (!isset($this->hash) && isset($post['nom']) && isset($post['prenom']) && isset($post['societe']))
+
+        // !isset on a zero length string gives false, we need to check definition AND length
+        if (empty($this->hash) && isset($post['nom']) && isset($post['prenom']) && isset($post['societe']))
         {
             $this->hash = MyMapper::getUserHash($post);
         }
     }
-    
+
     /**
      * Delete function
      * @param  int $uid user uid
