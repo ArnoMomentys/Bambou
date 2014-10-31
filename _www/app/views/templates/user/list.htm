@@ -23,16 +23,22 @@
                             <div class="th-wrapper">
                                 <div class="flolef padtop10 padrig5 padbot10 padlef5">{{ @value=='nomcomplet'? @name[@l] : @value }}</div>
                                 <div class="sorterwrap" with="<?php $_value=$value=='nomcomplet'?'nom':$value;$k=$$_value; ?>">
-                                    <a href="{{ @BASE.'/'.@listtype.'/list/'.@_value.(@_value==@filter && strlen(@filtervalue)>0 ? '/'.@filtervalue:'').'/order/asc' }}"
-                                    class="btn btn-link sorter up has-tip-up"
-                                    title="{{ @sortby[@l] }} {{ $k[@l] }} [A-Z]">
-                                        <i class="sortby glyphicon glyphicon-chevron-up"></i>
-                                    </a>
-                                    <a href="{{ @BASE.'/'.@listtype.'/list/'.@_value.(strlen(@filtervalue)>0 && @_value==@filter ? '/'.@filtervalue:'').'/order/desc' }}"
-                                    class="btn btn-link sorter down has-tip-down"
-                                    title="{{ @sortby[@l] }} {{ $k[@l] }} [Z-A]">
-                                        <i class="sortby glyphicon glyphicon-chevron-down"></i>
-                                    </a>
+
+
+                                    <check if="{{ isset(@PARAMS.option) && @PARAMS.option==='order' && @PARAMS.optionvalue==='desc' }}">
+                                        <a  href="{{ @BASE.'/'.@listtype.'/list/'.@_value.(@_value==@filter && strlen(@filtervalue)>0 ? '/'.@filtervalue:'').'/order/asc' }}"
+                                            class="btn btn-link sorter up has-tip-up"
+                                            title="{{ @sortby[@l] }} {{ $k[@l] }} [A-Z]">
+                                            <i class="sortby glyphicon glyphicon-chevron-up"></i>
+                                        </a>
+                                    </check>
+                                    <check if="{{ (isset(@PARAMS.option) && @PARAMS.option==='order' && @PARAMS.optionvalue==='asc' || !isset(@PARAM.option)) }}">
+                                        <a  href="{{ @BASE.'/'.@listtype.'/list/'.@_value.(strlen(@filtervalue)>0 && @_value==@filter ? '/'.@filtervalue:'').'/order/desc' }}"
+                                            class="btn btn-link sorter down has-tip-down"
+                                            title="{{ @sortby[@l] }} {{ $k[@l] }} [Z-A]">
+                                            <i class="sortby glyphicon glyphicon-chevron-down"></i>
+                                        </a>
+                                    </check>
                                 </div>
                             </div>
                         </th>

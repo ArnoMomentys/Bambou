@@ -28,7 +28,6 @@ $f3->set('ONERROR',
 			print_r($f3->get('ERROR.trace'));
 			echo '</pre>';
 		}
-		// echo \Template::instance()->render('error.htm');
 	}
 );
 
