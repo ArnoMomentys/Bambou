@@ -43,14 +43,14 @@
                             <div class="th-wrapper">
                                 <div class="flolef padtop10 padrig5 padbot10 padlef5">{{ @value=='nomcomplet'? @name[@l] : @value }}</div>
                                 <div class="sorterwrap" with="<?php $_value=$value=='nomcomplet'?'nom':$value;$k=$$_value; ?>">
-                                    <check if="{{ isset(@PARAMS.option) && @PARAMS.option==='order' && @PARAMS.optionvalue==='desc' }}">
+                                    <check if="{{ isset(@PARAMS.option) && @PARAMS.option=='order' && @PARAMS.optionvalue=='desc' }}">
                                         <a  href="{{ @BASE.'/event/'.@event.eid.'/add/guest/'.@_value.(@_value==@filter && strlen(@filtervalue)>0 ? '/'.@filtervalue:'').'/order/asc' }}"
                                             class="btn btn-link sorter up has-tip-up"
                                             title="{{ @sortby[@l] }} {{ $k[@l] }} [A-Z]">
                                             <i class="sortby glyphicon glyphicon-chevron-up"></i>
                                         </a>
                                     </check>
-                                    <check if="{{ (isset(@PARAMS.option) && @PARAMS.option==='order' && @PARAMS.optionvalue==='asc' || !isset(@PARAM.option)) }}">
+                                    <check if="{{ (isset(@PARAMS.option) && @PARAMS.option=='order' && @PARAMS.optionvalue=='asc' || !isset(@PARAMS.option)) }}">
                                         <a  href="{{ @BASE.'/event/'.@event.eid.'/add/guest/'.@_value.(@_value==@filter && strlen(@filtervalue)>0 ? '/'.@filtervalue:'').'/order/desc' }}"
                                             class="btn btn-link sorter down has-tip-down"
                                             title="{{ @sortby[@l] }} {{ $k[@l] }} [Z-A]">

@@ -26,10 +26,12 @@ class EventGuestsController extends AuthController {
             }
             else
             {
-                $options['order'] = empty($params->option) ? $params->filter.' ASC' : $params->filter.' '.$params->optionvalue;
+                $params_filter = $params->filter;
+                $params_filter = $params_filter=='hostname' ? '__array__hostname' : $params_filter;
+                $options['order'] = empty($params->option) ? $params_filter.' ASC' : $params_filter.' '.$params->optionvalue;
                 if( !empty($params->filtervalue) )
                 {
-                    $filterQuery .= ' AND '.$params->filter.' LIKE ?';
+                    $filterQuery .= ' AND '.$params_filter.' LIKE ?';
                     $filterValue .= '%'.$params->filtervalue.'%';
                 }
             }
@@ -39,7 +41,7 @@ class EventGuestsController extends AuthController {
             {
                 $filters[] = $this->_getHostIdSqlRegexp();
             }
-            
+
             if( !empty($filterValue) )
             {
                 $filters[] = $filterValue;
@@ -50,9 +52,9 @@ class EventGuestsController extends AuthController {
 
             $eventGuests = new viewEventsEventGuests($this->db);
             $list = $eventGuests->getEventGuestsPaginated($filters, $options);
-            
+
             //echo '<pre>'; print_r($list); echo '</pre>'; die();
-            
+
             $isEventOld = ($e->limitB < date('Y-m-d') ? true : false);
             $isEventDone = ($e->debut <= date('Y-m-d') ? true : false);
 
@@ -117,7 +119,7 @@ class EventGuestsController extends AuthController {
             }
            // $filters[] = $filterQuery." AND guestname != '' AND answer = ".$rep;
             $filters[] = $filterQuery." AND guestname != '' AND ".$this->_getAnswerSqlField();
-            
+
             $filters[] = $params->eid;
             if( $this->f3->get('SESSION.lvl') > 2 )
             {
@@ -208,7 +210,7 @@ class EventGuestsController extends AuthController {
                     $filterValue .= '%'.$params->filtervalue.'%';
                 }
             }
-            $filters[] = $filterQuery." AND guestname != '' AND ".$this->_getPresenceSqlField(); 
+            $filters[] = $filterQuery." AND guestname != '' AND ".$this->_getPresenceSqlField();
             $filters[] = $params->eid;
             if( $this->f3->get('SESSION.lvl') > 2 )
             {
@@ -382,10 +384,10 @@ class EventGuestsController extends AuthController {
                 $invitation->add();
                 $invitation_guest = new InvitationGuests($this->db);
                 $invitation_guest->add($invitation->iid);
-                
+
                 // Fix currentUser Answer and presence cheching
                 MyMapper::fixInvitationGuests($this->f3->get('POST.eventID'), $this->f3->get('POST.guestID'));
-                
+
                 if($this->f3->get('POST'))
                 {
                     $guest = new viewUserCompleteProfile($this->db);
@@ -425,12 +427,12 @@ class EventGuestsController extends AuthController {
                 {
                 	$requiredArray[] = 'email';
                 }
-                
+
                 foreach($post as $post_index => $post_value)
                 {
                     if(in_array($post_index, array('accgender','accnom','accprenom','accemail','reprgender','reprnom','reprprenom','repremail','reqprof')))
                         continue;
-                    
+
                     if(in_array($post_index, $requiredArray))
                     {
                         $t_text = 'user_'.$post_index.'_required';
@@ -454,7 +456,7 @@ class EventGuestsController extends AuthController {
                     // INSERT an new user or update email adresse if not setted
                     $user_uid = MyMapper::saveUserData($hostid, $post);
                     //echo "<pre>"; var_dump($user_uid); echo "</pre><br>\n"; echo "Location: [<b>".__LINE__."</b>] <b>".__FILE__."</b><br>\n"; die('ici');
-                    
+
                     $user_contact = $contact->load(array('hostID=? AND contactID=?', $hostid, $user_uid));
                     if(empty($user_contact))
                     {
@@ -561,16 +563,16 @@ class EventGuestsController extends AuthController {
                         }
                     }
 
-                    
+
                     //$msg2 = '<b>' . strtoupper($user_profile->nom).' '.ucfirst($user_profile->prenom).'</b> : Profil complété, ';
-              
+
                     //$msg = $msg2 . 'Infos professionnels créés, ' . $msg;
                     $this->setMessage($msg);
                     // $this->f3->reroute('/event/'.$params->eid.'/show/guests');
-                    
+
                     // Fix currentUser Answer and presence cheching
                     MyMapper::fixInvitationGuests($params->eid, $user_uid);
-                    
+
                     $this->f3->reroute('/user/'.$user_uid.'/show');
                 }
                 else
@@ -629,12 +631,12 @@ class EventGuestsController extends AuthController {
     {
         return MyMapper::getArraySqlField('hostid');
     }
-    
+
     private function _getAnswerSqlField()
     {
         return MyMapper::getArraySqlField('answer');
     }
-    
+
     private function _getPresenceSqlField()
     {
         return MyMapper::getArraySqlField('presence');
@@ -648,7 +650,7 @@ class EventGuestsController extends AuthController {
     {
         return MyMapper::getArraySqlRegexp($this->f3->get('SESSION.uid'));
     }
-    
+
     /**
      * Search field for "Invitant" and "Invité"
      * @param unknown $filtervalue
@@ -657,7 +659,7 @@ class EventGuestsController extends AuthController {
     private function _getSearchFieldsParam($filtervalue)
     {
         $params = (object) array_map('trim', $this->f3->get('PARAMS'));
-        
+
         return array(
             array('filtervalue' => "", 'search_header' => $this->T('search_host'), 'search_pat' => "/event/$params->eid/show/hosts/hostname/___/order/asc", 'no_search_pat' => "/event/$params->eid/show/hosts"),
             array('filtervalue' => $filtervalue, 'search_header' => $this->T('search_guest'), 'search_pat' => "/event/$params->eid/show/guests/guestname/___/order/asc", 'no_search_pat' => "/event/$params->eid/show/guests")
