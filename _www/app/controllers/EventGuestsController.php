@@ -72,6 +72,7 @@ class EventGuestsController extends AuthController {
                     'page_header' => ($this->f3->get('SESSION.lvl')<=2 ? ucfirst($this->T('all_guests_list')) : ucfirst($this->T('my_guests_list'))),
                     'filter' => $filter,
                     'search_fields' => $this->_getSearchFieldsParam($filtervalue),
+                    'search_uri_pattern' => preg_split('/\/[a-z]{1,}\/order/', $this->f3->get('PARAMS')[0]),
                     'view' => 'event/listguests.htm'
                 )
             );
@@ -455,7 +456,6 @@ class EventGuestsController extends AuthController {
 
                     // INSERT an new user or update email adresse if not setted
                     $user_uid = MyMapper::saveUserData($hostid, $post);
-                    //echo "<pre>"; var_dump($user_uid); echo "</pre><br>\n"; echo "Location: [<b>".__LINE__."</b>] <b>".__FILE__."</b><br>\n"; die('ici');
 
                     $user_contact = $contact->load(array('hostID=? AND contactID=?', $hostid, $user_uid));
                     if(empty($user_contact))
@@ -563,14 +563,9 @@ class EventGuestsController extends AuthController {
                         }
                     }
 
-
-                    //$msg2 = '<b>' . strtoupper($user_profile->nom).' '.ucfirst($user_profile->prenom).'</b> : Profil complété, ';
-
-                    //$msg = $msg2 . 'Infos professionnels créés, ' . $msg;
                     $this->setMessage($msg);
-                    // $this->f3->reroute('/event/'.$params->eid.'/show/guests');
 
-                    // Fix currentUser Answer and presence cheching
+                    // Fix currentUser Answer and presence checking
                     MyMapper::fixInvitationGuests($params->eid, $user_uid);
 
                     $this->f3->reroute('/user/'.$user_uid.'/show');
@@ -658,11 +653,12 @@ class EventGuestsController extends AuthController {
      */
     private function _getSearchFieldsParam($filtervalue)
     {
+        // event/@eid/show/guests/search/@filter/@filtervalue/@optionkey/@option/@optionvalue
         $params = (object) array_map('trim', $this->f3->get('PARAMS'));
-
+        $filter = isset($params->filter) ? $params->filter : '';
         return array(
-            array('filtervalue' => "", 'search_header' => $this->T('search_host'), 'search_pat' => "/event/$params->eid/show/hosts/hostname/___/order/asc", 'no_search_pat' => "/event/$params->eid/show/hosts"),
-            array('filtervalue' => $filtervalue, 'search_header' => $this->T('search_guest'), 'search_pat' => "/event/$params->eid/show/guests/guestname/___/order/asc", 'no_search_pat' => "/event/$params->eid/show/guests")
+            array('filtervalue' => ($filter=='guestname' ? $filtervalue : ''), 'search_header' => $this->T('search_guest'), 'search_pat' => "/event/$params->eid/show/guests/search/guestname/___/".(isset($params->optionkey)?$params->optionkey."/":"guestname/")."order/asc", 'no_search_pat' => "/event/$params->eid/show/guests"),
+            array('filtervalue' => ($filter=='hostname' ? $filtervalue : ''), 'search_header' => $this->T('search_host'), 'search_pat' => "/event/$params->eid/show/guests/search/hostname/___/".(isset($params->optionkey)?$params->optionkey."/":"guestname/")."order/asc", 'no_search_pat' => "/event/$params->eid/show/guests")
         );
     }
 }

@@ -8,12 +8,6 @@
 		</li>
 	</check>
 
-	<check if="{{ preg_match('/(add|show\/guest|add|show\/user|host|users)/i', @PATTERN) }}">
-		<li class="search">
-			<include href="search.htm" />
-		</li>
-	</check>
-
 	<check if="{{ @totaux > 30 }}">
 
 		<check if="{{@pg.firstPage}}">

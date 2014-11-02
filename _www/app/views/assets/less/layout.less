@@ -878,6 +878,7 @@ table.list {
 			}
 			.sorterwrap {
 				.posabs;
+				.postop(8px);
 				.posrig;
 				.wid(17px);
 				.sorter {
@@ -898,9 +899,8 @@ table.list {
 						}
 					}
 					&.down {
-						.postop(20px);
 						i {
-							.postop(-6px);
+							.postop(-3px);
 						}
 					}
 				}
@@ -1557,73 +1557,76 @@ td.paginate {
 			.fonsiz(15px);
 			.padallc(5px, 10px);
 		}
-		li.search {
-			.flolef;
-			.hei(31px);
-			.padtop(3px);
-			& div.search {
-    			.flolef;
-    			.marallb(0, 0, 0, 10px);
-    			.padnon;
-    			input {
-    				.fonsiz(13px);
-    				.hei(28px);
-    			}
-    			span.input-group-btn {
-    				&.btn-search {
-	    				.baccol(#5CB85C) !important;
-	    				.bortop(1px, solid, #4CAE4C);
-	    				.borrig(1px, solid, #4CAE4C);
-	    				.borbot(1px, solid, #4CAE4C);
-	    				.borrad(0, 3px, 3px, 0);
-	    				.disinlblo;
-	    				.hei(28px);
-	    				.padallb(6px, 1px, 1px, 0px);
-	    				.postop(-31px);
-	    				.posrig(-24px);
-	    				.wid(36px);
-	    				.zin(2);
-    				}
-    				&:hover {
-						.baccol(#47a447) !important;
-    					.bortop(1px, solid, #398439);
-    					.borrig(1px, solid, #398439);
-    					.borbot(1px, solid, #398439);
-    				}
-					span.bouton {
-						.outlin(0) !important;
-						.baccol(#5CB85C) !important;
-						.bornon;
-						.flolef;
-						.martop(-6px);
-    					.padalla(5px);
-						.widful;
-						i {
-							.fonsiz(13px);
-						}
-						&:hover {
-							.baccol(#47a447) !important;
-						}
-					}
-    			}
-    			.glyphicon-remove-circle {
-    				.fonsiz(20px);
-    				.postop(-28px);
-    				.posrig(-30px);
-    			}
-    			.spinner {
-    				.vishid;
-    				.postop(7px);
-    				.posrig(45px);
-    				.zin(2);
-    			}
+	}
+}
+#search_block {
+	.flolef;
+	// .hei(31px);
+	.padtop(3px);
+	.widful;
+	& div#search {
+		.flolef;
+		.marnon;
+		.padnon;
+		.widful;
+		input {
+			.fonsiz(13px);
+			.hei(28px);
+		}
+		span.input-group-btn {
+			&.btn-search {
+				.baccol(#5CB85C) !important;
+				.bortop(1px, solid, #4CAE4C);
+				.borrig(1px, solid, #4CAE4C);
+				.borbot(1px, solid, #4CAE4C);
+				.borrad(0, 3px, 3px, 0);
+				.disinlblo;
+				.hei(28px);
+				.padallb(6px, 1px, 1px, 0px);
+				.posabs;
+				.postop;
+				.posrig;
+				.wid(36px);
+				.zin(2);
+			}
+			&:hover {
+				.baccol(#47a447) !important;
+				.bortop(1px, solid, #398439);
+				.borrig(1px, solid, #398439);
+				.borbot(1px, solid, #398439);
+			}
+			span.bouton {
+				.outlin(0) !important;
+				.baccol(#5CB85C) !important;
+				.bornon;
+				.flolef;
+				.martop(-6px);
+				.padalla(5px);
+				.widful;
+				i {
+					.fonsiz(13px);
+				}
+				&:hover {
+					.baccol(#47a447) !important;
+				}
 			}
 		}
-
+		.glyphicon-remove-circle {
+			.fonsiz(24px);
+			.posabs;
+			.postop(2px);
+			.posrig(-30px);
+		}
+		.spinner {
+			.vishid;
+			.postop(4px);
+			.posrig(-30px);
+			.zin(2);
+		}
 	}
 }
 td.bottom_pager {
-	li.search {
+	div#search_block {
 		.disnon;
 	}
 }
@@ -1719,7 +1722,7 @@ table.usergrouplist {
 			button.dropdown-toggle,
 			span {
 				.colr(#777);
-				.padallb(12px, 16px, 8px, 10px) !important;
+				.padallb(8px, 8px, 5px, 8px) !important;
 				.outlin;
 				&:hover {
 					.baccol(#F8FFEF);
@@ -1738,6 +1741,18 @@ table.usergrouplist {
 				&:hover {
 					.baccol(#40B840);
 				}
+			}
+		}
+
+		td.guestname span,
+		td.hostname span,
+		td.guestname a,
+		td.hostname a {
+			white-space: nowrap;
+		}
+		td.hostname {
+			a {
+				.padallc(2px, 8px) !important;
 			}
 		}
 	}
@@ -1982,18 +1997,12 @@ table.userList {
 	.panel-grid.odd {
 		.padrig(5px) !important;
 	}
-	td.paginate .results_pager li.search div.search div.input-group {
-		.wid(200px);
-	}
 	.eventlinkslist span,
 	.eventlinkslist a {
 		.fonsiz(12px) !important;
 	}
 }
 @media only screen and (min-width: 992px) {
-	td.paginate .results_pager li.search div.search div.input-group {
-		.wid(350px);
-	}
 	.panel-grid {
 		.wid(33.3%) !important;
 	}
@@ -2174,9 +2183,6 @@ table.userList {
 	.sidebar .nav-sidebar li.inner span.export i {
 		.fonsiz(110%);
 	}
-	td.paginate .results_pager li.search div.search {
-		.disnon;
-	}
 	table.guestslist th.societe,
 	table.guestslist th.adresse,
 	table.guestslist th.ville,
@@ -2239,9 +2245,6 @@ table.userList {
 	.panel-events .panel-grid,
 	.panel-events-bottom .panel-grid {
 		.widful;
-	}
-	td.paginate .results_pager li.search div.search div.input-group {
-		.wid(200px);
 	}
 	.form-complete-profile .infos-block {
 		&.infos-block-left,
@@ -2401,11 +2404,4 @@ table.userList {
 }
 .msg-spacer {
 	.padlef(23px);
-}
-td.paginate .results_pager li.search div.search,
-td.paginate .results_pager li.search div.search div.input-group {
-	.hei(28px);
-}
-td.paginate .results_pager li.search div.search div.input-group {
-	.disinlblo;
 }

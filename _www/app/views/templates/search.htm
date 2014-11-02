@@ -1,58 +1,56 @@
-<div class="navbar-form search disinl" id="search" role="form">
-	
-	<repeat group="{{ @search_fields }}" key="{{ @key }}" value="{{ @search_field }}" counter="{{ @ctr }}">
-	    
-	    <check if="{{ @ctr > 1 }}">
-	    	<div style="position: relative; height: 28px; width: 30px; display: inline-block;"></div>
-	    </check>
-	    
-	    <div class="input-group">
-	        <input name="search" type="text" class="form-control" id="input-search_{{@key}}" placeholder="{{ (isset(@search_field.filtervalue) && strlen(@search_field.filtervalue)>0 ? @search_field.filtervalue : @search_field.search_header) }}" />
-	        <span class="input-group-btn btn-search">
-	            <span class="bouton btn btn-success input-group-addon has-tip-up" id="search_btn_{{@key}}" type="button" title="{{ @reset_search[@l] }}">
-	                <i class="glyphicon glyphicon-search"></i>
-	            </span>
-	        </span>
-	        <i id="search_reset_btn_{{@key}}" class="glyphicon glyphicon-remove-circle has-tip-up curpoi {{ (isset(@search_field.filtervalue) && strlen(@search_field.filtervalue)>0 ? '' : 'vishid') }}" title="{{ @reset_search[@l] }}"></i>
-	        <span class="spinner" id="search-loading_{{@key}}"></span>
-	    </div>
-	    
-	    <script type="text/javascript">
-		    function processSearch_{{ @key }}(){
-		    	$("#search-loading_{{ @key }}").css({'visibility':'visible'});  
-		        var search_val = $('#input-search_{{@key}}').val()
-		        if( search_val.length > 0 ) {
-		            var url = "{{@search_field.search_pat}}"
-		            url = url.replace('___', search_val)
-		            location.href=url
-		        } else {
-		            var url = "{{@search_field.no_search_pat}}"
-		            location.href=url
-		        }
-		    }
-		</script>
-	</repeat>
-	
-	<script type="text/javascript">
-		window.onload = function (){
+<div id="search_block">
+
+	<div class="navbar-form search" id="search" role="form">
+
 		<repeat group="{{ @search_fields }}" key="{{ @key }}" value="{{ @search_field }}" counter="{{ @ctr }}">
-	
-	        $('#input-search_{{ @key }}').keypress(function(event) {
-	            var keycode = (event.keyCode ? event.keyCode : event.which);
-	            if(keycode == '13'){
-	                processSearch_{{ @key }}();   
-	            }
-	        });
-	        $('#search_btn_{{ @key }}').click(function(){
-	            processSearch_{{ @key }}();
-	        });
-	        $('#search_reset_btn_{{ @key }}').click(function(){
-	            $("#search-loading_{{ @key }}").css({'visibility':'visible'}); 
-	            var url = "{{ @search_field.no_search_pat }}"
-	            location.href=url
-	        });
-			
+
+		    <div class="input-group disinlblo col-xs-11 col-sm-11 col-md-{{ 12 / count(@search_fields) - 1 }} col-md-offset-{{ @ctr - 1 }}">
+		        <input name="search" type="text" class="form-control" id="input-search_{{@key}}" placeholder="{{ (isset(@search_field.filtervalue) && strlen(@search_field.filtervalue)>0 ? @search_field.filtervalue : @search_field.search_header) }}" />
+		        <span class="input-group-btn btn-search">
+		            <span class="bouton btn btn-success input-group-addon" id="search_btn_{{@key}}" type="button">
+		                <i class="glyphicon glyphicon-search"></i>
+		            </span>
+		        </span>
+		        <i id="search_reset_btn_{{@key}}" class="glyphicon glyphicon-remove-circle has-tip-up curpoi {{ (isset(@search_field.filtervalue) && strlen(@search_field.filtervalue)>0 ? '' : 'vishid') }}" title="{{ @reset_search[@l] }}"></i>
+		        <span class="spinner" id="search-loading_{{@key}}"></span>
+		    </div>
+
+		    <script type="text/javascript">
+			    function processSearch_{{ @key }}(){
+			    	$("#search-loading_{{ @key }}").css({'visibility':'visible'});
+			        var search_val = $('#input-search_{{@key}}').val()
+			        if( search_val.length > 0 ) {
+			            var url = "{{@search_field.search_pat}}"
+			            url = url.replace('___', search_val)
+			        } else {
+			            var url = "{{@search_field.no_search_pat}}"
+			        }
+	            	location.href=url
+			    }
+			</script>
 		</repeat>
-		};
-	</script>
+
+		<script type="text/javascript">
+			window.onload = function (){
+			<repeat group="{{ @search_fields }}" key="{{ @key }}" value="{{ @search_field }}" counter="{{ @ctr }}">
+
+		        $('#input-search_{{ @key }}').keypress(function(event) {
+		            var keycode = (event.keyCode ? event.keyCode : event.which);
+		            if(keycode == '13'){
+		                processSearch_{{ @key }}();
+		            }
+		        });
+		        $('#search_btn_{{ @key }}').click(function(){
+		            processSearch_{{ @key }}();
+		        });
+		        $('#search_reset_btn_{{ @key }}').click(function(){
+		            $("#search-loading_{{ @key }}").css({'visibility':'visible'});
+		            var url = "{{ @search_field.no_search_pat }}"
+		            location.href=url
+		        });
+
+			</repeat>
+			};
+		</script>
+	</div>
 </div>
