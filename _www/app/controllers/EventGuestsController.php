@@ -53,8 +53,6 @@ class EventGuestsController extends AuthController {
             $eventGuests = new viewEventsEventGuests($this->db);
             $list = $eventGuests->getEventGuestsPaginated($filters, $options);
 
-            //echo '<pre>'; print_r($list); echo '</pre>'; die();
-
             $isEventOld = ($e->limitB < date('Y-m-d') ? true : false);
             $isEventDone = ($e->debut <= date('Y-m-d') ? true : false);
 
@@ -166,6 +164,7 @@ class EventGuestsController extends AuthController {
                     'page_header' => $page_header,
                     'filter' => $filter,
                     'search_fields' => $this->_getSearchFieldsParam($filtervalue),
+                    'search_uri_pattern' => preg_split('/\/[a-z]{1,}\/order/', $this->f3->get('PARAMS')[0]),
                     'view' => 'event/listguests.htm'
                 )
             );
@@ -257,6 +256,7 @@ class EventGuestsController extends AuthController {
                     'page_header' => $page_header,
                     'filter' => $filter,
                     'search_fields' => $this->_getSearchFieldsParam($filtervalue),
+                    'search_uri_pattern' => preg_split('/\/[a-z]{1,}\/order/', $this->f3->get('PARAMS')[0]),
                     'view' => 'event/listguests.htm'
                 )
             );
@@ -354,6 +354,7 @@ class EventGuestsController extends AuthController {
                     'listname' =>$list['total']>1 ? $this->T('contacts') : $this->T('contact'),
                     'filter' => $filter,
                     'search_fields' => $this->_getSearchFieldsParam($filtervalue),
+                    'search_uri_pattern' => preg_split('/\/[a-z]{1,}\/order/', $this->f3->get('PARAMS')[0]),
                     'complete_profile' => "event_".$params->eid."_add_guest",
                     'view' => 'event/addguest.htm'
                 )
