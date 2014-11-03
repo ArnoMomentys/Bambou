@@ -28,7 +28,22 @@ class EventGuestsController extends AuthController {
             {
                 $params_filter = $params->filter;
                 $params_filter = $params_filter=='hostname' ? '__array__hostname' : $params_filter;
-                $options['order'] = empty($params->option) ? $params_filter.' ASC' : $params_filter.' '.$params->optionvalue;
+                if(empty($params->option))
+                {
+                    $options['order'] = $params_filter.' ASC';
+                }
+                else
+                {
+                    if(empty($params->optionkey))
+                    {
+                        $options['order'] = $params_filter.' '.$params->optionvalue;
+                    }
+                    else
+                    {
+                        $options['order'] = ($params->optionkey=='hostname' ? '__array__hostname' : $params->optionkey).' '.$params->optionvalue;
+                    }
+                }
+
                 if( !empty($params->filtervalue) )
                 {
                     $filterQuery .= ' AND '.$params_filter.' LIKE ?';
@@ -329,10 +344,26 @@ class EventGuestsController extends AuthController {
             }
             else
             {
-                $options['order'] = empty($params->option) ? $params->filter.' ASC' : $params->filter.' '.$params->optionvalue;
+                $params_filter = $params->filter;
+                if(empty($params->option))
+                {
+                    $options['order'] = $params_filter.' ASC';
+                }
+                else
+                {
+                    if(empty($params->optionkey))
+                    {
+                        $options['order'] = $params_filter.' '.$params->optionvalue;
+                    }
+                    else
+                    {
+                        $options['order'] = $params->optionkey.' '.$params->optionvalue;
+                    }
+                }
+
                 if( !empty($params->filtervalue) )
                 {
-                    $filterQuery .= ' AND '.$params->filter.' LIKE ?';
+                    $filterQuery .= ' AND '.$params_filter.' LIKE ?';
                     $filterValue .= '%'.$params->filtervalue.'%';
                 }
             }
@@ -341,6 +372,7 @@ class EventGuestsController extends AuthController {
             {
                 $filters[] = $filterValue;
             }
+
             $profiles = new viewUserCompleteProfile($this->db);
             $list = $profiles->getUsersProfilesWithUidInListFiltered_Paginated($filters, $options);
             $this->f3->mset(
@@ -353,7 +385,7 @@ class EventGuestsController extends AuthController {
                     'page_header' => ucfirst($this->T('event_list')).' : '.ucfirst($event_options->nom),
                     'listname' =>$list['total']>1 ? $this->T('contacts') : $this->T('contact'),
                     'filter' => $filter,
-                    'search_fields' => $this->_getSearchFieldsParam($filtervalue),
+                    'search_fields' => $this->_getSearchFieldsParam($filtervalue, 'add'),
                     'search_uri_pattern' => preg_split('/\/[a-z]{1,}\/order/', $this->f3->get('PARAMS')[0]),
                     'complete_profile' => "event_".$params->eid."_add_guest",
                     'view' => 'event/addguest.htm'
@@ -652,15 +684,27 @@ class EventGuestsController extends AuthController {
      * @param unknown $filtervalue
      * @return multitype:multitype:string unknown  multitype:string unknown Ambigous <string, unknown>
      */
-    private function _getSearchFieldsParam($filtervalue)
+    private function _getSearchFieldsParam($filtervalue, $tplAction='show')
     {
         // event/@eid/show/guests/search/@filter/@filtervalue/@optionkey/@option/@optionvalue
         $params = (object) array_map('trim', $this->f3->get('PARAMS'));
         $filter = isset($params->filter) ? $params->filter : '';
-        return array(
-            array('filtervalue' => ($filter=='guestname' ? $filtervalue : ''), 'search_header' => $this->T('search_guest'), 'search_pat' => "/event/$params->eid/show/guests/search/guestname/___/".(isset($params->optionkey)?$params->optionkey."/":"guestname/")."order/asc", 'no_search_pat' => "/event/$params->eid/show/guests"),
-            array('filtervalue' => ($filter=='hostname' ? $filtervalue : ''), 'search_header' => $this->T('search_host'), 'search_pat' => "/event/$params->eid/show/guests/search/hostname/___/".(isset($params->optionkey)?$params->optionkey."/":"guestname/")."order/asc", 'no_search_pat' => "/event/$params->eid/show/guests")
-        );
+        switch ($tplAction) {
+            case 'add':
+                return array(
+                            array('filtervalue' => ($filter=='nomcomplet' ? $filtervalue : ''), 'search_header' => $this->T('search_contact'), 'search_pat' => "/event/$params->eid/".$tplAction."/guest/search/nomcomplet/___/".(isset($params->optionkey)?$params->optionkey."/":"nomcomplet/")."order/asc", 'no_search_pat' => "/event/$params->eid/add/guest")
+                        );
+                break;
+
+            case 'show':
+            default:
+                return array(
+                            array('filtervalue' => ($filter=='guestname' ? $filtervalue : ''), 'search_header' => $this->T('search_guest'), 'search_pat' => "/event/$params->eid/".$tplAction."/guests/search/guestname/___/".(isset($params->optionkey)?$params->optionkey."/":"guestname/")."order/asc", 'no_search_pat' => "/event/$params->eid/show/guests"),
+                            array('filtervalue' => ($filter=='hostname' ? $filtervalue : ''), 'search_header' => $this->T('search_host'), 'search_pat' => "/event/$params->eid/".$tplAction."/guests/search/hostname/___/".(isset($params->optionkey)?$params->optionkey."/":"guestname/")."order/asc", 'no_search_pat' => "/event/$params->eid/show/guests")
+                        );
+                break;
+        }
+
     }
 }
 
