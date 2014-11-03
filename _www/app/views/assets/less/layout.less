@@ -878,29 +878,32 @@ table.list {
 			}
 			.sorterwrap {
 				.posabs;
-				.postop(8px);
+				.postop(-3px);
 				.posrig;
-				.wid(17px);
+				.texalirig;
+				.widful;
 				.sorter {
 					.colr(#999) !important;
-					.hei(20px);
+					.hei(33px);
 					.padalla(1px);
-					.texalicen;
+					.texalirig;
+					.widful;
 					&:hover {
 						.colr(#333) !important;
 					}
 					i {
-						font-size: 12px;
+						.fonsiz(12px);
+						.posrig(5px);
 					}
 					&.up {
 						.padlef(2px);
 						i {
-							.postop(-1px);
+							.postop(4px);
 						}
 					}
 					&.down {
 						i {
-							.postop(-3px);
+							.postop(3px);
 						}
 					}
 				}
@@ -1524,8 +1527,6 @@ table.list {
 /* ----- Pager */
 td.paginate {
 	.baccol(#F6F8EE) !important;
-	.padalla(0px) !important;
-
 	.results_pager {
 		.florig;
 		.disblo;
@@ -1555,7 +1556,7 @@ td.paginate {
 		li.total {
 			.flolef !important;
 			.fonsiz(15px);
-			.padallc(5px, 10px);
+			.padallb(7px, 10px, 5px, 10px);
 		}
 	}
 }
@@ -1645,7 +1646,8 @@ table.guestslist {
 		}
 	}
 }
-
+@col_4: 98% / 4;
+@col_6: 98% / 6;
 table,
 table.grouplist,
 table.usergrouplist {
@@ -1659,10 +1661,18 @@ table.usergrouplist {
 		td {
 			.bor(0px) !important;
 			.veralimid;
+			// .wid(@col_4);
+		}
+		td.paginate {
+			.padalla(0px) !important;
 		}
 		td {
 			.borrig(1px, solid, #E8E8E8) !important;
 			.borbot(1px, solid, #DBDBDB) !important;
+			.padallc(5px, 8px) !important;
+			span {
+				.linhei(15px);
+			}
 			table {
 				tr {
 					.baccol(transparent) !important;
@@ -1678,6 +1688,7 @@ table.usergrouplist {
 			.bortop(3px, solid, #DFDFDF) !important;
 			.borrig(1px, solid, #D8D8D8) !important;
 			.borbot(1px, solid, #C7C7C7) !important;
+			.padnon !important;
 			.textracap;
 			&,
 			.sorterwrap .sorter {
@@ -1712,6 +1723,22 @@ table.usergrouplist {
 				}
 			}
 		}
+		td.actions {
+			table {
+				td {
+					.padnon;
+					span,
+					button.dropdown-toggle {
+						.linhei(13px);
+						.padallc(7px, 8px) !important;
+					}
+					ul.dropdown-menu {
+					    .poslef(auto);
+					    .posrig;
+				   	}
+				}
+			}
+		}
 		td.nomcomplet,
 		td.guestname,
 		td.hostname,
@@ -1719,10 +1746,13 @@ table.usergrouplist {
 			.padnon;
 			.minwid(52px);
 			a,
+			span {
+				.padallb(10px, 8px, 7px, 8px) !important;
+			}
+			a,
 			button.dropdown-toggle,
 			span {
 				.colr(#777);
-				.padallb(8px, 8px, 5px, 8px) !important;
 				.outlin;
 				&:hover {
 					.baccol(#F8FFEF);
@@ -1746,8 +1776,10 @@ table.usergrouplist {
 
 		td.guestname span,
 		td.hostname span,
+		td.nomcomplet span,
 		td.guestname a,
-		td.hostname a {
+		td.hostname a,
+		td.nomcomplet a {
 			white-space: nowrap;
 		}
 		td.hostname {
