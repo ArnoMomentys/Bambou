@@ -48,20 +48,20 @@
                         <check if="{{ (@value=='hostname' && @SESSION.lvl==1) || @value!='hostname'  }}">
                             <th class="{{@value}}">
                                 <div class="th-wrapper" with="<?php $k=$$value; ?>">
-                                    <div class="flolef padtop10 padrig5 padbot10 padlef5">{{ @k[@l] }}</div>
+                                    <div class="flolef padtop5 padrig5 padbot5 padlef5">{{ @k[@l] }}</div>
                                     <div class="sorterwrap">
                                         <check if="{{ isset(@PARAMS.option) && @PARAMS.option=='order' && @PARAMS.optionvalue=='desc' }}">
                                             <a  href="{{ @BASE . @search_uri_pattern.0.'/'. @value.'/order/asc' }}"
                                                 class="btn btn-link sorter up has-tip-up"
                                                 title="{{ @sortby[@l] }} {{ @k[@l] }} [A-Z]">
-                                                <i class="sortby glyphicon glyphicon-chevron-up"></i>
+                                                <i class="sortby glyphicon glyphicon-chevron-down"></i>
                                             </a>
                                         </check>
                                         <check if="{{ (isset(@PARAMS.option) && @PARAMS.option=='order' && @PARAMS.optionvalue=='asc' || !isset(@PARAMS.option)) }}">
                                             <a  href="{{ @BASE . @search_uri_pattern.0.'/'. @value.'/order/desc' }}"
-                                                class="btn btn-link sorter down has-tip-down"
+                                                class="btn btn-link sorter down has-tip-up"
                                                 title="{{ @sortby[@l] }} {{ @k[@l] }} [Z-A]">
-                                                <i class="sortby glyphicon glyphicon-chevron-down"></i>
+                                                <i class="sortby glyphicon glyphicon-chevron-up"></i>
                                             </a>
                                         </check>
                                     </div>
