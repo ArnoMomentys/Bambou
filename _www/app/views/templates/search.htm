@@ -3,7 +3,6 @@
 	<div class="navbar-form search" id="search" role="form">
 
 		<repeat group="{{ @search_fields }}" key="{{ @key }}" value="{{ @search_field }}" counter="{{ @ctr }}">
-
 		    <div class="input-group disinlblo col-xs-11 col-sm-11 col-md-{{ 12 / count(@search_fields) - 1 }} col-md-offset-{{ @ctr - 1 }}">
 		        <input name="search" type="text" class="form-control" id="input-search_{{@key}}" placeholder="{{ (isset(@search_field.filtervalue) && strlen(@search_field.filtervalue)>0 ? @search_field.filtervalue : @search_field.search_header) }}" />
 		        <span class="input-group-btn btn-search">

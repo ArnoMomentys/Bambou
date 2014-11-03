@@ -16,8 +16,7 @@
 
 <h3 class="pull-left disblo widful page-subheading padtop20 marbotnon">
     {{ @event_guest_add[@l] }}<br>
-    <small class="fonweilig">{{ @choose_in_list_user_to_add[@l] }}</small><br>
-    <!-- <small class="required">{{ @guest_not_listed[@l] }}</small> -->
+    <small class="fonweilig">{{ @choose_in_list_user_to_add[@l] }}</small>
     <check if="{{ @isold == false }}">
         <a href="{{ '/event/'.@event.eid.'/add/new/guest' }}" class="pull-right texdecnon postop-10 posrel" title="{{ @event_guest_add_new[@l] }}">
             <small class="hidden-xs hidden-sm">{{ @event_guest_add_new[@l] }}</small>
@@ -28,6 +27,14 @@
 
 <table class="table table-striped responsive-utilities list grouplist guestslist martopnon">
     <thead>
+
+        <check if="{{ count(@lists) > 0 }}">
+        <tr>
+            <td colspan="6" class="search_row">
+                <include href="search.htm" />
+            </td>
+        </tr>
+        </check>
 
         <tr>
             <td colspan="6" class="paginate">
@@ -41,20 +48,20 @@
                     <check if="{{ in_array(@value, ['nomcomplet','societe','fonction','ville','adresse']) }}">
                         <th class="{{ @value }}">
                             <div class="th-wrapper">
-                                <div class="flolef padtop10 padrig5 padbot10 padlef5">{{ @value=='nomcomplet'? @name[@l] : @value }}</div>
+                                <div class="flolef padtop5 padrig5 padbot5 padlef5">{{ @value=='nomcomplet'? @name[@l] : @value }}</div>
                                 <div class="sorterwrap" with="<?php $_value=$value=='nomcomplet'?'nom':$value;$k=$$_value; ?>">
                                     <check if="{{ isset(@PARAMS.option) && @PARAMS.option=='order' && @PARAMS.optionvalue=='desc' }}">
-                                        <a  href="{{ @BASE.'/event/'.@event.eid.'/add/guest/'.@_value.(@_value==@filter && strlen(@filtervalue)>0 ? '/'.@filtervalue:'').'/order/asc' }}"
+                                        <a  href="{{ @BASE . @search_uri_pattern.0.'/'. @_value .'/order/asc' }}"
                                             class="btn btn-link sorter up has-tip-up"
                                             title="{{ @sortby[@l] }} {{ $k[@l] }} [A-Z]">
-                                            <i class="sortby glyphicon glyphicon-chevron-up"></i>
+                                            <i class="sortby glyphicon glyphicon-chevron-down"></i>
                                         </a>
                                     </check>
                                     <check if="{{ (isset(@PARAMS.option) && @PARAMS.option=='order' && @PARAMS.optionvalue=='asc' || !isset(@PARAMS.option)) }}">
-                                        <a  href="{{ @BASE.'/event/'.@event.eid.'/add/guest/'.@_value.(@_value==@filter && strlen(@filtervalue)>0 ? '/'.@filtervalue:'').'/order/desc' }}"
+                                        <a  href="{{ @BASE . @search_uri_pattern.0.'/'. @_value .'/order/desc' }}"
                                             class="btn btn-link sorter down has-tip-down"
                                             title="{{ @sortby[@l] }} {{ $k[@l] }} [Z-A]">
-                                            <i class="sortby glyphicon glyphicon-chevron-down"></i>
+                                            <i class="sortby glyphicon glyphicon-chevron-up"></i>
                                         </a>
                                     </check>
                                 </div>
@@ -90,35 +97,41 @@
                                 </check>
                             </repeat>
                             <td class="actions texalirig">
-                                <span class="btn btn-link curpoi has-tip" data-toggle="modal" data-target="#myModal-addguest-{{@liste.uid}}" title="{{ @add[@l] }}">
-                                    <i class="glyphicon glyphicon-plus glyphicon-black"></i>
-                                </span>
-                                <div class="modal fade bs-example-modal-sm" id="myModal-addguest-{{@liste.uid}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-{{@liste.uid}}" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header bornon texalilef">
-                                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                                <h4 class="modal-title" id="myModalLabel-{{ @liste.uid }}">
-                                                    <i class="glyphicon glyphicon-info-sign"></i> {{ ucfirst(@add[@l]) }} <b class="fonstyita">{{ @liste.nomcomplet }}</b> {{ @to_event_guests[@l] }}
-                                                </h4>
-                                            </div>
-                                            <form action="{{ @BASE.'/event/'.@event.eid.'/add/guest' }}" method="post" class="form-delete" role="form" id="form-addguest-{{ @liste.uid }}">
-                                                <div class="modal-footer bornon padtopnon martopnon">
-                                                    <input type="hidden" name="addGuest" value="a" />
-                                                    <input type="hidden" name="eventID" value="{{ @event.eid }}">
-                                                    <input type="hidden" name="guestID" value="{{ @liste.uid }}">
-                                                    <input type="hidden" name="hostID" value="{{ @SESSION.uid }}">
-                                                    <button type="button" class="btn btn-default" data-dismiss="modal">
-                                                        {{ @cancel[@l] }}
-                                                    </button>
-                                                    <button class="btn btn-info" type="submit">
-                                                        {{ @event_guest_addto_confirm[@l] }}
-                                                    </button>
+                                <table class="florig bornoni padnon marnon disinlblo">
+                                    <tr>
+                                        <td class="remo borrignoni">
+                                            <span class="btn btn-link curpoi has-tip" data-toggle="modal" data-target="#myModal-addguest-{{@liste.uid}}" title="{{ @add[@l] }}">
+                                                <i class="glyphicon glyphicon-plus glyphicon-black"></i>
+                                            </span>
+                                            <div class="modal fade bs-example-modal-sm" id="myModal-addguest-{{@liste.uid}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-{{@liste.uid}}" aria-hidden="true">
+                                                <div class="modal-dialog">
+                                                    <div class="modal-content">
+                                                        <div class="modal-header bornon texalilef">
+                                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                                            <h4 class="modal-title" id="myModalLabel-{{ @liste.uid }}">
+                                                                <i class="glyphicon glyphicon-info-sign"></i> {{ ucfirst(@add[@l]) }} <b class="fonstyita">{{ @liste.nomcomplet }}</b> {{ @to_event_guests[@l] }}
+                                                            </h4>
+                                                        </div>
+                                                        <form action="{{ @BASE.'/event/'.@event.eid.'/add/guest' }}" method="post" class="form-delete" role="form" id="form-addguest-{{ @liste.uid }}">
+                                                            <div class="modal-footer bornon padtopnon martopnon">
+                                                                <input type="hidden" name="addGuest" value="a" />
+                                                                <input type="hidden" name="eventID" value="{{ @event.eid }}">
+                                                                <input type="hidden" name="guestID" value="{{ @liste.uid }}">
+                                                                <input type="hidden" name="hostID" value="{{ @SESSION.uid }}">
+                                                                <button type="button" class="btn btn-default" data-dismiss="modal">
+                                                                    {{ @cancel[@l] }}
+                                                                </button>
+                                                                <button class="btn btn-info" type="submit">
+                                                                    {{ @event_guest_addto_confirm[@l] }}
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
                                                 </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </table>
                             </td>
                         </tr>
                     </check>
