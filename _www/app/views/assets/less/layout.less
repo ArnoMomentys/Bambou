@@ -462,7 +462,6 @@ body {
 			.veralitop !important;
 
 			&:hover {
-				// .colr(#3B9401);
 				.baccol(#F2FFDF);
 				.colr(#000);
 			}
@@ -475,6 +474,7 @@ body {
 		a {
 			.baccol(#fff);
 			.borrad(4px, 4px, 4px, 4px);
+			.bor(1px, solid, #ddd);
 			/*.posabs;
 			.postop;
 			.posrig;*/
@@ -482,13 +482,20 @@ body {
 			&:hover {
 				.texdecnon;
 			}
+			&:hover {
+				.bor(1px, solid, #ABEA81);
+				.baccol(#F2FFDF);
+			}
 			small {
 				.fonwei(200);
-				.fonsiz(16px);
+				.fonsiz(15px);
 				.padallb(4px, 0, 5px, 11px);
 				.posrel;
 				.poslef;
 				.postop(-5px);
+			}
+			i {
+				.fonsiz(24px);
 			}
 			small,
 			i {
@@ -498,10 +505,6 @@ body {
 			&:hover i,
 			&:hover small  {
 				.colr(#000);
-			}
-			&:hover,
-			&:hover small {
-				.baccol(#F2FFDF);
 			}
 		}
 	}
@@ -889,7 +892,7 @@ table.list {
 					.texalirig;
 					.widful;
 					&:hover {
-						.colr(#333) !important;
+						.colr(#000) !important;
 					}
 					i {
 						.fonsiz(12px);
@@ -1694,7 +1697,7 @@ table.usergrouplist {
 			.sorterwrap .sorter {
 				.colr(#777);
 				&:hover {
-					.colr(#333);
+					.colr(#000);
 				}
 			}
 		}
@@ -1724,6 +1727,7 @@ table.usergrouplist {
 			}
 		}
 		td.actions {
+			.minwid(35px) !important;
 			table {
 				td {
 					.padnon;
@@ -1731,6 +1735,9 @@ table.usergrouplist {
 					button.dropdown-toggle {
 						.linhei(13px);
 						.padallc(7px, 8px) !important;
+						i {
+							.fonsiz(15px);
+						}
 					}
 					ul.dropdown-menu {
 					    .poslef(auto);
@@ -1784,7 +1791,8 @@ table.usergrouplist {
 		}
 		td.hostname {
 			a {
-				.padallc(2px, 8px) !important;
+				.padallc(0, 8px) !important;
+				.linhei(15px);
 			}
 		}
 	}
