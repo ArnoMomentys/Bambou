@@ -46,14 +46,14 @@
 				            </span>
 						</true>
 						<false>
-							<a href="{{ @BASE }}/event/{{ @event.eid }}/update" class="col-xs-3 has-check void deactivated texdecnoni">
+							<a href="{{ @BASE }}/event/{{ @event.eid }}/update" class="btn btn-default col-xs-3 has-check void deactivated texdecnoni">
 				                {{ @update[@l] }}
 							</a>
 						</false>
 					</check>
 
 					<!-- col 2 -->
-					<span class="col-xs-4 col-xs-offset-1 has-check void curpoi" data-toggle="modal" data-target="#myModal-delete-{{@event.eid}}">
+					<span class="btn btn-default col-xs-4 col-xs-offset-1 has-check void curpoi" data-toggle="modal" data-target="#myModal-delete-{{@event.eid}}">
 						{{ @delete[@l] }}
 					</span>
 					<div class="modal fade bs-example-modal-sm" id="myModal-delete-{{@event.eid}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-{{@event.eid}}" aria-hidden="true">
@@ -69,7 +69,7 @@
 									<div class="modal-footer bornon padtopnon martopnon">
 										<input type="hidden" name="del" value="d" />
 										<input type="hidden" name="eid" value="{{@event.eid}}">
-										<button type="button" class="btn btn-default" data-dismiss="modal">
+										<button type="button" class="btn btn btn-default" data-dismiss="modal">
 											{{ @cancel[@l] }}
 										</button>
 										<button class="btn btn-danger" type="submit">
@@ -84,7 +84,7 @@
 					<!-- col 3 -->
 					<check if="{{ @event.status==3 }}">
 						<true>
-							<span class="col-xs-3 col-xs-offset-1 has-check void curpoi" data-toggle="modal" data-target="#myModal-activate-{{@event.eid}}">
+							<span class="btn btn-default col-xs-3 col-xs-offset-1 has-check void curpoi" data-toggle="modal" data-target="#myModal-activate-{{@event.eid}}">
 								{{ @activate[@l] }}
 							</span>
 							<div class="modal fade bs-example-modal-sm" id="myModal-activate-{{@event.eid}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-{{@event.eid}}" aria-hidden="true">
@@ -101,7 +101,7 @@
 												<input type="hidden" name="act" value="act" />
 												<input type="hidden" name="eid" value="{{@event.eid}}">
 												<input type="hidden" name="status" value="1" />
-												<button type="button" class="btn btn-default" data-dismiss="modal">
+												<button type="button" class="btn btn btn-default" data-dismiss="modal">
 													{{ @cancel[@l] }}
 												</button>
 												<button class="btn btn-success" type="submit">
@@ -114,7 +114,7 @@
 							</div>
 						</true>
 						<false>
-							<span class="col-xs-3 col-xs-offset-1 has-check void curpoi" data-toggle="modal" data-target="#myModal-deactivate-{{@event.eid}}">
+							<span class="btn btn-default col-xs-3 col-xs-offset-1 has-check void curpoi" data-toggle="modal" data-target="#myModal-deactivate-{{@event.eid}}">
 								{{ @deactivate[@l] }}
 							</span>
 							<div class="modal fade bs-example-modal-sm" id="myModal-deactivate-{{@event.eid}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-{{@event.eid}}" aria-hidden="true">
@@ -131,7 +131,7 @@
 												<input type="hidden" name="dea" value="dea" />
 												<input type="hidden" name="eid" value="{{@event.eid}}">
 												<input type="hidden" name="status" value="3" />
-												<button type="button" class="btn btn-default" data-dismiss="modal">
+												<button type="button" class="btn btn btn-default" data-dismiss="modal">
 													{{ @cancel[@l] }}
 												</button>
 												<button class="btn btn-warning" type="submit">
@@ -151,12 +151,12 @@
 					<!-- col 1 -->
 					<check if="{{ @event.status==3 }}">
 						<true>
-							<span class="col-xs-5 has-check void deactivated">
+							<span class="btn btn-default col-xs-5 has-check void deactivated">
 				                {{ @update[@l] }}
 				            </span>
 						</true>
 						<false>
-							<a href="{{ @BASE }}/event/{{ @event.eid }}/update" class="col-xs-5 has-check void deactivated texdecnoni">
+							<a href="{{ @BASE }}/event/{{ @event.eid }}/update" class="btn btn-default col-xs-5 has-check void deactivated texdecnoni">
 				                {{ @update[@l] }}
 							</a>
 						</false>
@@ -165,7 +165,7 @@
 					<!-- col 2 -->
 					<check if="{{ @event.status==3 }}">
 						<true>
-							<span class="pull-right col-xs-5 has-check void curpoi" data-toggle="modal" data-target="#myModal-activate-{{@event.eid}}">
+							<span class="pull-right col-xs-5 btn btn-default has-check void curpoi" data-toggle="modal" data-target="#myModal-activate-{{@event.eid}}">
 								{{ @activate[@l] }}
 							</span>
 							<div class="modal fade bs-example-modal-sm" id="myModal-activate-{{@event.eid}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-{{@event.eid}}" aria-hidden="true">
@@ -182,7 +182,7 @@
 												<input type="hidden" name="act" value="act" />
 												<input type="hidden" name="eid" value="{{@event.eid}}">
 												<input type="hidden" name="status" value="1" />
-												<button type="button" class="btn btn-default" data-dismiss="modal">
+												<button type="button" class="btn btn btn-default" data-dismiss="modal">
 													{{ @cancel[@l] }}
 												</button>
 												<button class="btn btn-success" type="submit">
@@ -195,7 +195,7 @@
 							</div>
 						</true>
 						<false>
-							<span class="pull-right col-xs-5 has-check void curpoi" data-toggle="modal" data-target="#myModal-deactivate-{{@event.eid}}">
+							<span class="pull-right col-xs-5 btn btn-default has-check void curpoi" data-toggle="modal" data-target="#myModal-deactivate-{{@event.eid}}">
 								{{ @deactivate[@l] }}
 							</span>
 							<div class="modal fade bs-example-modal-sm" id="myModal-deactivate-{{@event.eid}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-{{@event.eid}}" aria-hidden="true">
@@ -212,7 +212,7 @@
 												<input type="hidden" name="dea" value="dea" />
 												<input type="hidden" name="eid" value="{{@event.eid}}">
 												<input type="hidden" name="status" value="3" />
-												<button type="button" class="btn btn-default" data-dismiss="modal">
+												<button type="button" class="btn btn btn-default" data-dismiss="modal">
 													{{ @cancel[@l] }}
 												</button>
 												<button class="btn btn-warning" type="submit">
@@ -233,25 +233,25 @@
 
 	<check if="{{ @SESSION.lvl==1 }}">
 		<div class="pull-left col-xs-6 row-fluid eventlinks padtop20">
-			<a href="{{ '/event/'.@event.eid.'/show/hosts' }}" class="pull-left widful has-check void deactivated texdecnoni">
+			<a href="{{ '/event/'.@event.eid.'/show/hosts' }}" class="pull-left widful btn btn-default has-check void deactivated texdecnoni">
 			    {{ @event_host_list[@l] }} <span class="borrad10 pad2-5 baccolgreye nocolr fonweinori">{{ @stats[@event.eid]->nbHostsTotal }}</span>
 			</a>
 			<check if="{{ @SESSION.c != 0 }}">
 				<check if="{{ @isold===false }}">
 					<true>
-						<a href="{{ '/event/'.@event.eid.'/add/host' }}" class="pull-left widful has-check void deactivated texdecnoni martop20">
+						<a href="{{ '/event/'.@event.eid.'/add/host' }}" class="pull-left widful btn btn-default has-check void deactivated texdecnoni martop20">
 				            {{ @event_host_add[@l] }}
 						</a>
-						<a href="{{ '/event/'.@event.eid.'/add/new/host' }}" class="pull-left widful has-check void deactivated texdecnoni martop20">
+						<a href="{{ '/event/'.@event.eid.'/add/new/host' }}" class="pull-left widful btn btn-default has-check void deactivated texdecnoni martop20">
 				            {{ @event_host_add_new[@l] }}
 						</a>
-						<a href="{{ '/event/'.@event.eid.'/import/hosts' }}" class="pull-left widful has-check void deactivated texdecnoni martop20">
+						<a href="{{ '/event/'.@event.eid.'/import/hosts' }}" class="pull-left widful btn btn-default has-check void deactivated texdecnoni martop20">
 				            {{ @event_hosts_import[@l] }}
 						</a>
 					</true>
 					<false>
 						<check if="{{ @stats[@event.eid]->nbHostsTotal>0 }}">
-							<span class="pull-left widful has-check void texdecnoni martop20 curpoi" data-toggle="modal" data-target="#myModal-exporthosts-{{@event.eid}}">{{ @event_hosts_export[@l] }}</span>
+							<span class="pull-left widful btn btn-default has-check void texdecnoni martop20 curpoi" data-toggle="modal" data-target="#myModal-exporthosts-{{@event.eid}}">{{ @event_hosts_export[@l] }}</span>
 							<include href="event/modal/exporthosts.htm" />
 						</check>
 					</false>
@@ -262,25 +262,25 @@
 
 	<check if="{{ @SESSION.lvl <= 3 }}">
 		<div class="pull-left {{ @SESSION.lvl==3 ? 'col-xs-12' : 'col-xs-6' }} row-fluid eventlinks padtop20">
-			<a href="{{ '/event/'.@event.eid.'/show/guests' }}" class="pull-left widful has-check void deactivated texdecnoni">
+			<a href="{{ '/event/'.@event.eid.'/show/guests' }}" class="pull-left widful btn btn-default has-check void deactivated texdecnoni">
 			    {{ @event_guest_list[@l] }} <span class="borrad10 pad2-5 baccolgreye nocolr fonweinori">{{ @stats[@event.eid]->nbGuestsTotal }}</span>
 			</a>
 			<check if="{{ @SESSION.c != 0 }}">
 				<check if="{{ @isold===false }}">
 					<true>
-						<a href="{{ '/event/'.@event.eid.'/add/guest' }}" class="pull-left widful has-check void deactivated texdecnoni martop20">
+						<a href="{{ '/event/'.@event.eid.'/add/guest' }}" class="pull-left widful btn btn-default has-check void deactivated texdecnoni martop20">
 				            {{ @event_guest_add[@l] }}
 						</a>
-						<a href="{{ '/event/'.@event.eid.'/add/new/guest' }}" class="pull-left widful has-check void deactivated texdecnoni martop20">
+						<a href="{{ '/event/'.@event.eid.'/add/new/guest' }}" class="pull-left widful btn btn-default has-check void deactivated texdecnoni martop20">
 				            {{ @event_guest_add_new[@l] }}
 						</a>
-						<a href="{{ '/event/'.@event.eid.'/import/guests' }}" class="pull-left widful has-check void deactivated texdecnoni martop20">
+						<a href="{{ '/event/'.@event.eid.'/import/guests' }}" class="pull-left widful btn btn-default has-check void deactivated texdecnoni martop20">
 				            {{ @event_guests_import[@l] }}
 						</a>
 					</true>
 					<false>
 						<check if="{{ @stats[@event.eid]->nbGuestsTotal>0 }}">
-							<span class="pull-left widful has-check void texdecnoni martop20 curpoi" data-toggle="modal" data-target="#myModal-exportguests-{{@event.eid}}">{{ @event_guests_export[@l] }}</span>
+							<span class="pull-left widful btn btn-default has-check void texdecnoni martop20 curpoi" data-toggle="modal" data-target="#myModal-exportguests-{{@event.eid}}">{{ @event_guests_export[@l] }}</span>
 							<include href="event/modal/exportguests.htm" />
 						</check>
 					</false>
@@ -312,14 +312,14 @@
 				    <div class="stats_response col-xs-7 col-sm-7 col-md-7 col-lg-7 padnon">
 				        <h4>{{ @answers[@l] }} <i class="glyphicon glyphicon-bookmark"></i></h4>
 				        <div class="record first _1">
-				            <div class="bar _1" style="height:{{ @stats[@event.eid]->nbGuestsAnswerYesPercent }}% !important;">
+				            <div class="bar _1" style="height:{{ intval(@stats[@event.eid]->nbGuestsAnswerYesPercent) }}% !important;">
 				                <check if="{{@stats[@event.eid]->nbGuestsAnswerYes>0}}">
 				                    <true>
 				                        <a href="{{ @BASE . '/event/' . @event.eid . '/show/guests/answer/1' }}">
 				                            <span class="digits">{{ @stats[@event.eid]->nbGuestsAnswerYes }}</span>
 				                            <span class="legend">{{ @presents[@l] }}</span>
 				                        </a>
-				                        
+
 				                    </true>
 				                    <false>
 				                        <span class="digits">0</span>
@@ -329,7 +329,7 @@
 				            </div>
 				        </div>
 				        <div class="record _2">
-				            <div class="bar _2" style="height:{{ @stats[@event.eid]->nbGuestsAnswerNoPercent }}% !important;">
+				            <div class="bar _2" style="height:{{ intval(@stats[@event.eid]->nbGuestsAnswerNoPercent) }}% !important;">
 				                <check if="{{ @stats[@event.eid]->nbGuestsAnswerNo > 0 }}">
                                     <true>
                                         <a href="{{ @BASE . '/event/' . @event.eid . '/show/guests/answer/2' }}">
@@ -345,7 +345,7 @@
 				            </div>
 				        </div>
 				        <div class="record _3">
-				            <div class="bar _3" style="height:{{ @stats[@event.eid]->nbGuestsAnswerNonePercent }}% !important;">
+				            <div class="bar _3" style="height:{{ intval(@stats[@event.eid]->nbGuestsAnswerNonePercent) }}% !important;">
 				                <check if="{{ @stats[@event.eid]->nbGuestsAnswerNone > 0 }}">
 	                                <true>
 	                                    <a href="{{ @BASE . '/event/' . @event.eid . '/show/guests/answer/0' }}">
@@ -361,7 +361,7 @@
 				            </div>
 				        </div>
 				        <div class="record _4">
-				            <div class="bar _4" style="height:{{@stats[@event.eid]->nbGuestsAcc!=0 ? intval((@stats[@event.eid]->nbGuestsAcc/@stats[@event.eid]->nbGuestsTotal)*100) : 1}}% !important;">
+				            <div class="bar _4" style="height:{{ @stats[@event.eid]->nbGuestsAcc!=0 ? intval((@stats[@event.eid]->nbGuestsAcc/@stats[@event.eid]->nbGuestsTotal)*100) : 1}}% !important;">
 				                <span class="digits">{{ @stats[@event.eid]->nbGuestsAcc }}</span>
 				                <span class="legend">Accomp.</span>
 				            </div>
@@ -372,7 +372,7 @@
 				    <div class="stats_presence col-xs-5 col-sm-5 col-md-5 col-lg-5">
 				        <h4>{{ @presence[@l] }} <i class="glyphicon glyphicon-flash"></i></h4>
 				        <div class="record first _1">
-				            <div class="bar _1" style="height:{{ @stats[@event.eid]->nbGuestsPresenceYesPercent }}% !important;">
+				            <div class="bar _1" style="height:{{ intval(@stats[@event.eid]->nbGuestsPresenceYesPercent) }}% !important;">
 				                <check if="{{ @event.fin < @date }}">
 				                    <true>
 				                        <a href="{{ @BASE . '/event/' . @event.eid . '/show/guests/presence/1' }}">

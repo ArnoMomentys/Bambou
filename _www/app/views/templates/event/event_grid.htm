@@ -168,9 +168,9 @@
 	                                        </div>
 	                                    </div>
 	                                </div>
-	                        	</check> 
+	                        	</check>
                             </div>
-						
+
                         </check>
 
                         <check if="{{ (isset(@allMyEvents.invited) && in_array(@event.eid, @allMyEvents.invited)) }}">
@@ -181,25 +181,25 @@
 		                            <div class="body-invites">
 		                                <small>{{ @currentHost == @SESSION.uid  ? '<em>'.@invited_myself[@l].'</em>' : '<em>&raquo;&nbsp;<a href="'.@BASE.'/user/'.@currentHost.'/show">'.@allMyEvents.invitations[@event.eid].hostname[@currentKey].'</a></em>' }}</small>
 		                            </div>
-		                            
+
 								</repeat>
 							</div>
-							
+
                         </check>
 
                     </div>
-                
+
 
 	                <div class="panel-footer padnon">
-	
+
 	                    <check if="{{ (isset(@allMyEvents.hosted) && in_array(@event.eid, @allMyEvents.hosted)) || @SESSION.lvl==1 }}">
 	                        <check if="{{ @SESSION.c==0 }}">
 	                            <false>
 	                                <div class="row marnon invits{{ @SESSION.lvl==3?' botlinks':'' }}">
-	
+
 	                                    <check if="{{ @SESSION.lvl<=2 }}">
 	                                        <true>
-	                                            <a href="{{ @BASE.'/event/'.@event.eid.'/show/hosts' }}" class="col-xs-6 borderedrig borderedbot">
+	                                            <a href="{{ @BASE.'/event/'.@event.eid.'/show/hosts' }}" class="col-xs-6 borderedrig borderedbot btn-default">
 	                                                <check if="{{ @event.debut > @date }}">
 	                                                    <true>
 	                                                        {{ '<span class="hidden-xs">'.@manage[@l].'</span> '.@_hosts[@l] }} <small class="baccolgreyd borrad10 pad2-5 nocolr">{{@stats[@event.eid]->nbHostsTotal}}</small>
@@ -211,10 +211,10 @@
 	                                            </a>
 	                                        </true>
 	                                    </check>
-	
+
 	                                    <check if="{{ (@event.status==1 && @SESSION.lvl<=3) || (( @event.status==2 || @event.status==3 ) && @SESSION.lvl <= 2 ) }}">
 	                                        <true>
-	                                            <a href="{{ @BASE.'/event/'.@event.eid.'/show/guests' }}" class="{{ @SESSION.lvl==3 ? 'col-xs-12'.(isset(@allMyEvents.invited) && in_array(@event.eid, @allMyEvents.invited) && !in_array(@SESSION.uid, @allMyEvents.invitations[@event.eid].hostid) ?' borderedbot':' botlefriglink') : 'col-xs-6 borderedbot' }}">
+	                                            <a href="{{ @BASE.'/event/'.@event.eid.'/show/guests' }}" class="{{ @SESSION.lvl==3 ? 'col-xs-12'.(isset(@allMyEvents.invited) && in_array(@event.eid, @allMyEvents.invited) && !in_array(@SESSION.uid, @allMyEvents.invitations[@event.eid].hostid) ?' borderedbot':' botlefriglink') : 'col-xs-6 borderedbot' }} btn-default">
 	                                                <check if="{{ @event.debut > @date }}">
 	                                                    <true>
 	                                                        {{ @SESSION.lvl==1 ? '<span class="hidden-xs">'.@manage[@l].'</span> '.@_guests[@l] : '<span class="hidden-xs">'.@manage[@l].'</span> <span>'.@_my_guests[@l].'</span>'; }}
@@ -240,11 +240,11 @@
 	                                            </span>
 	                                        </false>
 	                                    </check>
-	
+
 	                                </div>
 	                            </false>
 	                        </check>
-	
+
 	                        <check if="{{ @SESSION.lvl<=2 }}">
 	                            <true>
 	                                <div class="row marnon padnon botlinks">
@@ -257,14 +257,14 @@
 	                                                    </span>
 	                                                </true>
 	                                                <false>
-	                                                    <a href="{{ @BASE.'/' }}event/{{ @event.eid }}/update" class="{{ @SESSION.lvl==1 && @SESSION.c==0 ? 'col-xs-4' : 'col-xs-6' }} borderedrig botleflink">
+	                                                    <a href="{{ @BASE.'/' }}event/{{ @event.eid }}/update" class="{{ @SESSION.lvl==1 && @SESSION.c==0 ? 'col-xs-4' : 'col-xs-6' }} borderedrig botleflink btn-default">
 	                                                        {{ @update[@l] }}
 	                                                    </a>
 	                                                </false>
 	                                            </check>
-	
+
 	                                            <check if="{{ @SESSION.lvl==1 && @SESSION.c==0 }}">
-	                                                <span class="col-xs-4 borderedrig void curpoi" data-toggle="modal" data-target="#myModal-delete-{{@event.eid}}">{{ @delete[@l] }}</span>
+	                                                <span class="col-xs-4 borderedrig void curpoi btn-default" data-toggle="modal" data-target="#myModal-delete-{{@event.eid}}">{{ @delete[@l] }}</span>
 	                                                <div class="modal fade bs-example-modal-sm" id="myModal-delete-{{@event.eid}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-{{@event.eid}}" aria-hidden="true">
 	                                                    <div class="modal-dialog">
 	                                                        <div class="modal-content">
@@ -290,10 +290,10 @@
 	                                                    </div>
 	                                                </div>
 	                                            </check>
-	
+
 	                                            <check if="{{ @event.status==3 }}">
 	                                                <true>
-	                                                    <span class="{{ @SESSION.lvl==1 && @SESSION.c==0 ? 'col-xs-4' : 'col-xs-6' }} void curpoi botriglink" data-toggle="modal" data-target="#myModal-activate-{{@event.eid}}">{{ @activate[@l] }}</span>
+	                                                    <span class="{{ @SESSION.lvl==1 && @SESSION.c==0 ? 'col-xs-4' : 'col-xs-6' }} void curpoi botriglink btn-default" data-toggle="modal" data-target="#myModal-activate-{{@event.eid}}">{{ @activate[@l] }}</span>
 	                                                    <div class="modal fade bs-example-modal-sm" id="myModal-activate-{{@event.eid}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-{{@event.eid}}" aria-hidden="true">
 	                                                        <div class="modal-dialog">
 	                                                            <div class="modal-content">
@@ -321,7 +321,7 @@
 	                                                    </div>
 	                                                </true>
 	                                                <false>
-	                                                    <span class="{{ @SESSION.lvl==1 && @SESSION.c==0 ? 'col-xs-4' : 'col-xs-6' }} void curpoi botriglink" data-toggle="modal" data-target="#myModal-deactivate-{{@event.eid}}">{{ @deactivate[@l] }}</span>
+	                                                    <span class="{{ @SESSION.lvl==1 && @SESSION.c==0 ? 'col-xs-4' : 'col-xs-6' }} void curpoi botriglink btn-default" data-toggle="modal" data-target="#myModal-deactivate-{{@event.eid}}">{{ @deactivate[@l] }}</span>
 	                                                    <div class="modal fade bs-example-modal-sm" id="myModal-deactivate-{{@event.eid}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel-{{@event.eid}}" aria-hidden="true">
 	                                                        <div class="modal-dialog">
 	                                                            <div class="modal-content">
@@ -354,13 +354,13 @@
 	                                            <span class="{{ @SESSION.lvl==1 && @SESSION.c==0 ? 'col-xs-4' : 'col-xs-6' }} borderedrig deactivated void botleflink" title="{{@nocredential_rights[@l]}}">
 	                                                {{ @update[@l] }}
 	                                            </span>
-	
+
 	                                            <check if="{{ @SESSION.lvl==1 && @SESSION.c==0 }}">
 	                                                <span class="col-xs-4 borderedrig deactivated void" title="{{@nocredential_rights[@l]}}">
 	                                                    {{ @delete[@l] }}
 	                                                </span>
 	                                            </check>
-	
+
 	                                            <span class="{{ @SESSION.lvl==1 && @SESSION.c==0 ? 'col-xs-4' : 'col-xs-6' }} deactivated void botriglink" title="{{@nocredential_rights[@l]}}">
 	                                                {{ @deactivate[@l] }}
 	                                            </span>
@@ -369,16 +369,16 @@
 	                                </div>
 	                            </true>
 	                        </check>
-	
+
 	                    </check>
-	
+
 	                    <check if="{{ (isset(@allMyEvents.invited) && in_array(@event.eid, @allMyEvents.invited) && @allMyEvents.invitations[@event.eid].hostid != @SESSION.uid) }}">
-	
+
 	                        <div class="row marnon padnon botlinks">
 	                            <check if="{{ @event.limitB > @date }}">
-	
+
 	                                <true>
-	                                    <a class="col-xs-4 void default botleflink borderedrig" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @allMyEvents.invitations[@event.eid].invitationids }}/0/events">
+	                                    <a class="col-xs-4 void default botleflink borderedrig btn-default" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @allMyEvents.invitations[@event.eid].invitationids }}/0/events">
 	                                        <span class="verb{{(@allMyEvents.invitations[@event.eid].answer.0==0 ? ' glyphicon glyphicon-ok':'')}}">
 	                                            <span class="legend1 textracap">
 	                                                {{@no_answer[@l]}}
@@ -388,8 +388,8 @@
 	                                            </span>
 	                                        </span>
 	                                    </a>
-	
-	                                    <a class="col-xs-4 void default borderedrig" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @allMyEvents.invitations[@event.eid].invitationids }}/1/events">
+
+	                                    <a class="col-xs-4 void default borderedrig btn-default" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @allMyEvents.invitations[@event.eid].invitationids }}/1/events">
 	                                        <span class="verb{{(@allMyEvents.invitations[@event.eid].answer.0==1 ? ' glyphicon glyphicon-ok':'')}}">
 	                                            <span class="legend1 textracap">
 	                                                {{@guest_answer_yes[@l]}}
@@ -399,8 +399,8 @@
 	                                            </span>
 	                                        </span>
 	                                    </a>
-	
-	                                    <a class="col-xs-4 void default botriglink" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @allMyEvents.invitations[@event.eid].invitationids }}/2/events">
+
+	                                    <a class="col-xs-4 void default botriglink btn-default" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @allMyEvents.invitations[@event.eid].invitationids }}/2/events">
 	                                        <span class="verb{{(@allMyEvents.invitations[@event.eid].answer.0==2 ? ' glyphicon glyphicon-ok':'')}}">
 	                                            <span class="legend1 textracap">
 	                                                {{@guest_answer_no[@l]}}
@@ -410,7 +410,7 @@
 	                                            </span>
 	                                        </span>
 	                                    </a>
-	
+
 	                                </true>
 	                                <false>
 	                                    <span class="botlefriglink disblo deactivated void" title="{{ @event_over[@l] }}">
@@ -419,9 +419,9 @@
 	                                </false>
 	                            </check>
 	                        </div>
-	
+
 	                    </check>
-	
+
 	                </div>
 	             </div>
             </div>

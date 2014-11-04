@@ -18,7 +18,7 @@
     {{ @event_guest_add[@l] }}<br>
     <small class="fonweilig">{{ @choose_in_list_user_to_add[@l] }}</small>
     <check if="{{ @isold == false }}">
-        <a href="{{ '/event/'.@event.eid.'/add/new/guest' }}" class="pull-right texdecnon postop-10 posrel" title="{{ @event_guest_add_new[@l] }}">
+        <a href="{{ '/event/'.@event.eid.'/add/new/guest' }}" class="btn btn-default pull-right texdecnon postop-10 posrel" title="{{ @event_guest_add_new[@l] }}">
             <small class="hidden-xs hidden-sm">{{ @event_guest_add_new[@l] }}</small>
             <i class="glyphicon glyphicon-star pad5"></i>
         </a>
@@ -28,7 +28,8 @@
 <table class="table table-striped responsive-utilities list grouplist guestslist martopnon">
     <thead>
 
-        <check if="{{ count(@lists) > 0 }}">
+        <?php // TODO : set count list to 20 ?>
+        <check if="{{ count(@lists) > 0 && @SESSION.lvl==1 }}">
         <tr>
             <td colspan="6" class="search_row">
                 <include href="search.htm" />
@@ -59,7 +60,7 @@
                                     </check>
                                     <check if="{{ (isset(@PARAMS.option) && @PARAMS.option=='order' && @PARAMS.optionvalue=='asc' || !isset(@PARAMS.option)) }}">
                                         <a  href="{{ @BASE . @search_uri_pattern.0.'/'. @_value .'/order/desc' }}"
-                                            class="btn btn-link sorter down has-tip-down"
+                                            class="btn btn-link sorter down has-tip-up"
                                             title="{{ @sortby[@l] }} {{ $k[@l] }} [Z-A]">
                                             <i class="sortby glyphicon glyphicon-chevron-up"></i>
                                         </a>

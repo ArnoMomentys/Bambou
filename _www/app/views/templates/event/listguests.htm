@@ -17,7 +17,7 @@
 <h3 class="pull-left disblo widful page-subheading padtop20 marbotnon">
     {{ @page_header }}
     <check if="{{ @isold == false && @SESSION.c != 0 }}">
-        <a href="{{ '/event/'.@event.eid.'/add/guest' }}" class="pull-right texdecnon postop-10 posrel" title="{{ @event_guest_add[@l] }}">
+        <a href="{{ '/event/'.@event.eid.'/add/guest' }}" class="btn btn-default pull-right texdecnon postop-10 posrel" title="{{ @event_guest_add[@l] }}">
             <small class="hidden-xs hidden-sm">{{ @event_guest_add[@l] }}</small>
             <i class="glyphicon glyphicon-plus-sign"></i>
         </a>
@@ -27,11 +27,13 @@
 <table class="table table-striped responsive-utilities list grouplist guestslist martopnon">
     <thead>
 
+        <check if="{{ @SESSION.lvl==1 }}">
         <tr>
             <td colspan="5" class="search_row">
                 <include href="search.htm" />
             </td>
         </tr>
+        </check>
 
         <tr>
             <td colspan="5" class="paginate">

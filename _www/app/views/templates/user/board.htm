@@ -35,7 +35,7 @@
 		    </div>
     	</false>
 	</check>
-	
+
     <check if="{{ @count_archived_events>=1 }}">
     	<true>
 		    <div class="col-md-4 col-lg-4 panel-grid padrignon">
@@ -116,7 +116,7 @@
                             </div>
                         </div>
                     </div>
-                    
+
                     <check if="{{ @event.fin < @date }}">
                     <!-- Present -->
                     <div class="stats_presence col-xs-5 col-sm-5 col-md-5 col-lg-5">
@@ -145,7 +145,7 @@
             </div>
             <div class="panel-footer padnon">
                 <div class="row marnon">
-                    <a href="{{ @BASE.'/event/'.@event.eid.'/show' }}" class="col-xs-12">
+                    <a href="{{ @BASE.'/event/'.@event.eid.'/show' }}" class="col-xs-12 btn-default">
                         {{ @open_event_details[@l] }}&nbsp;<i class="glyphicon glyphicon-chevron-right padlef10"></i>
                     </a>
                 </div>
