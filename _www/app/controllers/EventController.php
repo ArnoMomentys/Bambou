@@ -17,15 +17,15 @@ class EventController extends AuthController {
 	public function showAll() {
 		$this->show();
 	}
-	
+
 	public function showActive() {
 		$this->show(1);
 	}
-	
+
 	public function showArchived() {
 		$this->show(3);
 	}
-	
+
 	public function show($status = null)
 	{
 
@@ -78,9 +78,7 @@ class EventController extends AuthController {
 				$stats[$i] = (object) MyMapper::getEmptyStatsArray($i);
 			}
 		}
-		
-		//echo "<pre>"; print_r($stats); echo "</pre>";
-		
+
 		$this->f3->mset(
 			array(
 				'lists' => $sets,
@@ -123,9 +121,6 @@ class EventController extends AuthController {
 			$eventOptions = new viewEventOptions($this->db);
 			$event_options = $eventOptions->getEventOptionsByEid($params->eid);
 
-			//echo "<pre>"; print_r($event_options); echo "</pre><br>\n"; echo "Location: [<b>".__LINE__."</b>] <b>".__FILE__."</b><br>\n"; die('ici');
-			//echo "<pre>"; print_r($stats); echo "</pre><br>\n"; echo "Location: [<b>".__LINE__."</b>] <b>".__FILE__."</b><br>\n"; die('ici');
-			
 			$this->f3->mset(
 				array(
 					'event' => $event_options,
@@ -133,11 +128,6 @@ class EventController extends AuthController {
 					'stats' => $stats,
 					'isold' => ($event_options->limitA > date('Y-m-d') ? false : true),
 					'date' => date('Y-m-d'),
-					// 'filter' => $filter,
-					// 'filtervalue' => $filtervalue,
-					// 'search_header' => $this->T('search_host'),
-					// 'search_pat' => "/event/$params->eid/show/hosts/hostname/___/order/asc",
-					// 'no_search_pat' => "/event/$params->eid/show",
 					'view' => 'event/show.htm'
 				)
 			);
@@ -206,7 +196,7 @@ class EventController extends AuthController {
 			$uid
 		);
 
-		
+
 		foreach ($queries as $q) {
 			foreach ($q as $k => $stat) {
 				if(!isset($stats[$stat['eid']])) {
