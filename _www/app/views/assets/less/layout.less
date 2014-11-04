@@ -472,19 +472,12 @@ body {
 		.marbot(20px);
 		.posrel;
 		a {
-			.baccol(#fff);
-			.borrad(4px, 4px, 4px, 4px);
-			.bor(1px, solid, #ddd);
-			/*.posabs;
-			.postop;
-			.posrig;*/
+			.padallc(0, 2px);
 			&,
 			&:hover {
 				.texdecnon;
 			}
 			&:hover {
-				.bor(1px, solid, #ABEA81);
-				.baccol(#F2FFDF);
 			}
 			small {
 				.fonwei(200);
@@ -495,7 +488,7 @@ body {
 				.postop(-5px);
 			}
 			i {
-				.fonsiz(24px);
+				.fonsiz(22px);
 			}
 			small,
 			i {
@@ -576,18 +569,13 @@ a {
 .eventlinks {
 	a.has-check,
 	span.has-check {
-		.baccol(#fff);
-		.colr(#555);
-		.bor(1px, solid, #DADADA);
-		.borrad(4px, 4px, 4px, 4px);
+		.bor(1px, solid, #BBB);
 		.curpoi;
 		.fonsiz(15px);
 		.fonwei(300);
 		.padalla(10px);
 		.texalicen;
 		&:hover {
-			.baccol(#F2FFDF);
-			.bor(1px, solid, #56ae1d);
 			.colr(#000);
 			.fonweibola;
 			.texdecnon;
@@ -665,13 +653,6 @@ h2.form-update-heading {
 	.fonsiz(45px) !important;
 	.fonwei(300);
 }
-.btn-primary {
-	.baccol(#56ae1d) !important;
-	.bor(1px, solid, #7CBF31) !important;
-}
-.btn-primary:hover {
-	.baccol(#70AF2B) !important;
-}
 /* ----- buttons */
 .btn {
 	.fonsiz(17px) !important;
@@ -687,10 +668,6 @@ h2.form-update-heading {
   	.minwid(315px);
   	h2 {
   		.fonsiz(30px);
-  	}
-  	button.btn:hover {
-		.baccol(#F2FFDF) !important;
-		.colr(#000);
   	}
 }
 .form-signin .form-signin-heading,
@@ -1090,6 +1067,10 @@ table.list {
 							.widful;
 							.disinlblo;
 							.heiful;
+							&:hover span {
+								.colr(#000);
+								.fonweibola;
+							}
 						}
 						& span {
 							.colr(#777);
@@ -1098,14 +1079,16 @@ table.list {
 							.linhei(10px);
 							.minhei(5px) !important;
 							.posabs;
-							.posbot(55px);
+							.posbot(60px);
 							.poslef;
 							.textraupp;
 							.widful;
 							&.digits {
 								.colr(#444);
 								.fonsiz(10px);
-								.posbot(80px);
+								.hei(94px);
+								.padtop(5px);
+								.posbot(1px);
 							}
 						}
 					}
@@ -1194,7 +1177,6 @@ table.list {
 		}
 		a,
 		span.void {
-			.baccol(#FFF);
 			.colr(#555);
 			.fonsiz(11px);
 			.texalicen;
@@ -1214,7 +1196,6 @@ table.list {
 				.colr(#555) !important;
 			}
 			&:hover {
-				.baccol(#F2FFDF) !important;
 				.colr(#000) !important;
 				&,
 				& span {
@@ -1327,6 +1308,9 @@ table.list {
 								.widful;
 								.disinlblo;
 								.heiful;
+								&:hover span {
+									.colr(#000);
+								}
 							}
 							& span {
 								.colr(#777);
@@ -1342,7 +1326,9 @@ table.list {
 								&.digits {
 									.colr(#444);
 									.fonsiz(13px);
-									.posbot(130px);
+									.hei(149px);
+									.padtop(10px);
+									.posbot(1px);
 								}
 								&.legend {
 									.posbot(110px);
@@ -2413,12 +2399,17 @@ table.userList {
 		.hei(193px) !important;
 		.stats {
 			.record  {
-				.hei(132px) !important;
-				span.digits {
-					.posbot(110px) !important;
-				}
-				span.legend {
-					.posbot(90px) !important;
+				.hei(128px) !important;
+				.bar {
+					.posbot(1px) !important;
+					span.digits {
+						.posbot(0) !important;
+						.hei(127px) !important;
+						.padtop(10px) !important;
+					}
+					span.legend {
+						.posbot(90px) !important;
+					}
 				}
 			}
 		}
