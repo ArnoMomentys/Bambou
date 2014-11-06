@@ -1,4 +1,4 @@
-<h2 class="page-heading">
+<h2 class="page-heading marbotnon">
     {{ @page_header }}
     <a href="{{ @BASE.'/group/create' }}" class="veralimid backto" title="{{ @create_new_group[@l] }}">
         <i class="glyphicon glyphicon-plus-sign"></i>
@@ -25,7 +25,7 @@
                 <check if="{{ in_array(@value, array('name', 'nbUsers')) }}">
                     <th class="{{ @value }}">
                         <div class="th-wrapper" with="<?php $k=$$value ?>">
-                            <div class="flolef padtop10 padrig5 padbot10 padlef5">{{ @k[@l] }}</div>
+                            <div class="flolef padtop5 padrig5 padbot5 padlef5">{{ @k[@l] }}</div>
                             <div class="sorterwrap">
                                 <check if="{{ isset(@PARAMS.option) && @PARAMS.option=='order' && @PARAMS.optionvalue=='desc' }}">
                                     <a  href="{{ @BASE.'/'.@listtype.'/'.@value.(@value==@filter && strlen(@filtervalue)>0 ? '/'.@filtervalue:'').'/order/asc' }}"

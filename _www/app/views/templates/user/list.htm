@@ -1,4 +1,4 @@
-<h2 class="page-heading">
+<h2 class="page-heading marbotnon">
     {{ @page_header }}
 </h2>
 
@@ -10,36 +10,44 @@
 
 <table class="table table-bordered table-striped responsive-utilities list userslist">
     <thead>
+
+        <tr>
+            <td colspan="6" class="search_row">
+                <include href="search.htm" />
+            </td>
+        </tr>
+
         <tr>
             <td colspan="6" class="paginate">
                 {{ @pagebrowser | raw }}
             </td>
         </tr>
+
         <check if="{{ !empty(@lists_keys) }}">
             <tr>
                 <repeat group="{{ @lists_keys }}" key="{{ @key }}" value="{{ @value }}" counter="{{ @ctr }}">
                     <check if="{{ in_array(@value, ['nomcomplet','societe','fonction','ville','adresse']) }}">
                         <th class="{{ @value }}">
                             <div class="th-wrapper">
-                                <div class="flolef padtop10 padrig5 padbot10 padlef5">{{ @value=='nomcomplet'? @name[@l] : @value }}</div>
-                                <div class="sorterwrap" with="<?php $_value=$value=='nomcomplet'?'nom':$value;$k=$$_value; ?>">
-
-
-                                    <check if="{{ isset(@PARAMS.option) && @PARAMS.option=='order' && @PARAMS.optionvalue=='desc' }}">
-                                        <a  href="{{ @BASE.'/'.@listtype.'/list/'.@_value.(@_value==@filter && strlen(@filtervalue)>0 ? '/'.@filtervalue:'').'/order/asc' }}"
-                                            class="btn btn-link sorter up has-tip-up"
-                                            title="{{ @sortby[@l] }} {{ $k[@l] }} [A-Z]">
-                                            <i class="sortby glyphicon glyphicon-chevron-up"></i>
-                                        </a>
-                                    </check>
-                                    <check if="{{ (isset(@PARAMS.option) && @PARAMS.option=='order' && @PARAMS.optionvalue=='asc' || !isset(@PARAMS.option)) }}">
-                                        <a  href="{{ @BASE.'/'.@listtype.'/list/'.@_value.(strlen(@filtervalue)>0 && @_value==@filter ? '/'.@filtervalue:'').'/order/desc' }}"
-                                            class="btn btn-link sorter down has-tip-down"
-                                            title="{{ @sortby[@l] }} {{ $k[@l] }} [Z-A]">
-                                            <i class="sortby glyphicon glyphicon-chevron-down"></i>
-                                        </a>
-                                    </check>
-                                </div>
+                                <div class="flolef padtop5 padrig5 padbot5 padlef5">{{ @value=='nomcomplet'? @name[@l] : @value }}</div>
+                                <check if="{{ count(@lists)>1 }}">
+                                    <div class="sorterwrap" with="<?php $_value=$value=='nomcomplet'?'nom':$value;$k=$$_value; ?>">
+                                        <check if="{{ isset(@PARAMS.option) && @PARAMS.option=='order' && @PARAMS.optionvalue=='desc' }}">
+                                            <a  href="{{ @BASE . @search_uri_pattern.0.'/'. @value.'/order/asc' }}"
+                                                class="btn btn-link sorter up has-tip-up"
+                                                title="{{ @sortby[@l] }} {{ $k[@l] }} [A-Z]">
+                                                <i class="sortby glyphicon glyphicon-chevron-up"></i>
+                                            </a>
+                                        </check>
+                                        <check if="{{ (isset(@PARAMS.option) && @PARAMS.option=='order' && @PARAMS.optionvalue=='asc' || !isset(@PARAMS.option)) }}">
+                                            <a  href="{{ @BASE . @search_uri_pattern.0.'/'. @value.'/order/desc' }}"
+                                                class="btn btn-link sorter down has-tip-up"
+                                                title="{{ @sortby[@l] }} {{ $k[@l] }} [Z-A]">
+                                                <i class="sortby glyphicon glyphicon-chevron-down"></i>
+                                            </a>
+                                        </check>
+                                    </div>
+                                </check>
                             </div>
                         </th>
                     </check>

@@ -16,7 +16,7 @@
 <h3 class="pull-left disblo widful page-subheading marbotnon">
     {{ @event_hosts_already_added[@l] }}
     <check if="{{ @isold == false && @SESSION.c != 0 }}">
-        <a href="{{ '/event/'.@event.eid.'/add/host' }}" class="pull-right texdecnon postop-10 posrel" title="{{ @event_host_add[@l] }}">
+        <a href="{{ '/event/'.@event.eid.'/add/host' }}" class="btn btn-default pull-right texdecnon postop-10 posrel" title="{{ @event_host_add[@l] }}">
             <small class="hidden-xs hidden-sm">{{ @event_host_add[@l] }}</small>
             <i class="glyphicon glyphicon-plus-sign"></i>
         </a>
@@ -25,6 +25,12 @@
 
 <table class="table table-striped responsive-utilities list grouplist hostslist martopnon">
     <thead>
+
+        <tr>
+            <td colspan="8" class="search_row">
+                <include href="search.htm" />
+            </td>
+        </tr>
 
         <tr>
             <td colspan="8" class="paginate">
@@ -38,28 +44,30 @@
                     <check if="{{ in_array(@value, ['hostname','hostbranch','hostbu','hostcompany','hostfunction','hosttown','hostaddress']) }}">
                         <th class="{{ @value }}">
                             <div class="th-wrapper" with="<?php $k=$$value; ?>">
-                                <div class="flolef padtop10 padrig5 padbot10 padlef5">{{ @k[@l] }}</div>
-                                <div class="sorterwrap">
-                                    <check if="{{ isset(@PARAMS.option) && @PARAMS.option=='order' && @PARAMS.optionvalue=='desc' }}">
-                                        <a href="{{ @BASE.'/event/'.@event.eid.'/show/hosts/'.@value.'/order/asc' }}"
-                                        class="btn btn-link sorter up has-tip-up"
-                                        title="{{ @sortby[@l] }} {{ @k[@l] }} [A-Z]">
-                                            <i class="sortby glyphicon glyphicon-chevron-up"></i>
-                                        </a>
-                                    </check>
-                                    <check if="{{ (isset(@PARAMS.option) && @PARAMS.option=='order' && @PARAMS.optionvalue=='asc' || !isset(@PARAMS.option)) }}">
-                                        <a href="{{ @BASE.'/event/'.@event.eid.'/show/hosts/'.@value.'/order/desc' }}"
-                                        class="btn btn-link sorter down has-tip-down"
-                                        title="{{ @sortby[@l] }} {{ @k[@l] }} [Z-A]">
-                                            <i class="sortby glyphicon glyphicon-chevron-down"></i>
-                                        </a>
-                                    </check>
-                                </div>
+                                <div class="flolef padtop5 padrig5 padbot5 padlef5">{{ @k[@l] }}</div>
+                                <check if="{{ count(@lists)>1 }}">
+                                    <div class="sorterwrap">
+                                        <check if="{{ isset(@PARAMS.option) && @PARAMS.option=='order' && @PARAMS.optionvalue=='desc' }}">
+                                            <a href="{{ @BASE . @search_uri_pattern.0.'/'. @value.'/order/asc' }}"
+                                            class="btn btn-link sorter up has-tip-up"
+                                            title="{{ @sortby[@l] }} {{ @k[@l] }} [A-Z]">
+                                                <i class="sortby glyphicon glyphicon-chevron-up"></i>
+                                            </a>
+                                        </check>
+                                        <check if="{{ (isset(@PARAMS.option) && @PARAMS.option=='order' && @PARAMS.optionvalue=='asc' || !isset(@PARAMS.option)) }}">
+                                            <a href="{{ @BASE . @search_uri_pattern.0.'/'. @value.'/order/desc' }}"
+                                            class="btn btn-link sorter down has-tip-up"
+                                            title="{{ @sortby[@l] }} {{ @k[@l] }} [Z-A]">
+                                                <i class="sortby glyphicon glyphicon-chevron-down"></i>
+                                            </a>
+                                        </check>
+                                    </div>
+                                </check>
                             </div>
                         </th>
                     </check>
                 </repeat>
-                <th>&nbsp;</th>
+                <th class="actions">&nbsp;</th>
             </tr>
         </check>
     </thead>

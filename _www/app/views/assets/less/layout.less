@@ -387,7 +387,11 @@ body {
 	  		}
 	  		a {
 	  			i {
-	  				font-size: 30px;
+	  				.disinl;
+	  				.fonsiz(20px);
+	  				.posrel;
+	  				.postop(-2px);
+	  				.veralitop;
 	  			}
 	  		}
 			&.cat {
@@ -1634,6 +1638,20 @@ table.guestslist {
 			}
 		}
 	}
+	td.hostname {
+		a {
+			.padallc(0, 8px) !important;
+			.linhei(15px) !important;
+		}
+	}
+}
+table.hostslist {
+	td.hostname {
+		a,
+		span {
+			.padallb(10px, 8px, 7px, 8px) !important;
+		}
+	}
 }
 @col_4: 98% / 4;
 @col_6: 98% / 6;
@@ -1677,6 +1695,7 @@ table.usergrouplist {
 			.bortop(3px, solid, #DFDFDF) !important;
 			.borrig(1px, solid, #D8D8D8) !important;
 			.borbot(1px, solid, #C7C7C7) !important;
+			.minwid(60px);
 			.padnon !important;
 			.textracap;
 			&,
@@ -1712,6 +1731,7 @@ table.usergrouplist {
 				}
 			}
 		}
+		th.actions,
 		td.actions {
 			.minwid(35px) !important;
 			table {
@@ -1734,14 +1754,18 @@ table.usergrouplist {
 		}
 		td.nomcomplet,
 		td.guestname,
-		td.hostname,
 		td.actions {
-			.padnon;
-			.minwid(52px);
 			a,
 			span {
 				.padallb(10px, 8px, 7px, 8px) !important;
 			}
+		}
+		td.nomcomplet,
+		td.guestname,
+		td.hostname,
+		td.actions {
+			.padnon;
+			.minwid(52px);
 			a,
 			button.dropdown-toggle,
 			span {
@@ -1774,12 +1798,6 @@ table.usergrouplist {
 		td.hostname a,
 		td.nomcomplet a {
 			white-space: nowrap;
-		}
-		td.hostname {
-			a {
-				.padallc(0, 8px) !important;
-				.linhei(15px);
-			}
 		}
 	}
 }
@@ -2014,8 +2032,8 @@ table.userList {
 @media only screen and (min-width: 768px) {
 	.sidebar .nav-sidebar li a,
 	.sidebar .nav-sidebar li span.export {
-		.padtop(15px);
-		.padbot(15px);
+		.padtop(13px);
+		.padbot(8px);
 	}
 	.panel-grid {
 		.wid(50%);
@@ -2192,8 +2210,8 @@ table.userList {
 	}
 	.sidebar .nav-sidebar li a,
 	.sidebar .nav-sidebar li span.export {
-		.padtop(15px);
-		.padbot(15px);
+		.padtop(8px);
+		.padbot(10px);
 	}
 	.sidebar .nav-sidebar li.cat,
 	.sidebar .nav-sidebar li a,
@@ -2385,6 +2403,33 @@ table.userList {
 	}
 	.verb .legend2 {
 		.disnon;
+	}
+}
+
+/*------ nav -------*/
+@media only screen and (min-width: 1049px) {
+	.sidebar .nav-sidebar li.cat span.texte {
+		.fonsiz(100%);
+	}
+}
+@media only screen and (min-width: 988px) and (max-width: 1048px) {
+	.sidebar .nav-sidebar li.cat span.texte {
+		.fonsiz(90%);
+	}
+}
+@media only screen and (min-width: 930px) and (max-width: 987px) {
+	.sidebar .nav-sidebar li.cat span.texte {
+		.fonsiz(80%);
+	}
+}
+@media only screen and (max-width: 929px) {
+	.sidebar .nav-sidebar li.cat a {
+		.texalicen;
+	}
+	.sidebar .nav-sidebar li.cat span.texte {
+		.disblo;
+		.fonsiz(80%);
+		.texalicen;
 	}
 }
 

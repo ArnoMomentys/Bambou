@@ -49,22 +49,24 @@
                             <th class="{{@value}}">
                                 <div class="th-wrapper" with="<?php $k=$$value; ?>">
                                     <div class="flolef padtop5 padrig5 padbot5 padlef5">{{ @k[@l] }}</div>
-                                    <div class="sorterwrap">
-                                        <check if="{{ isset(@PARAMS.option) && @PARAMS.option=='order' && @PARAMS.optionvalue=='desc' }}">
-                                            <a  href="{{ @BASE . @search_uri_pattern.0.'/'. @value.'/order/asc' }}"
-                                                class="btn btn-link sorter up has-tip-up"
-                                                title="{{ @sortby[@l] }} {{ @k[@l] }} [A-Z]">
-                                                <i class="sortby glyphicon glyphicon-chevron-down"></i>
-                                            </a>
-                                        </check>
-                                        <check if="{{ (isset(@PARAMS.option) && @PARAMS.option=='order' && @PARAMS.optionvalue=='asc' || !isset(@PARAMS.option)) }}">
-                                            <a  href="{{ @BASE . @search_uri_pattern.0.'/'. @value.'/order/desc' }}"
-                                                class="btn btn-link sorter down has-tip-up"
-                                                title="{{ @sortby[@l] }} {{ @k[@l] }} [Z-A]">
-                                                <i class="sortby glyphicon glyphicon-chevron-up"></i>
-                                            </a>
-                                        </check>
-                                    </div>
+                                    <check if="{{ count(@lists)>1 }}">
+                                        <div class="sorterwrap">
+                                            <check if="{{ isset(@PARAMS.option) && @PARAMS.option=='order' && @PARAMS.optionvalue=='desc' }}">
+                                                <a  href="{{ @BASE . @search_uri_pattern.0.'/'. @value.'/order/asc' }}"
+                                                    class="btn btn-link sorter up has-tip-up"
+                                                    title="{{ @sortby[@l] }} {{ @k[@l] }} [A-Z]">
+                                                    <i class="sortby glyphicon glyphicon-chevron-down"></i>
+                                                </a>
+                                            </check>
+                                            <check if="{{ (isset(@PARAMS.option) && @PARAMS.option=='order' && @PARAMS.optionvalue=='asc' || !isset(@PARAMS.option)) }}">
+                                                <a  href="{{ @BASE . @search_uri_pattern.0.'/'. @value.'/order/desc' }}"
+                                                    class="btn btn-link sorter down has-tip-up"
+                                                    title="{{ @sortby[@l] }} {{ @k[@l] }} [Z-A]">
+                                                    <i class="sortby glyphicon glyphicon-chevron-up"></i>
+                                                </a>
+                                            </check>
+                                        </div>
+                                    </check>
                                 </div>
                             </th>
                         </check>
@@ -199,13 +201,13 @@
 												<check if="{{ @SESSION.lvl <= 2 }}">
 													<ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
 														<li role="presentation">
-															<a class="texalilef" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @liste['invitationids'] }}/0/event_{{ @event.eid }}_show_guests">{{ @no_answer[@l] }} {{ @liste.answer.0 == 0 ? '<i class="glyphicon glyphicon-ok marlef5"></i>' : '' }}</a>
+															<a class="texalilef" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @liste['invitationids'] }}/0/{{ str_replace('/', '_', substr(@PARAMS.0, 1)) }}">{{ @no_answer[@l] }} {{ @liste.answer.0 == 0 ? '<i class="glyphicon glyphicon-ok marlef5"></i>' : '' }}</a>
 														</li>
 														<li role="presentation">
-															<a class="texalilef" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @liste['invitationids'] }}/1/event_{{ @event.eid }}_show_guests">{{ @guest_answer_yes[@l] }} {{ @liste.answer.0 == 1 ? '<i class="glyphicon glyphicon-ok marlef5"></i>' : '' }}</a>
+															<a class="texalilef" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @liste['invitationids'] }}/1/{{ str_replace('/', '_', substr(@PARAMS.0, 1)) }}">{{ @guest_answer_yes[@l] }} {{ @liste.answer.0 == 1 ? '<i class="glyphicon glyphicon-ok marlef5"></i>' : '' }}</a>
 														</li>
 														<li role="presentation">
-															<a class="texalilef" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @liste['invitationids'] }}/2/event_{{ @event.eid }}_show_guests">{{ @guest_answer_no[@l] }} {{ @liste.answer.0 == 2 ? '<i class="glyphicon glyphicon-ok marlef5"></i>' : '' }}</a>
+															<a class="texalilef" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @liste['invitationids'] }}/2/{{ str_replace('/', '_', substr(@PARAMS.0, 1)) }}">{{ @guest_answer_no[@l] }} {{ @liste.answer.0 == 2 ? '<i class="glyphicon glyphicon-ok marlef5"></i>' : '' }}</a>
 														</li>
 													</ul>
 												</check>
@@ -369,13 +371,13 @@
                                                 <!-- ONLY Admin can change the status -->
                                                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu2">
                                                     <li role="presentation">
-                                                        <a class="texalilef" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @liste['invitationids'] }}/presence/0/event_{{ @event.eid }}_show_guests">{{ ucfirst(@no_answer[@l]) }} {{ @liste.presence.0 == 0 ? '<i class="glyphicon glyphicon-ok marlef5"></i>' : '' }}</a>
+                                                        <a class="texalilef" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @liste['invitationids'] }}/presence/0/{{ str_replace('/', '_', substr(@PARAMS.0, 1)) }}">{{ ucfirst(@no_answer[@l]) }} {{ @liste.presence.0 == 0 ? '<i class="glyphicon glyphicon-ok marlef5"></i>' : '' }}</a>
                                                     </li>
                                                     <li role="presentation">
-                                                        <a class="texalilef" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @liste['invitationids'] }}/presence/1/event_{{ @event.eid }}_show_guests">{{ ucfirst(@answered_yes[@l]) }} {{ @liste.presence.0 == 1 ? '<i class="glyphicon glyphicon-ok marlef5"></i>' : '' }}</a>
+                                                        <a class="texalilef" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @liste['invitationids'] }}/presence/1/{{ str_replace('/', '_', substr(@PARAMS.0, 1)) }}">{{ ucfirst(@answered_yes[@l]) }} {{ @liste.presence.0 == 1 ? '<i class="glyphicon glyphicon-ok marlef5"></i>' : '' }}</a>
                                                     </li>
                                                     <li role="presentation">
-                                                        <a class="texalilef" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @liste['invitationids'] }}/presence/2/event_{{ @event.eid }}_show_guests">{{ ucfirst(@answered_no[@l]) }} {{ @liste.presence.0 == 2 ? '<i class="glyphicon glyphicon-ok marlef5"></i>' : '' }}</a>
+                                                        <a class="texalilef" role="menuitem" tabindex="-1" href="{{ @BASE }}/event/{{ @event.eid }}/guest/{{ @liste['invitationids'] }}/presence/2/{{ str_replace('/', '_', substr(@PARAMS.0, 1)) }}">{{ ucfirst(@answered_no[@l]) }} {{ @liste.presence.0 == 2 ? '<i class="glyphicon glyphicon-ok marlef5"></i>' : '' }}</a>
                                                     </li>
                                                 </ul>
                                             </div>
