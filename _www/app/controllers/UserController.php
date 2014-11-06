@@ -34,23 +34,47 @@ class UserController extends AuthController {
 			$params = (object) array_map('trim', $this->f3->get('PARAMS'));
 			$filter = (isset($params->filter) ? $params->filter : '');
 			$filtervalue = (isset($params->filtervalue) ? $params->filtervalue : '');
-			$filters = $options = array();
+
+			$filters = $options = [];
 			$filterQuery = '1 = ?';
 			$filterValue = null;
-			if( empty($params->filter) ) {
+
+			if(empty($params->filter) && empty($params->optionkey))
+			{
 				$options['order'] = 'nom ASC';
-			} else {
-				$options['order'] = empty($params->option) ? $params->filter.' ASC' : $params->filter.' '.$params->optionvalue;
-				if( !empty($params->filtervalue) ) {
-					$filterQuery .= ' AND '.$params->filter.' LIKE ?';
-					$filterValue .= '%'.$params->filtervalue.'%';
+			}
+			else
+			{
+				if(empty($params->filter) && !empty($params->optionkey)) $params_filter = $params->optionkey;
+				if(!empty($params->filter)) $params_filter = $params->filter;
+
+				if(empty($params->option))
+				{
+				    $options['order'] = $params_filter.' ASC';
+				}
+				else
+				{
+				    if(empty($params->optionkey))
+				    {
+				        $options['order'] = $params_filter.' '.$params->optionvalue;
+				    }
+				    else
+				    {
+				        $options['order'] = $params->optionkey.' '.$params->optionvalue;
+				    }
+				}
+
+				if(!empty($params->filtervalue))
+				{
+				    $filterQuery .= ' AND '.$params_filter.' LIKE ?';
+				    $filterValue .= '%'.$params->filtervalue.'%';
 				}
 			}
+
 			$filters[] = $filterQuery." AND nom != '' AND uid!=1";
 			$filters[] = '1';
-			if( !empty($filterValue) ) {
-				$filters[] = $filterValue;
-			}
+
+			if(!empty($filterValue)) $filters[] = $filterValue;
 
 			$profiles = new viewUserCompleteProfile($this->db);
 			$user_profiles = $profiles->getUsersProfilesFiltered_Paginated($filters, $options);
@@ -66,9 +90,8 @@ class UserController extends AuthController {
 					'listname' => $this->T('users'),
 					'filter' => $filter,
 					'filtervalue' => $filtervalue,
-					'search_header' => $this->T('search_user'),
-					'search_pat' => "/users/list/nom/___/order/asc",
-					'no_search_pat' => "/users/list",
+					'search_fields' => $this->_getSearchFieldsParam($filtervalue),
+					'search_uri_pattern' => preg_split('/\/[a-z]{1,}\/order/', $this->f3->get('PARAMS')[0]),
 					'view' => 'user/list.htm'
 				)
 			);
@@ -477,7 +500,7 @@ class UserController extends AuthController {
 				{
 					$stats_event=array();
 					$stats_event[0] = new stdClass;
-					
+
 					$stats_event[0] = (object) MyMapper::getEmptyStatsArray($last_active_event->eid);
 				}
 
@@ -488,7 +511,7 @@ class UserController extends AuthController {
     			$last_guest_added_nom_prenom = '';
     			$invitations = new Invitations($this->db);
     			$invitation = $invitations->load('', array('order'=>'validatedAt DESC', 'limit'=>1));
-				
+
     			if(!empty($invitation)) {
 	    			$last_guest_added_event_eid = $invitation->eventID;
     				$invitation_event = $events->load(array('eid=?', $invitation->eventID));
@@ -551,5 +574,19 @@ class UserController extends AuthController {
     	}
     }
 
+    private function _getSearchFieldsParam($filtervalue)
+    {
+        $params = (object) array_map('trim', $this->f3->get('PARAMS'));
+        $filter = isset($params->filter) ? $params->filter : '';
+        return array(
+            array(
+                'filtervalue' => ($filter=='nomcomplet' ? $filtervalue : ''),
+                'search_header' => $this->T('search_contact'),
+                'search_pat' => "/users/list/search/nomcomplet/___/".(isset($params->optionkey)?$params->optionkey."/":"nomcomplet/")."order/asc",
+                'no_search_pat' => "/users/list/"
+            )
+        );
+
+    }
 }
 
