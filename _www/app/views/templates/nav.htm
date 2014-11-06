@@ -12,11 +12,11 @@
     <ul class="nav nav-sidebar pull-left">
 
         <!-- user inputs -->
-        <li class="welcome texalicen{{ (preg_match('/(profil)|(user)/i', @PATTERN) && isset(@PARAMS.uid) ? (@SESSION.uid==@PARAMS.uid ? ' active' : '') : '') }}">
+        <li class="welcome {{ (preg_match('/(profil)|(user)/i', @PATTERN) && isset(@PARAMS.uid) ? (@SESSION.uid==@PARAMS.uid ? ' active' : '') : '') }}">
             <a class="disinl" href="/user/{{ @SESSION.uid }}/show">
-                <i class="glyphicon glyphicon-user"></i>  <span class="hidden-xs nom textraupp">{{ @SESSION.profile.nom }}</span> <span class="hidden-xs prenom textracap">{{ @SESSION.profile.prenom }}</span>
+                <i class="glyphicon glyphicon-user"></i>  <span class="hidden-xs nom textraupp padlef5">{{ @SESSION.profile.nom }}</span> <span class="hidden-xs prenom textracap">{{ @SESSION.profile.prenom }}</span>
                 <small class="visible-xs heiful widful has-tip-right posabs postop0 poslef0" title="{{@user_profile[@l]}} de {{@SESSION.profile.nom}} {{@SESSION.profile.prenom}}">&nbsp;</small><br>
-                <small class="hidden-xs">{{ @goto_profile[@l] }}</small>
+                <small class="hidden-xs widful disblo texalicen">{{ @goto_profile[@l] }}</small>
             </a>
         </li>
 
@@ -24,10 +24,10 @@
         <check if="{{ @SESSION.lvl<=2 }}">
             <true>
                 <check if="{{ @PATTERN!='/' }}">
-                    <li class="texalicen cat">
-                        <a href="{{ @BASE.'/' }}" class="texalicen">
+                    <li class=" cat">
+                        <a href="{{ @BASE.'/' }}" class="">
                             <i class="glyphicon glyphicon-home glyphicon-black"></i>
-                            <span class="texte disblo hidden-xs">
+                            <span class="texte padlef5 hidden-xs">
                                 {{ @home_page[@l] }}
                             </span>
                             <small class="visible-xs heiful widful has-tip-right posabs postop0 poslef0" title="{{ @home_page[@l] }}">&nbsp;</small>
@@ -38,10 +38,10 @@
         </check>
 
         <!-- events list -->
-        <li class="texalicen cat{{ preg_match('/event/i', @PATTERN) ? ' active': '' }}">
-            <a href="{{ @BASE.'/events' }}" class="texalicen">
+        <li class=" cat{{ preg_match('/event/i', @PATTERN) ? ' active': '' }}">
+            <a href="{{ @BASE.'/events' }}" class="">
                 <i class="glyphicon glyphicon-time glyphicon-black"></i>
-                <span class="texte disblo hidden-xs">
+                <span class="texte padlef5 hidden-xs">
                     {{ @events_list[@l] }}
                 </span>
                 <small class="visible-xs heiful widful has-tip-right posabs postop0 poslef0" title="{{ @events_list[@l] }}">&nbsp;</small>
@@ -54,10 +54,10 @@
 
             <!-- event create -->
             <check if="{{ preg_match('/\/events/i',@PATTERN) }}">
-                <li class="texalicen inner{{ @PATTERN=='/event/create' ?' subactive':'' }}">
-                    <a href="{{ @PATTERN=='/event/create' ? 'javascript:void()' : @BASE.'/event/create' }}" class="texalicen">
+                <li class="inner{{ @PATTERN=='/event/create' ?' subactive':'' }}">
+                    <a href="{{ @PATTERN=='/event/create' ? 'javascript:void()' : @BASE.'/event/create' }}" class="">
                         <i class="glyphicon glyphicon-record glyphicon-black"></i>
-                        <span class="texte disblo hidden-xs">
+                        <span class="texte padlef5 hidden-xs">
                             {{ @event_create[@l] }}
                         </span>
                         <small class="visible-xs heiful widful has-tip-right posabs postop0 poslef0" title="{{ @event_create[@l] }}">&nbsp;</small>
@@ -67,10 +67,10 @@
 
             <!-- event update -->
             <check if="{{ preg_match('/\/event\/u/i',@PATTERN) }}">
-                <li class="texalicen inner subactive">
-                    <a href="javascript:void(0);" class="texalicen">
+                <li class="inner subactive">
+                    <a href="javascript:void(0);" class="">
                         <i class="glyphicon glyphicon-refresh glyphicon-black"></i>
-                        <span class="texte disblo hidden-xs">
+                        <span class="texte padlef5 hidden-xs">
                             {{ @event_update[@l] }}
                         </span>
                         <small class="visible-xs heiful widful has-tip-right posabs postop0 poslef0" title="{{ @event_update[@l] }}">&nbsp;</small>
@@ -88,38 +88,38 @@
                         <true>
 
                             <!-- event guests list -->
-                            <li class="texalicen inner{{ preg_match('/(show\/guests)|(add\/acc)|(add\/repr)/',@PATTERN) ? ' subactive': '' }}">
+                            <li class="inner{{ preg_match('/(show\/guests)|(add\/acc)|(add\/repr)/',@PATTERN) ? ' subactive': '' }}">
                                 <a href="{{ '/event/'.@PARAMS.eid.'/show/guests' }}" class="veralimid texdecnon">
                                     <i class="glyphicon glyphicon-align-left glyphicon-black"></i>
-                                    <span class="texte disblo hidden-xs">{{ @event_guest_list[@l] }}</span>
+                                    <span class="texte padlef5 hidden-xs">{{ @event_guest_list[@l] }}</span>
                                     <small class="visible-xs heiful widful has-tip-right posabs postop0 poslef0" title="{{ @event_guest_list[@l] }}">&nbsp;</small>
                                 </a>
                             </li>
 
                             <check if="{{ @SESSION.c != 0 }}">
                                 <!-- event guest add -->
-                                <li class="texalicen inner{{ strstr(@PATTERN, 'add/guest')==true ? ' subactive': '' }}">
+                                <li class="inner{{ strstr(@PATTERN, 'add/guest')==true ? ' subactive': '' }}">
                                     <a href="{{ '/event/'.@PARAMS.eid.'/add/guest' }}" class="veralimid texdecnon">
                                         <i class="glyphicon glyphicon-plus-sign glyphicon-black"></i>
-                                        <span class="texte disblo hidden-xs">{{ @event_guest_add[@l] }}</span>
+                                        <span class="texte padlef5 hidden-xs">{{ @event_guest_add[@l] }}</span>
                                         <small class="visible-xs heiful widful has-tip-right posabs postop0 poslef0" title="{{ @event_host_add[@l] }}">&nbsp;</small>
                                     </a>
                                 </li>
 
                                 <!-- event guest add new -->
-                                <li class="texalicen inner{{ strstr(@PATTERN, 'add/new/guest')==true ? ' subactive': '' }}">
+                                <li class="inner{{ strstr(@PATTERN, 'add/new/guest')==true ? ' subactive': '' }}">
                                     <a href="{{ '/event/'.@PARAMS.eid.'/add/new/guest' }}" class="veralimid texdecnon">
                                         <i class="glyphicon glyphicon-star glyphicon-black"></i>
-                                        <span class="texte disblo hidden-xs">{{ @event_guest_add_new[@l] }}</span>
+                                        <span class="texte padlef5 hidden-xs">{{ @event_guest_add_new[@l] }}</span>
                                         <small class="visible-xs heiful widful has-tip-right posabs postop0 poslef0" title="{{ @event_guest_add[@l] }}">&nbsp;</small>
                                     </a>
                                 </li>
 
                                 <!-- event guest import -->
-                                <li class="texalicen inner{{ strstr(@PARAMS[0], 'import/guests') ? ' subactive': '' }}">
+                                <li class="inner{{ strstr(@PARAMS[0], 'import/guests') ? ' subactive': '' }}">
                                     <a href="{{ '/event/'.@PARAMS.eid.'/import/guests' }}" class="veralimid texdecnon">
                                         <i class="glyphicon glyphicon-import glyphicon-black"></i>
-                                        <span class="texte disblo hidden-xs">{{ @event_guests_import[@l] }}</span>
+                                        <span class="texte padlef5 hidden-xs">{{ @event_guests_import[@l] }}</span>
                                         <small class="visible-xs heiful widful has-tip-right posabs postop0 poslef0" title="{{ @event_guests_import[@l] }}">&nbsp;</small>
                                     </a>
                                 </li>
@@ -128,11 +128,11 @@
                     </check>
                     <check if="{{ @SESSION.c > 0 && @SESSION.lvl <= 3 }}">
                          <!-- event guest export -->
-                         <li class="texalicen inner{{ strstr(@PARAMS[0], 'export/guests') ? ' subactive': '' }}">
+                         <li class="inner{{ strstr(@PARAMS[0], 'export/guests') ? ' subactive': '' }}">
                              <!--<a href="{{ F3::ROUTE('GET /toto','UploadContactsController->processDownLoad'); }}" class="veralimid texdecnon">-->
                              <a href="{{ '/event/'.@PARAMS.eid.'/export/guests' }}" class="veralimid texdecnon">
                                 <i class="glyphicon glyphicon-export glyphicon-black"></i>
-                                 <span class="texte disblo hidden-xs">{{ @event_guests_export[@l] }}</span>
+                                 <span class="texte padlef5 hidden-xs">{{ @event_guests_export[@l] }}</span>
                                  <small class="visible-xs heiful widful has-tip-right posabs postop0 poslef0" title="{{ @event_guests_export[@l] }}">&nbsp;</small>
                              </a>
                          </li>
@@ -143,38 +143,38 @@
                         <true>
 
                             <!-- event hosts list -->
-                            <li class="texalicen inner{{ strstr(@PATTERN, '/show/hosts')==true ? ' subactive': '' }}">
+                            <li class="inner{{ strstr(@PATTERN, '/show/hosts')==true ? ' subactive': '' }}">
                                 <a href="{{ '/event/'.@PARAMS.eid.'/show/hosts' }}" class="veralimid texdecnon">
                                     <i class="glyphicon glyphicon-align-left glyphicon-black"></i>
-                                    <span class="texte disblo hidden-xs">{{ @event_host_list[@l] }}</span>
+                                    <span class="texte padlef5 hidden-xs">{{ @event_host_list[@l] }}</span>
                                     <small class="visible-xs heiful widful has-tip-right posabs postop0 poslef0" title="{{ @event_host_list[@l] }}">&nbsp;</small>
                                 </a>
                             </li>
 
                             <check if="{{ @SESSION.c != 0 }}">
                                 <!-- event host add -->
-                                <li class="texalicen inner{{ strstr(@PATTERN, 'add/host')==true ? ' subactive': '' }}">
+                                <li class="inner{{ strstr(@PATTERN, 'add/host')==true ? ' subactive': '' }}">
                                     <a href="{{ '/event/'.@PARAMS.eid.'/add/host' }}" class="veralimid texdecnon">
                                         <i class="glyphicon glyphicon-plus-sign glyphicon-black"></i>
-                                        <span class="texte disblo hidden-xs">{{ @event_host_add[@l] }}</span>
+                                        <span class="texte padlef5 hidden-xs">{{ @event_host_add[@l] }}</span>
                                         <small class="visible-xs heiful widful has-tip-right posabs postop0 poslef0" title="{{ @event_host_add[@l] }}">&nbsp;</small>
                                     </a>
                                 </li>
 
                                 <!-- event host add new -->
-                                <li class="texalicen inner{{ strstr(@PATTERN, 'add/new/host')==true ? ' subactive': '' }}">
+                                <li class="inner{{ strstr(@PATTERN, 'add/new/host')==true ? ' subactive': '' }}">
                                     <a href="{{ '/event/'.@PARAMS.eid.'/add/new/host' }}" class="veralimid texdecnon">
                                         <i class="glyphicon glyphicon-star glyphicon-black"></i>
-                                        <span class="texte disblo hidden-xs">{{ @event_host_add_new[@l] }}</span>
+                                        <span class="texte padlef5 hidden-xs">{{ @event_host_add_new[@l] }}</span>
                                         <small class="visible-xs heiful widful has-tip-right posabs postop0 poslef0" title="{{ @event_host_add_new[@l] }}">&nbsp;</small>
                                     </a>
                                 </li>
 
                                 <!-- event host import -->
-                                <li class="texalicen inner{{ strstr(@PARAMS[0], 'import/hosts') ? ' subactive': '' }}">
+                                <li class="inner{{ strstr(@PARAMS[0], 'import/hosts') ? ' subactive': '' }}">
                                     <a href="{{ '/event/'.@PARAMS.eid.'/import/hosts' }}" class="veralimid texdecnon">
                                         <i class="glyphicon glyphicon-import glyphicon-black"></i>
-                                        <span class="texte disblo hidden-xs">{{ @event_hosts_import[@l] }}</span>
+                                        <span class="texte padlef5 hidden-xs">{{ @event_hosts_import[@l] }}</span>
                                         <small class="visible-xs heiful widful has-tip-right posabs postop0 poslef0" title="{{ @event_hosts_import[@l] }}">&nbsp;</small>
                                     </a>
                                 </li>
@@ -186,11 +186,11 @@
                     </check>
                     <check if="{{ @SESSION.c > 0 && @SESSION.lvl == 1 }}">
                         <!-- event host export -->
-                        <li class="texalicen inner{{ strstr(@PARAMS[0], 'export/hosts') ? ' subactive': '' }}">
+                        <li class="inner{{ strstr(@PARAMS[0], 'export/hosts') ? ' subactive': '' }}">
                             <!--<a href="{{ F3::ROUTE('GET /toto','UploadContactsController->processDownLoad'); }}" class="veralimid texdecnon">-->
                              <a href="{{ '/event/'.@PARAMS.eid.'/export/hosts' }}" class="veralimid texdecnon">
                                 <i class="glyphicon glyphicon-export glyphicon-black"></i>
-                                 <span class="texte disblo hidden-xs">{{ @event_guests_export[@l] }}</span>
+                                 <span class="texte padlef5 hidden-xs">{{ @event_guests_export[@l] }}</span>
                                  <small class="visible-xs heiful widful has-tip-right posabs postop0 poslef0" title="{{ @event_guests_export[@l] }}">&nbsp;</small>
                              </a>
                         </li>
@@ -202,10 +202,10 @@
 
         <!-- user list -->
         <check if="{{ @SESSION.lvl<=2 }}">
-            <li class="texalicen cat{{ (preg_match('/(users\/list)|(uid\/show)|(uid\/update)/i', @PATTERN) && ((isset(@PARAMS.uid) && @SESSION.uid!=@PARAMS.uid) || !isset(@PARAMS.uid)) ? ' active' : '') }}">
-                <a href="{{ @BASE.'/users/list' }}" class="texalicen">
+            <li class=" cat{{ (preg_match('/(users\/list)|(uid\/show)|(uid\/update)/i', @PATTERN) && ((isset(@PARAMS.uid) && @SESSION.uid!=@PARAMS.uid) || !isset(@PARAMS.uid)) ? ' active' : '') }}">
+                <a href="{{ @BASE.'/users/list' }}" class="">
                     <i class="glyphicon glyphicon-th-list glyphicon-black"></i>
-                    <span class="texte disblo hidden-xs">
+                    <span class="texte padlef5 hidden-xs">
                         {{ @user_list[@l] }}
                     </span>
                     <small class="visible-xs heiful widful has-tip-right posabs postop0 poslef0" title="{{ @user_list[@l] }}">&nbsp;</small>
@@ -213,10 +213,10 @@
             </li>
 
             <!-- groups -->
-            <li class="texalicen cat{{ preg_match('/group/i',@PATTERN) ?' active':'' }}">
-                <a href="{{ @BASE.'/groups' }}" class="texalicen">
+            <li class=" cat{{ preg_match('/group/i',@PATTERN) ?' active':'' }}">
+                <a href="{{ @BASE.'/groups' }}" class="">
                     <i class="glyphicon glyphicon-list-alt glyphicon-black"></i>
-                    <span class="texte disblo hidden-xs">
+                    <span class="texte padlef5 hidden-xs">
                         {{ ucfirst(@group_list[@l]) }}
                     </span>
                     <small class="visible-xs heiful widful has-tip-right posabs postop0 poslef0" title="{{ @group_list[@l] }}">&nbsp;</small>
@@ -225,10 +225,10 @@
 
             <!-- group create -->
             <check if="{{ preg_match('/\/group/i',@PATTERN) }}">
-                <li class="texalicen inner{{ @PATTERN=='/group/create' ? ' subactive': '' }}">
-                    <a href="{{ @PATTERN=='/group/create' ? 'javascript:void()' : @BASE.'/group/create' }}" class="texalicen">
+                <li class="inner{{ @PATTERN=='/group/create' ? ' subactive': '' }}">
+                    <a href="{{ @PATTERN=='/group/create' ? 'javascript:void()' : @BASE.'/group/create' }}" class="">
                         <i class="glyphicon glyphicon-plus-sign glyphicon-black"></i>
-                        <span class="texte disblo hidden-xs">
+                        <span class="texte padlef5 hidden-xs">
                             {{ @group_create[@l] }}
                         </span>
                         <small class="visible-xs heiful widful has-tip-right posabs postop0 poslef0" title="{{ @group_create[@l] }}">&nbsp;</small>
@@ -238,10 +238,10 @@
 
             <!-- group update -->
             <check if="{{ preg_match('/\/group\/(.*)\/update/i',@PATTERN) }}">
-                <li class="texalicen inner subactive">
-                    <a href="javascript:void(0);" class="texalicen">
+                <li class="inner subactive">
+                    <a href="javascript:void(0);" class="">
                         <i class="glyphicon glyphicon-refresh glyphicon-black"></i>
-                        <span class="texte disblo hidden-xs">
+                        <span class="texte padlef5 hidden-xs">
                             {{ @group_update[@l] }}
                         </span>
                         <small class="visible-xs heiful widful has-tip-right posabs postop0 poslef0" title="{{ @group_update[@l] }}">&nbsp;</small>
@@ -251,10 +251,10 @@
 
             <!-- group show -->
             <check if="{{ preg_match('/group\/(.*)\/(add|show)/i',@PATTERN) }}">
-                <li class="texalicen inner{{ preg_match('/group\/(.*)\/add/i',@PATTERN) ? ' subactive' : ''  }}">
-                    <a href="{{ preg_match('/group\/(.*)\/show/i',@PARAMS[0]) ? preg_replace('/(show.*)/i','add/user', @PARAMS[0]) : @PARAMS[0] }}" class="texalicen">
+                <li class="inner{{ preg_match('/group\/(.*)\/add/i',@PATTERN) ? ' subactive' : ''  }}">
+                    <a href="{{ preg_match('/group\/(.*)\/show/i',@PARAMS[0]) ? preg_replace('/(show.*)/i','add/user', @PARAMS[0]) : @PARAMS[0] }}" class="">
                         <i class="glyphicon glyphicon-list glyphicon-black"></i>
-                        <span class="texte disblo hidden-xs">
+                        <span class="texte padlef5 hidden-xs">
                             {{ @add_group_member[@l] }}
                         </span>
                         <small class="visible-xs heiful widful has-tip-right posabs postop0 poslef0" title="{{ @add_group_member[@l] }}">&nbsp;</small>
