@@ -15,52 +15,11 @@ class EventGuestsController extends AuthController {
         if( ($this->f3->get('SESSION.lvl')==3 && in_array($this->f3->get('PARAMS.eid'), $aevents)) || $this->f3->get('SESSION.lvl')<=2 )
         {
             $params = (object) array_map('trim', $this->f3->get('PARAMS'));
+            $page_header = ($this->f3->get('SESSION.lvl')<=2 ? ucfirst($this->T('all_guests_list')) : ucfirst($this->T('my_guests_list')));
             $filter = (isset($params->filter) ? $params->filter : '');
             $filtervalue = (isset($params->filtervalue) ? $params->filtervalue : '');
-            $filters = $options = [];
-            $filterQuery = $this->f3->get('SESSION.lvl') <= 2 ? 'eid=?' : 'eid=? AND '.$this->_getHostIdSqlField();
-            $filterValue = '';
-            if( empty($params->filter) )
-            {
-                $options['order'] = 'guestname ASC';
-            }
-            else
-            {
-                $params_filter = $params->filter;
-                $params_filter = $params_filter=='hostname' ? '__array__hostname' : $params_filter;
-                if(empty($params->option))
-                {
-                    $options['order'] = $params_filter.' ASC';
-                }
-                else
-                {
-                    if(empty($params->optionkey))
-                    {
-                        $options['order'] = $params_filter.' '.$params->optionvalue;
-                    }
-                    else
-                    {
-                        $options['order'] = ($params->optionkey=='hostname' ? '__array__hostname' : $params->optionkey).' '.$params->optionvalue;
-                    }
-                }
 
-                if( !empty($params->filtervalue) )
-                {
-                    $filterQuery .= ' AND '.$params_filter.' LIKE ?';
-                    $filterValue .= '%'.$params->filtervalue.'%';
-                }
-            }
-            $filters[] = $filterQuery." AND guestname != ''";
-            $filters[] = $params->eid;
-            if( $this->f3->get('SESSION.lvl') > 2 )
-            {
-                $filters[] = $this->_getHostIdSqlRegexp();
-            }
-
-            if( !empty($filterValue) )
-            {
-                $filters[] = $filterValue;
-            }
+            list($filters, $options) = $this->setFiltersAndOptions($params, array(null, null));
 
             $event = new viewEventOptions($this->db);
             $e = $event->getEventOptionsByEid($params->eid);
@@ -68,31 +27,7 @@ class EventGuestsController extends AuthController {
             $eventGuests = new viewEventsEventGuests($this->db);
             $list = $eventGuests->getEventGuestsPaginated($filters, $options);
 
-            $isEventOld = ($e->limitB < date('Y-m-d') ? true : false);
-            $isEventDone = ($e->debut <= date('Y-m-d') ? true : false);
-
-            $this->f3->mset(
-                array(
-                    'lists_keys' => (isset($list['subset'][0]) ? array_keys($list['subset'][0]) : null),
-                    'lists' => $list['subset'],
-                    'listtype' => 'guest',
-                    'listindex' => 'eid',
-                    'event' => $e,
-                    'isold' => $isEventOld,
-                    'isdone' => $isEventDone,
-                    'totaux' => (isset($list['total']) && $list['total']>0 ? $list['total'] : 0),
-                    'listname' => $list['total']>1 ? $this->T('event_guests') : $this->T('event_guest'),
-                    'page_header' => ($this->f3->get('SESSION.lvl')<=2 ? ucfirst($this->T('all_guests_list')) : ucfirst($this->T('my_guests_list'))),
-                    'filter' => $filter,
-                    'search_fields' => $this->_getSearchFieldsParam($filtervalue),
-                    'search_uri_pattern' => preg_split('/\/[a-z]{1,}\/order/', $this->f3->get('PARAMS')[0]),
-                    'view' => 'event/listguests.htm'
-                )
-            );
-            $pages = new Pagination($list['total'], $list['limit']);
-            $pages->setRouteKeyPrefix('page/');
-            $pages->setTemplate('pagination.htm');
-            $this->f3->set('pagebrowser', $pages->serve());
+            $this->setRenderer($list, $e, $page_header, $filter, $filtervalue);
         }
         // je n'ai pas accès à la liste des invités
         else
@@ -113,80 +48,20 @@ class EventGuestsController extends AuthController {
         {
             $params = (object) array_map('trim', $this->f3->get('PARAMS'));
             $rep = $params->reponse > 2 ? 0 : $params->reponse;
+            $page_header = $this->setAnswerPageHeader($rep);
+
             $filter = (isset($params->filter) ? $params->filter : '');
             $filtervalue = (isset($params->filtervalue) ? $params->filtervalue : '');
-            $filters = $options = [];
-            $filterQuery = $this->f3->get('SESSION.lvl') <= 2 ? 'eid=?' : 'eid=? AND '.$this->_getHostIdSqlField();
-            $filterValue = '';
-            if( empty($params->filter) )
-            {
-                $options['order'] = 'guestname ASC';
-            }
-            else
-            {
-                $options['order'] = empty($params->option) ? $params->filter.' ASC' : $params->filter.' '.$params->optionvalue;
-                if( !empty($params->filtervalue) )
-                {
-                    $filterQuery .= ' AND '.$params->filter.' LIKE ?';
-                    $filterValue .= '%'.$params->filtervalue.'%';
-                }
-            }
-           // $filters[] = $filterQuery." AND guestname != '' AND answer = ".$rep;
-            $filters[] = $filterQuery." AND guestname != '' AND ".$this->_getAnswerSqlField();
 
-            $filters[] = $params->eid;
-            if( $this->f3->get('SESSION.lvl') > 2 )
-            {
-                $filters[] = $this->_getHostIdSqlRegexp();
-            }
-            $filters[] = MyMapper::getArraySqlRegexp($rep);
-
-            if( !empty($filterValue) )
-            {
-                $filters[] = $filterValue;
-            }
+            list($filters, $options) = $this->setFiltersAndOptions($params, array($rep, $this->_getAnswerSqlField()));
 
             $event = new viewEventOptions($this->db);
             $e = $event->getEventOptionsByEid($params->eid);
 
             $eventGuests = new viewEventsEventGuests($this->db);
             $list = $eventGuests->getEventGuestsPaginated($filters, $options);
-            $isEventOld = ($e->limitB < date('Y-m-d') ? true : false);
-            $isEventDone = ($e->debut <= date('Y-m-d') ? true : false);
 
-            if($this->f3->get('SESSION.lvl')<=2) {
-                if($rep == 0) $page_header = ucfirst($this->T('all_guests_answer_noanswer'));
-                if($rep == 1) $page_header = ucfirst($this->T('all_guests_answer_present'));
-                if($rep == 2) $page_header = ucfirst($this->T('all_guests_answer_absent'));
-            } else {
-                if($rep == 0) $page_header = ucfirst($this->T('my_guests_answer_noanswer'));
-                if($rep == 1) $page_header = ucfirst($this->T('my_guests_answer_present'));
-                if($rep == 2) $page_header = ucfirst($this->T('my_guests_answer_absent'));
-            }
-
-            $this->f3->mset(
-                array(
-                    'lists_keys' => (isset($list['subset'][0]) ? array_keys($list['subset'][0]) : null),
-                    'lists' => $list['subset'],
-                    'listtype' => 'guest',
-                    'listindex' => 'eid',
-                    'event' => $e,
-                    'isold' => $isEventOld,
-                    'isdone' => $isEventDone,
-                    'totaux' => (isset($list['total']) && $list['total']>0 ? $list['total'] : 0),
-                    'listname' => $list['total']>1 ? $this->T('event_guests') : $this->T('event_guest'),
-                    'search_header' => $this->T('search_guest'),
-                    'page_header' => $page_header,
-                    'filter' => $filter,
-                    'search_fields' => $this->_getSearchFieldsParam($filtervalue),
-                    'search_uri_pattern' => preg_split('/\/[a-z]{1,}\/order/', $this->f3->get('PARAMS')[0]),
-                    'view' => 'event/listguests.htm'
-                )
-            );
-            $pages = new Pagination($list['total'], $list['limit']);
-            $pages->setRouteKeyPrefix('page/');
-            $pages->setTemplate('pagination.htm');
-            $this->f3->set('pagebrowser', $pages->serve());
+            $this->setRenderer($list, $e, $page_header, $filter, $filtervalue, 'answer');
         }
         // je n'ai pas accès à la liste des invités
         else
@@ -207,78 +82,20 @@ class EventGuestsController extends AuthController {
         {
             $params = (object) array_map('trim', $this->f3->get('PARAMS'));
             $pres = $params->presence > 2 ? 0 : $params->presence;
+            $page_header = $this->setPresencePageHeader($pres);
+
             $filter = (isset($params->filter) ? $params->filter : '');
             $filtervalue = (isset($params->filtervalue) ? $params->filtervalue : '');
-            $filters = $options = [];
-            $filterQuery = $this->f3->get('SESSION.lvl') <= 2 ? 'eid=?' : 'eid=? AND '.$this->_getHostIdSqlField();
-            $filterValue = '';
-            if( empty($params->filter) )
-            {
-                $options['order'] = 'guestname ASC';
-            }
-            else
-            {
-                $options['order'] = empty($params->option) ? $params->filter.' ASC' : $params->filter.' '.$params->optionvalue;
-                if( !empty($params->filtervalue) )
-                {
-                    $filterQuery .= ' AND '.$params->filter.' LIKE ?';
-                    $filterValue .= '%'.$params->filtervalue.'%';
-                }
-            }
-            $filters[] = $filterQuery." AND guestname != '' AND ".$this->_getPresenceSqlField();
-            $filters[] = $params->eid;
-            if( $this->f3->get('SESSION.lvl') > 2 )
-            {
-                $filters[] = $this->_getHostIdSqlRegexp();;
-            }
-            $filters[] = MyMapper::getArraySqlRegexp($pres);
 
-            if( !empty($filterValue) )
-            {
-                $filters[] = $filterValue;
-            }
+            list($filters, $options) = $this->setFiltersAndOptions($params, array($pres, $this->_getPresenceSqlField()));
 
             $event = new viewEventOptions($this->db);
             $e = $event->getEventOptionsByEid($params->eid);
 
             $eventGuests = new viewEventsEventGuests($this->db);
             $list = $eventGuests->getEventGuestsPaginated($filters, $options);
-            $isEventOld = ($e->limitB < date('Y-m-d') ? true : false);
-            $isEventDone = ($e->debut <= date('Y-m-d') ? true : false);
 
-            if($this->f3->get('SESSION.lvl')<=2) {
-                if($pres == 0) $page_header = ucfirst($this->T('all_guests_presence_noanswer'));
-                if($pres == 1) $page_header = ucfirst($this->T('all_guests_presence_present'));
-                if($pres == 2) $page_header = ucfirst($this->T('all_guests_presence_absent'));
-            } else {
-                if($pres == 0) $page_header = ucfirst($this->T('my_guests_presence_noanswer'));
-                if($pres == 1) $page_header = ucfirst($this->T('my_guests_presence_present'));
-                if($pres == 2) $page_header = ucfirst($this->T('my_guests_presence_absent'));
-            }
-
-            $this->f3->mset(
-                array(
-                    'lists_keys' => (isset($list['subset'][0]) ? array_keys($list['subset'][0]) : null),
-                    'lists' => $list['subset'],
-                    'listtype' => 'guest',
-                    'listindex' => 'eid',
-                    'event' => $e,
-                    'isold' => $isEventOld,
-                    'isdone' => $isEventDone,
-                    'totaux' => (isset($list['total']) && $list['total']>0 ? $list['total'] : 0),
-                    'listname' => $list['total']>1 ? $this->T('event_guests') : $this->T('event_guest'),
-                    'search_header' => $this->T('search_guest'),
-                    'page_header' => $page_header,
-                    'filter' => $filter,
-                    'search_fields' => $this->_getSearchFieldsParam($filtervalue),
-                    'search_uri_pattern' => preg_split('/\/[a-z]{1,}\/order/', $this->f3->get('PARAMS')[0]),
-                    'view' => 'event/listguests.htm'
-                )
-            );
-            $pages = new Pagination($list['total'], $list['limit']);
-            $pages->setRouteKeyPrefix('page/');
-            $pages->setTemplate('pagination.htm');
-            $this->f3->set('pagebrowser', $pages->serve());
+            $this->setRenderer($list, $e, $page_header, $filter, $filtervalue, 'presence');
         }
         // je n'ai pas accès à la liste des invités
         else
@@ -368,10 +185,8 @@ class EventGuestsController extends AuthController {
                 }
             }
             $filters[] = $filterQuery." AND nom != '' AND uid!=1";
-            if( !empty($filterValue) )
-            {
-                $filters[] = $filterValue;
-            }
+
+            if( !empty($filterValue) ) $filters[] = $filterValue;
 
             $profiles = new viewUserCompleteProfile($this->db);
             $list = $profiles->getUsersProfilesWithUidInListFiltered_Paginated($filters, $options);
@@ -655,6 +470,111 @@ class EventGuestsController extends AuthController {
         $this->f3->reroute('/event/'.$this->f3->get('POST.eventID').'/show/guests');
     }
 
+    private function setFiltersAndOptions($params, $criteria)
+    {
+        $filters = $options = [];
+        $filterQuery = $this->f3->get('SESSION.lvl') <= 2 ? 'eid=?' : 'eid=? AND '.$this->_getHostIdSqlField();
+        $filterValue = '';
+
+        if(empty($params->filter) && empty($params->optionkey))
+        {
+            $options['order'] = 'guestname ASC';
+        }
+        else
+        {
+            if(empty($params->filter) && !empty($params->optionkey)) $params_filter = $params->optionkey;
+            if(!empty($params->filter)) $params_filter = $params->filter;
+
+            $params_filter = $params_filter=='hostname' ? '__array__hostname' : $params_filter;
+
+            if(empty($params->option))
+            {
+                $options['order'] = $params_filter.' ASC';
+            }
+            else
+            {
+                if(empty($params->optionkey))
+                {
+                    $options['order'] = $params_filter.' '.$params->optionvalue;
+                }
+                else
+                {
+                    $options['order'] = ($params->optionkey=='hostname' ? '__array__hostname' : $params->optionkey).' '.$params->optionvalue;
+                }
+            }
+
+            if(!empty($params->filtervalue))
+            {
+                $filterQuery .= ' AND '.$params_filter.' LIKE ?';
+                $filterValue .= '%'.$params->filtervalue.'%';
+            }
+        }
+
+        $filters[] = $filterQuery." AND guestname != ''".(!empty($criteria[1])?' AND '.$criteria[1]:'');
+        $filters[] = $params->eid;
+
+        if( $this->f3->get('SESSION.lvl') > 2 ) $filters[] = $this->_getHostIdSqlRegexp();
+        if( !empty($filterValue) ) $filters[] = $filterValue;
+        if(!empty($criteria[0])) $filters[] = MyMapper::getArraySqlRegexp($criteria[0]);
+
+        return array($filters, $options);
+    }
+
+    private function setAnswerPageHeader($rep)
+    {
+        if($this->f3->get('SESSION.lvl')<=2) {
+            if($rep == 0) return ucfirst($this->T('all_guests_answer_noanswer'));
+            if($rep == 1) return ucfirst($this->T('all_guests_answer_present'));
+            if($rep == 2) return ucfirst($this->T('all_guests_answer_absent'));
+        } else {
+            if($rep == 0) return ucfirst($this->T('my_guests_answer_noanswer'));
+            if($rep == 1) return ucfirst($this->T('my_guests_answer_present'));
+            if($rep == 2) return ucfirst($this->T('my_guests_answer_absent'));
+        }
+    }
+
+    private function setPresencePageHeader($pres)
+    {
+        if($this->f3->get('SESSION.lvl')<=2) {
+            if($pres == 0) return ucfirst($this->T('all_guests_presence_noanswer'));
+            if($pres == 1) return ucfirst($this->T('all_guests_presence_present'));
+            if($pres == 2) return ucfirst($this->T('all_guests_presence_absent'));
+        } else {
+            if($pres == 0) return ucfirst($this->T('my_guests_presence_noanswer'));
+            if($pres == 1) return ucfirst($this->T('my_guests_presence_present'));
+            if($pres == 2) return ucfirst($this->T('my_guests_presence_absent'));
+        }
+    }
+
+    private function setRenderer($list, $e, $page_header, $filter, $filtervalue, $tplAction='')
+    {
+        $isEventOld = ($e->limitB < date('Y-m-d') ? true : false);
+        $isEventDone = ($e->debut <= date('Y-m-d') ? true : false);
+        $this->f3->mset(
+            array(
+                'lists_keys' => (isset($list['subset'][0]) ? array_keys($list['subset'][0]) : null),
+                'lists' => $list['subset'],
+                'listtype' => 'guest',
+                'listindex' => 'eid',
+                'event' => $e,
+                'isold' => $isEventOld,
+                'isdone' => $isEventDone,
+                'totaux' => (isset($list['total']) && $list['total']>0 ? $list['total'] : 0),
+                'listname' => $list['total']>1 ? $this->T('event_guests') : $this->T('event_guest'),
+                'search_header' => $this->T('search_guest'),
+                'page_header' => $page_header,
+                'filter' => $filter,
+                'search_fields' => $this->_getSearchFieldsParam($filtervalue, $tplAction),
+                'search_uri_pattern' => preg_split('/\/[a-z]{1,}\/order/', $this->f3->get('PARAMS')[0]),
+                'view' => 'event/listguests.htm'
+            )
+        );
+        $pages = new Pagination($list['total'], $list['limit']);
+        $pages->setRouteKeyPrefix('page/');
+        $pages->setTemplate('pagination.htm');
+        $this->f3->set('pagebrowser', $pages->serve());
+    }
+
     private function _getHostIdSqlField()
     {
         return MyMapper::getArraySqlField('hostid');
@@ -686,25 +606,41 @@ class EventGuestsController extends AuthController {
      */
     private function _getSearchFieldsParam($filtervalue, $tplAction='show')
     {
-        // event/@eid/show/guests/search/@filter/@filtervalue/@optionkey/@option/@optionvalue
         $params = (object) array_map('trim', $this->f3->get('PARAMS'));
         $filter = isset($params->filter) ? $params->filter : '';
-        switch ($tplAction) {
-            case 'add':
-                return array(
-                            array('filtervalue' => ($filter=='nomcomplet' ? $filtervalue : ''), 'search_header' => $this->T('search_contact'), 'search_pat' => "/event/$params->eid/".$tplAction."/guest/search/nomcomplet/___/".(isset($params->optionkey)?$params->optionkey."/":"nomcomplet/")."order/asc", 'no_search_pat' => "/event/$params->eid/add/guest")
-                        );
-                break;
-
-            case 'show':
-            default:
-                return array(
-                            array('filtervalue' => ($filter=='guestname' ? $filtervalue : ''), 'search_header' => $this->T('search_guest'), 'search_pat' => "/event/$params->eid/".$tplAction."/guests/search/guestname/___/".(isset($params->optionkey)?$params->optionkey."/":"guestname/")."order/asc", 'no_search_pat' => "/event/$params->eid/show/guests"),
-                            array('filtervalue' => ($filter=='hostname' ? $filtervalue : ''), 'search_header' => $this->T('search_host'), 'search_pat' => "/event/$params->eid/".$tplAction."/guests/search/hostname/___/".(isset($params->optionkey)?$params->optionkey."/":"guestname/")."order/asc", 'no_search_pat' => "/event/$params->eid/show/guests")
-                        );
-                break;
+        if($tplAction=='add')
+        {
+            return array(
+                        array(
+                            'filtervalue' => ($filter=='nomcomplet' ? $filtervalue : ''),
+                            'search_header' => $this->T('search_contact'),
+                            'search_pat' => "/event/$params->eid/add/guest/search/nomcomplet/___/".(isset($params->optionkey)?$params->optionkey."/":"nomcomplet/")."order/asc",
+                            'no_search_pat' => "/event/$params->eid/add/guest"
+                        )
+                    );
         }
+        else
+        {
+            $search_uri_part = '';
+            if($tplAction=='answer') $search_uri_part = '/answer/'.$params->reponse;
+            if($tplAction=='presence') $search_uri_part = '/presence/'.$params->presence;
 
+            return array(
+                        array(
+                            'filtervalue' => ($filter=='guestname' ? $filtervalue : ''),
+                            'search_header' => $this->T('search_guest'),
+                            'search_pat' => "/event/$params->eid/show/guests".$search_uri_part."/search/guestname/___/".(isset($params->optionkey)?$params->optionkey."/":"guestname/")."order/asc",
+                            'no_search_pat' => "/event/$params->eid/show/guests".$search_uri_part
+                        ),
+                        array(
+                            'filtervalue' => ($filter=='hostname' ? $filtervalue : ''),
+                            'search_header' => $this->T('search_host'),
+                            'search_pat' => "/event/$params->eid/show/guests".$search_uri_part."/search/hostname/___/".(isset($params->optionkey)?$params->optionkey."/":"guestname/")."order/asc",
+                            'no_search_pat' => "/event/$params->eid/show/guests".$search_uri_part
+                        )
+                    );
+
+        }
     }
 }
 
