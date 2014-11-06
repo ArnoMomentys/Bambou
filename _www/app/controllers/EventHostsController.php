@@ -25,38 +25,20 @@ class EventHostsController extends AuthController {
             $params = (object) array_map('trim', $this->f3->get('PARAMS'));
             $filter = (isset($params->filter) ? $params->filter : '');
             $filtervalue = (isset($params->filtervalue) ? $params->filtervalue : '');
-            $filters = $options = array();
-            $filterQuery = 'eventid = ?';
-            $filterValue = '';
-            if( empty($params->filter) )
-            {
-                $options['order'] = 'hostname ASC';
-            }
-            else
-            {
-                $options['order'] = empty($params->option) ? $params->filter.' ASC' : $params->filter.' '.$params->optionvalue;
-                if( !empty($params->filtervalue) )
-                {
-                    $filterQuery .= ' and '.$params->filter.' LIKE ?';
-                    $filterValue .= '%'.$params->filtervalue.'%';
-                }
-            }
-            $filters[] = $filterQuery." AND hostname != ''";
-            $filters[] = $params->eid;
-            if( !empty($filterValue) )
-            {
-                $filters[] = $filterValue;
-            }
+
+            list($filters, $options) = $this->setFiltersAndOptions($params, array(null, null));
 
             // update event as read
             $e = new Events($this->db);
             $read = $e->setLastRead($params->eid);
+
             $eventOptions = new viewEventOptions($this->db);
             $event_options = $eventOptions->getEventOptionsByEid($params->eid);
             // get event's host infos
             $eventHosts = new viewEventHostsInfos( $this->db );
             $list = $eventHosts->getHostsByEventIdFiltered_Paginated($filters, $options);
             $hostStats = $eventHosts->getHostsInvitationsByEventid($params->eid);
+
             $isold = ($event_options->limitB < date('Y-m-d'));
             $this->f3->mset(
                 array(
@@ -69,7 +51,8 @@ class EventHostsController extends AuthController {
                     'isold' => $isold,
                     'totaux' => (isset($list['total']) && $list['total']>0 ? $list['total'] : 0),
                     'filter' => $filter,
-                    'search_fields' => $this->_getSearchFieldsParam($filtervalue),      
+                    'search_fields' => $this->_getSearchFieldsParam($filtervalue),
+                    'search_uri_pattern' => preg_split('/\/[a-z]{1,}\/order/', $this->f3->get('PARAMS')[0]),
                     'view' => 'event/listhosts.htm'
                 )
             );
@@ -93,11 +76,14 @@ class EventHostsController extends AuthController {
         if( $this->f3->get('SESSION.lvl') <= 2 )
         {
             $params = (object) array_map('trim', $this->f3->get('PARAMS'));
+
             $filter = (isset($params->filter) ? $params->filter : '');
             $filtervalue = (isset($params->filtervalue) ? $params->filtervalue : '');
+
             $eventHosts = new EventHosts($this->db);
             $count_event_hosts = $eventHosts->count(array('eventID=?', $params->eid));
             $aevents_hosts = [1];
+
             if($count_event_hosts > 0)
             {
                 $event_hosts = $eventHosts->select('hostID', array('eventID=?', $params->eid));
@@ -106,29 +92,45 @@ class EventHostsController extends AuthController {
                     $aevents_hosts[] = $event_host->hostID;
                 }
             }
+
             $filters = $options = [];
-            $filterQuery = 'uid '.($count_event_hosts > 0 ? 'NOT IN ('.implode(",", $aevents_hosts).')' : 'IS NOT NULL AND uid!=1');
             $filterValue = '';
-            if( empty($params->filter) )
+            $filterQuery = 'uid '.($count_event_hosts > 0 ? 'NOT IN ('.implode(",", $aevents_hosts).')' : 'IS NOT NULL AND uid!=1');
+
+            if(empty($params->filter))
             {
                 $options['order'] = 'nom ASC';
             }
             else
             {
-                $options['order'] = empty($params->option) ? $params->filter.' ASC' : $params->filter.' '.$params->optionvalue;
-                if( !empty($params->filtervalue) )
+                $params_filter = $params->filter;
+                if(empty($params->option))
                 {
-                    $this->f3->set('filter', $params->filter);
-                    $this->f3->set('filtervalue', $params->filtervalue);
-                    $filterQuery .= ' and '.$params->filter.' LIKE ?';
+                    $options['order'] = $params_filter.' ASC';
+                }
+                else
+                {
+                    if(empty($params->optionkey))
+                    {
+                        $options['order'] = $params_filter.' '.$params->optionvalue;
+                    }
+                    else
+                    {
+                        $options['order'] = $params->optionkey.' '.$params->optionvalue;
+                    }
+                }
+
+                if(!empty($params->filtervalue))
+                {
+                    $filterQuery .= ' AND '.$params_filter.' LIKE ?';
                     $filterValue .= '%'.$params->filtervalue.'%';
                 }
             }
-            $filters[] = $filterQuery." AND nom != ''";
-            if( !empty($filterValue) )
-            {
-                $filters[] = $filterValue;
-            }
+
+            $filters[] = $filterQuery." AND nom != '' AND uid!=1";
+
+            if( !empty($filterValue) ) $filters[] = $filterValue;
+
             $profiles = new viewUserCompleteProfile($this->db);
             $hosts = $count_event_hosts > 0 ?
                 $profiles->getUsersProfilesWithUidNOTInListFiltered_Paginated($filters, $options) :
@@ -139,18 +141,20 @@ class EventHostsController extends AuthController {
 
             $this->f3->mset(
                 array(
-                    'eid' => $params->eid,
-                    'event' => $event_options,
-                    'isold' => ($event_options->limitA < date('Y-m-d')),
-                    'lists_keys' => (isset($hosts['subset'][0]) ? array_keys($hosts['subset'][0]) : null),
-                    'lists' => $hosts['subset'],
-                    'totaux' => (isset($hosts['total']) && $hosts['total']>0 ? $hosts['total'] : 0),
-                    'listtype' => 'events',
-                    'listindex' => 'eid',
-                    'listname' => $hosts['total']>1 ? $this->T('contacts') : $this->T('contact'),
-                    'filter' => $filter,
-                    'search_fields' => $this->_getSearchFieldsParam($filtervalue),
-                    'complete_profile' => "event_".$params->eid."_add_host",
+                    'eid'                   => $params->eid,
+                    'event'                 => $event_options,
+                    'isold'                 => ($event_options->limitA < date('Y-m-d')),
+                    'lists_keys'            => (isset($hosts['subset'][0]) ? array_keys($hosts['subset'][0]) : null),
+                    'lists'                 => $hosts['subset'],
+                    'totaux'                => (isset($hosts['total']) && $hosts['total']>0 ? $hosts['total'] : 0),
+                    'listtype'              => 'events',
+                    'listindex'             => 'eid',
+                    'listname'              => $hosts['total']>1 ? $this->T('contacts') : $this->T('contact'),
+                    'filter'                => $filter,
+                    'filtervalue'           => $filtervalue,
+                    'search_fields'         => $this->_getSearchFieldsParam($filtervalue, 'add'),
+                    'search_uri_pattern'    => preg_split('/\/[a-z]{1,}\/order/', $this->f3->get('PARAMS')[0]),
+                    'complete_profile'      => "event_".$params->eid."_add_host",
                     'view' => 'event/addhost.htm'
                 )
             );
@@ -336,14 +340,78 @@ class EventHostsController extends AuthController {
         $this->f3->reroute('/event/'.$this->f3->get('POST.eventID').'/show/hosts');
     }
 
-    private function _getSearchFieldsParam($filtervalue)
+    private function setFiltersAndOptions($params, $criteria)
+    {
+        $filters = $options = [];
+        $filterQuery = 'eventid = ?';
+        $filterValue = '';
+
+        if(empty($params->filter) && empty($params->optionkey))
+        {
+            $options['order'] = 'hostname ASC';
+        }
+        else
+        {
+            if(empty($params->filter) && !empty($params->optionkey)) $params_filter = $params->optionkey;
+            if(!empty($params->filter)) $params_filter = $params->filter;
+
+            if(empty($params->option))
+            {
+                $options['order'] = $params_filter.' ASC';
+            }
+            else
+            {
+                if(empty($params->optionkey))
+                {
+                    $options['order'] = $params_filter.' '.$params->optionvalue;
+                }
+                else
+                {
+                    $options['order'] = $params->optionkey.' '.$params->optionvalue;
+                }
+            }
+
+            if(!empty($params->filtervalue))
+            {
+                $filterQuery .= ' AND '.$params_filter.' LIKE ?';
+                $filterValue .= '%'.$params->filtervalue.'%';
+            }
+        }
+
+        $filters[] = $filterQuery." AND hostname != ''".(!empty($criteria[1])?' AND '.$criteria[1]:'');
+        $filters[] = $params->eid;
+
+        if(!empty($filterValue)) $filters[] = $filterValue;
+        if(!empty($criteria[0])) $filters[] = $criteria[0];
+
+        return array($filters, $options);
+    }
+
+    private function _getSearchFieldsParam($filtervalue, $tplAction='')
     {
         $params = (object) array_map('trim', $this->f3->get('PARAMS'));
-    
+        $filter = isset($params->filter) ? $params->filter : '';
+        if($tplAction=='add')
+        {
+            return array(
+                        array(
+                            'filtervalue' => ($filter=='nomcomplet' ? $filtervalue : ''),
+                            'search_header' => $this->T('search_contact'),
+                            'search_pat' => "/event/$params->eid/add/host/search/nomcomplet/___/".(isset($params->optionkey)?$params->optionkey."/":"nomcomplet/")."order/asc",
+                            'no_search_pat' => "/event/$params->eid/add/host"
+                        )
+                    );
+        }
+
         return array(
-            array('filtervalue' => $filtervalue, 'search_header' => $this->T('search_host'), 'search_pat' => "/event/$params->eid/show/hosts/hostname/___/order/asc", 'no_search_pat' => "/event/$params->eid/show/hosts"),
-            array('filtervalue' => "", 'search_header' => $this->T('search_guest'), 'search_pat' => "/event/$params->eid/show/guests/guestname/___/order/asc", 'no_search_pat' => "/event/$params->eid/show/guest")
+            array(
+                'filtervalue' => ($filter=='hostname' ? $filtervalue : ''),
+                'search_header' => $this->T('search_host'),
+                'search_pat' => "/event/$params->eid/show/hosts/search/hostname/___/".(isset($params->optionkey)?$params->optionkey."/":"hostname/")."order/asc",
+                'no_search_pat' => "/event/$params->eid/show/hosts"
+            )
         );
+
     }
 }
 
