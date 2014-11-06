@@ -13,8 +13,7 @@ class viewUserCompleteProfile extends MyMapper {
 
     public function getUsersProfilesFiltered_Paginated($filters, $options) {
         $page = \Pagination::findCurrentPage();
-        // return $this->paginate($page-1, 50, $filters, $options);
-        return $this->paginateToArray($page-1, 50, $filters, $options);
+        return $this->paginateToArray($page-1, 30, $filters, $options);
     }
 
 
@@ -26,7 +25,7 @@ class viewUserCompleteProfile extends MyMapper {
 
     public function getUsersProfilesWithUidNOTInListFiltered_Paginated($filters, $options) {
         $page = \Pagination::findCurrentPage();
-        return $this->paginateToArray($page-1, 50, $filters, $options);
+        return $this->paginateToArray($page-1, 30, $filters, $options);
     }
 
 
@@ -42,7 +41,7 @@ class viewUserCompleteProfile extends MyMapper {
     public function getUsersMinimumProfileExportByUidsIn_Raw($uids) {
     	return $this->db->exec("SELECT `civilite`, `nom`, `prenom`, `fonction`, `branche`, `BU` as bu, `societe`, `adresse`, `cp` as code_postal, `ville`, `pays`, `fixe` as tel_fixe, `portable` as tel_portable, hash, case when `email` like '%@nielsy.com' then null else `email` end as adresse_mail FROM `_complete_user_profile` WHERE `uid` IN ('".implode("','", $uids)."') ORDER BY `nom` ASC");
     }
-    
+
     public function getLastLoggedUserFullProfile() {
     	return $this->findone(
     		array('level>1'),
@@ -76,7 +75,7 @@ class viewUserCompleteProfile extends MyMapper {
     		$uid
     	);
     }
-    
+
     public function getUserExportProfileByUid_Raw($uid) {
     	return $this->db->exec(
     			"SELECT `nom`, `prenom`, `societe`, `branche` FROM `_complete_user_profile` WHERE `uid` = ?",
